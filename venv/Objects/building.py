@@ -1,9 +1,18 @@
 class Building:
-    upgrade_cost = []
+  def __init__(self):
+    self.level = 1
+    self.impact = null
+    self.monthlyCost = 0
+    self.constructionCost = 0
+    self.capacity = 0
+    self.maxLevel = 1
+    self.type = null
 
-    def __init__(self):
-        self.level = 1
-        self.monthly_cost = 0
-        self.construction_cost = 0
-        self.capacity = 0
-
+  def __init__(self, type, level, impact, monthlyCost, constructionCost, capacity, maxLevel):
+    self.type = type
+    self.level = level
+    self.impact = impact
+    self.monthlyCost = monthlyCost
+    self.constructionCost = constructionCost
+    self.capacity = capacity
+    self.maxLevel = maxLevel
