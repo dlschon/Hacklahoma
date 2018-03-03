@@ -1,7 +1,14 @@
 import pygame
+import sys
+from names import Names
+
 pygame.init()
 gameDisplay = pygame.display.set_mode((800,600))
 clock = pygame.time.Clock()
+
+# Class that contains vital program data
+class Program:
+    names = Names()
 
 crashed = False
 while not crashed:
