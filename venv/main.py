@@ -1,7 +1,19 @@
 import pygame
+import sys
+from names import Names
+
 pygame.init()
 gameDisplay = pygame.display.set_mode((800,600))
 clock = pygame.time.Clock()
+
+names = Names()
+
+print(names.generate_name_full_male())
+print(names.generate_name_full_male())
+print(names.generate_name_full_male())
+print(names.generate_name_full_female())
+print(names.generate_name_full_female())
+print(names.generate_name_full_female())
 
 crashed = False
 while not crashed:
