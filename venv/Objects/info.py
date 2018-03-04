@@ -155,28 +155,36 @@ class BuyBuilding(InfoPane):
         def buy1():
             if global_vars.university.buy(building1.constructionCost):
                 global_vars.map.construct_building(lot.pos, building1)
+            kill()
+
         def buy2():
             if global_vars.university.buy(building2.constructionCost):
                 global_vars.map.construct_building(lot.pos, building2)
+            kill()
         def buy3():
             if global_vars.university.buy(building3.constructionCost):
                 global_vars.map.construct_building(lot.pos, building3)
+            kill()
 
         def buy4():
             if global_vars.university.buy(building4.constructionCost):
                 global_vars.map.construct_building(lot.pos, building4)
+            kill()
 
         def buy5():
             if global_vars.university.buy(building5.constructionCost):
                 global_vars.map.construct_building(lot.pos, building5)
+            kill()
 
         def buy6():
             if global_vars.university.buy(building6.constructionCost):
                 global_vars.map.construct_building(lot.pos, building6)
+            kill()
 
         def buy7():
             if global_vars.university.buy(building7.constructionCost):
                 global_vars.map.construct_building(lot.pos, building7)
+            kill()
 
         building1 = Map.getList()[0]
         Label(text=building1 .name, anchor='center').grid(column=1, columnspan=2, row=r)
@@ -233,6 +241,9 @@ class BuyBuilding(InfoPane):
         Label(text='Build Time: '+str(building7.constructionTime)+ ' months').grid(column=2, row=r+2)
         Button(construct_frame, text="Begin Construction", command=(buy7)).grid(column=1, columnspan=2, row=r+3)
         r+=4
+
+        def kill():
+            construct_frame.destroy()
 
         while True:
             try:

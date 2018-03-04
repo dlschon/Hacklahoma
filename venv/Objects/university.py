@@ -48,7 +48,7 @@ class University:
         return sum
 
     def buy(self, cost):
-        if (self.money > cost):
+        if (self.money >= cost):
             self.money -= cost
             return True
         else:
