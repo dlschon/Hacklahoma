@@ -79,7 +79,7 @@ class GameMenu():
     TEACHERS = 2
     STUDENTS = 3
 
-    ids = ["Pause", "Money", "Programs", "Teachers", "Students"]
+    ids = ["Pause", "Money", "Teachers", "Students"]
 
     def set_items(self):
         self.items = []

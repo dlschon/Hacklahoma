@@ -25,7 +25,7 @@ from date import Date
 pygame.init()
 pygame = global_vars.pygame
 pygame.init()
-pygame.display.set_caption('University Sim')
+pygame.display.set_caption('SimU')
 gameDisplay = pygame.display.set_mode((1100,720))
 clock = pygame.time.Clock()
 

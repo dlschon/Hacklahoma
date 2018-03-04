@@ -3,6 +3,7 @@ from tkinter import ttk
 from Objects.building import Building
 import global_vars
 from Objects.finance import Finance
+from tkinter import simpledialog
 from Objects.map import Map
 import copy
 
@@ -288,6 +289,5 @@ class PauseMenu(InfoPane):
 class InitialMessage():
     def __init__(self):
         Tk().wm_withdraw()  # to hide the main window
-        messagebox.showinfo('Info',
-                            'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
+        messagebox.showinfo('Info', 'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
         self.name = simpledialog.askstring('Prompt', 'What is your University called?')
