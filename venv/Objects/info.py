@@ -35,36 +35,27 @@ class BuildingInfo(InfoPane):
     def makeform(self):
         building_info_frame = Tk()
         building_info_frame.title(self.title)
+        r=1
         for label, value in zip(self.labels, self.values):
-            row = Frame(building_info_frame)
-            lab = Label(row, width=15, text=label, anchor='w')
-            val = Label(row, text=value, anchor='e')
-            row.pack(side=TOP, fill=X, padx=5, pady=5)
-            lab.pack(side=LEFT)
-            val.pack(side=RIGHT, expand=YES, fill=X)
-        row = Frame(building_info_frame)
-        lab = Label(row, width=15, text='Effects', anchor='w')
-        row.pack(side=TOP, fill=X, padx=5, pady=5)
-        lab.pack(side=LEFT)
+            Label(width=15, text=label, anchor='w').grid(column=1,row=r)
+            Label(text=value, anchor='e').grid(column=2,row=r)
+            r+=1
+        Label(row, width=15, text='Effects', anchor='w').grid(column=1, columnspan=2,row=r)
 
         def upgrade():
             UpgradeBuilding(self.building)
 
+        def clearLot():
+            # add function to change building to empty lot
+
         if type(self.effects) == str:
-            row = Frame(building_info_frame)
-            lab = Label(row, text=self.effects, anchor='w')
-            row.pack(side=TOP, fill=X, padx=5, pady=1)
-            lab.pack(side=LEFT, padx=15)
+            Label(text=self.effects, anchor='w', wraplength=100).grid(column=1, columnspan=2,row=r+1)
         else:
             for effect in self.effects:
-                row = Frame(building_info_frame)
-                lab = Label(row, text=effect, anchor='w')
-                row.pack(side=TOP, fill=X, padx=5, pady=1)
-                lab.pack(side=LEFT, padx=15)
-        b2 = Button(building_info_frame, text='Destroy', command=())
-        b2.pack(side=BOTTOM, padx=5, pady=5)
-        b1 = Button(building_info_frame, text='Upgrade!', command=(upgrade))
-        b1.pack(side=BOTTOM, padx=5, pady=10)
+                Label(text=effect, anchor='w').grid(column=1, columnspan=2,row=r+2)
+                r+=1
+        Button(building_info_frame, text='Upgrade!', command=(upgrade)).grid(column=1, columnspan=2,row=r+3)
+        Button(building_info_frame, text='Destroy', command=(clearLot)).grid(column=1, columnspan=2,row=r+4)
 
         while True:
             try:
