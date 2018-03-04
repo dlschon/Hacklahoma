@@ -2,10 +2,10 @@ from Objects.person import Person
 
 class Student(Person):
   def __init__(self):
-    self.major = null
-    self.productivity = null
-    self.gender = null
-    self.involvement = null
+    self.major = None
+    self.productivity = None
+    self.gender = None
+    self.involvement = None
     self.gpa = 0
     self.morale = 0
     self.year = 0

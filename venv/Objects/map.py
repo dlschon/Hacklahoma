@@ -8,6 +8,7 @@ from Objects.buildings.studentunion import StudentUnion
 from Objects.buildings.dininghall import DiningHall
 from Objects.buildings.construction import Construction
 from Objects.sprite import Sprite
+import global_vars
 import random
 from pygame import Rect
 
@@ -39,21 +40,27 @@ class Map:
         dh = random.choice(options)
         options.remove(dh)
         self.map[dh[1]][dh[0]] = DiningHall()
+        global_vars.university.buildings.append(self.map[dh[1]][dh[0]])
 
         # Add a random student housimg
         sh = random.choice(options)
         options.remove(sh)
         self.map[sh[1]][sh[0]] = StudentHousing()
+        global_vars.university.buildings.append(self.map[sh[1]][sh[0]])
 
         # Add a random lecture hall
         lh = random.choice(options)
         options.remove(lh)
         self.map[lh[1]][lh[0]] = LectureHall()
+        global_vars.university.buildings.append(self.map[lh[1]][lh[0]])
+
 
         # Add a random library
         l = random.choice(options)
         options.remove(l)
         self.map[l[1]][l[0]] = Library()
+        global_vars.university.buildings.append(self.map[l[1]][l[0]])
+
 
         self.surface = self.get_surface()
 
@@ -81,6 +88,7 @@ class Map:
                            str(con.counter) + " months."]
             if con.counter == 0:
                 self.map[con.pos[0]][con.pos[1]] = con.future
+                global_vars.university.buildings.append(con.future)
                 self.surface = self.get_surface()
 
 

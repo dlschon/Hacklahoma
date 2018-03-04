@@ -17,9 +17,14 @@ tileset = Tileset(pygame, './Resources/city_tiles.png', 8, 21)
 tile_size = 8
 # How much we scale each tile
 tile_scale = 2
-# Game map
-map = Map(pygame, tile_size*tile_scale)
 # Current date
 date = Date()
 # The University
 university = University()
+
+import admissions
+
+admissions.first_students()
+
+# Game map
+map = Map(pygame, tile_size*tile_scale)

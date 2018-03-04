@@ -8,17 +8,20 @@ class University:
         self.tuition = 0
         self.name = ""
         self.target_gpa = 2.5
-        self.capacity = 0
-        self.enrollment = 10
         self.accept_gpa = 0
         self.max_enrollment = 50
-
 
         self.teachers = []
         self.students = []
         self.programs = []
         self.buildings = []
         self.finances = []
+
+    def capacity(self):
+        sum = 0
+        for building in self.buildings:
+            sum += building.capacity
+        return sum
 
     def calcRevenue(self):
         revenue = []
@@ -37,3 +40,14 @@ class University:
                 expense.append(finance)
                 total += finance.value
         return total, expense
+
+    def calcMorale(self):
+        cum_sum = 0;
+        for student in self.students:
+            cum_sum += student.morale
+
+        if len(self.students) == 0:
+            self.opportunity = .5
+        else:
+            self.opportunity = cum_sum / len(self.students)
+        return self.opportunity

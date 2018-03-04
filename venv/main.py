@@ -12,6 +12,11 @@ from Objects.menus import MenuItem
 import Objects.info
 from Objects.menus import GameMenu
 from Objects.info import BuildingInfo
+from Objects.info import MoneyInfo
+from Objects.info import StudentInfo
+from Objects.info import InitialMessage
+import admissions
+from date import Date
 
 # Usual pygame initialization
 pygame.init()
@@ -28,12 +33,11 @@ events = []
 
 # Push the initial message to the user
 def initial_message():
-    Tk().wm_withdraw() #to hide the main window
-    messagebox.showinfo('Info','Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
-    university.name = simpledialog.askstring('Prompt', 'What is your University called?')
+    message = InitialMessage()
+    university.name = message.name
     pygame.display.set_caption(university.name)
 
-events.append((initial_message, 0))
+#events.append((initial_message, 0))
 
 gameMenu = GameMenu(gameDisplay)
 
@@ -54,7 +58,11 @@ while not crashed:
             # Try clicking the menu
             clicked = gameMenu.try_click(pos)
             if clicked != -1:
-                pass
+                if clicked == GameMenu.MONEY:
+                    MoneyInfo()
+                if clicked == GameMenu.STUDENTS:
+                    StudentInfo()
+
 
     # Draw background
     gameDisplay.fill((255,255,255))
@@ -85,10 +93,13 @@ while not crashed:
     if new_month:
         # Update construction projects
         global_vars.map.update_construction()
+
         # Decrement the counter on all events
         for event in events:
             event[1] -= 1
 
+        if global_vars.date.current == Date.fall_enrollment or global_vars.date.current == Date.spring_enrollment:
+            admissions.admit_students()
     # Execute any events that are due
     for event in events:
         if event[1] <= 0:

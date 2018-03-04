@@ -42,11 +42,18 @@ class BuildingInfo(InfoPane):
         lab = Label(row, width=15, text='Effects', anchor='w')
         row.pack(side=TOP, fill=X, padx=5, pady=5)
         lab.pack(side=LEFT)
-        for effect in self.effects:
+
+        if type(self.effects) == str:
             row = Frame(building_info_frame)
-            lab = Label(row, width=15, text=effect, anchor='w')
+            lab = Label(row, text=self.effects, anchor='w')
             row.pack(side=TOP, fill=X, padx=5, pady=1)
             lab.pack(side=LEFT, padx=15)
+        else:
+            for effect in self.effects:
+                row = Frame(building_info_frame)
+                lab = Label(row, width=15, text=effect, anchor='w')
+                row.pack(side=TOP, fill=X, padx=5, pady=1)
+                lab.pack(side=LEFT, padx=15)
         b2 = Button(building_info_frame, text='Destroy', command=())
         b2.pack(side=BOTTOM, padx=5, pady=5)
         b1 = Button(building_info_frame, text='Upgrade!', command=())
@@ -68,13 +75,13 @@ class StudentInfo(InfoPane):
         slider = Scale(from_=2.0, to=4.0, orient=HORIZONTAL, resolution=0.1, length=400)
         slider.set(university.target_gpa)
         slider.grid(column=1, row=2, columnspan=2, pady=(0,15))
-        university.target_gpa = slider.set()
+        #university.target_gpa = slider.set(3.0)
         Label(text='Current Enrollment: ', anchor='w').grid(column=1, row=3)
-        Label(text=university.enrollment, anchor='e').grid(column=2, row=3)
+        Label(text=len(university.students), anchor='e').grid(column=2, row=3)
         Label(text='Max Enrollment: ', anchor='w').grid(column=1, row=4)
-        Label(text=university.max_enrollment, anchor='e').grid(column=2, row=4)
+        Label(text=university.capacity(), anchor='e').grid(column=2, row=4)
         pbar = ttk.Progressbar(orient=HORIZONTAL, length=300, mode='determinate',
-                               value=(university.enrollment/university.max_enrollment*100))
+                               value=(len(university.students)/university.max_enrollment*100))
         pbar.grid(column=1, row=5, columnspan=2, pady=(0,15))
         Label(text='Average GPA: ').grid(column=1, row=6, pady=15)
         # need to add grad_rate
@@ -88,7 +95,11 @@ class StudentInfo(InfoPane):
         pbar = ttk.Progressbar(orient=HORIZONTAL, length=300, mode='determinate', value=(78))
         pbar.grid(column=1, row=9, columnspan=2, pady=(0,15))
 
-        student_info_frame.mainloop()
+        while True:
+            try:
+                student_info_frame.update()
+            except:
+                break
 
 
 class MoneyInfo(InfoPane):
@@ -97,6 +108,7 @@ class MoneyInfo(InfoPane):
         money_info_frame = Tk()
         money_info_frame.title(self.title)
         Label(text='Monthly Income: ').grid(column=1, row=1, pady=(0,10))
+        print(university)
         revenue, revenues = university.calcRevenue()
         expense, expenses = university.calcExpense()
         income = revenue - expense
@@ -122,3 +134,9 @@ class MoneyInfo(InfoPane):
                 money_info_frame.update()
             except:
                 break;
+
+class InitialMessage():
+    def __init__(self):
+        Tk().wm_withdraw() #to hide the main window
+        messagebox.showinfo('Info','Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
+        self.name = simpledialog.askstring('Prompt', 'What is your University called?')

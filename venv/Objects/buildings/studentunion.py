@@ -3,7 +3,7 @@ from Objects.sprite import Sprite
 class StudentUnion(Building):
   def __init__(self):
     super().__init__()
-    self.constructionCost = 25000
+    selfs.constructionCost = 25000
     self.maxLevel = 3
     self.reputation = 0.05
     self.morale = 0.075
@@ -15,8 +15,8 @@ class StudentUnion(Building):
     self.professors = 0
     self.enable = true
     self.name = "Student Union"
-    self.effects = "The Student Union is a place students can go to get involved in different activities. " \
-                   "Adding or upgrading the student union increases the universities reputation, morale, involvement and enrollment."
+    self.effects = ["The Student Union is a place students can go to get involved in different activities. ",
+                   "Adding or upgrading the student union increases the universities reputation, morale, involvement and enrollment."]
     self.sprite = Sprite('Resources/studentunion', (0,0), (10,10))
 
   def _init_(self, constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment, maxEnrollment, professors):

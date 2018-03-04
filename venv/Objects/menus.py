@@ -88,11 +88,11 @@ class GameMenu():
         self.items.append(moneyText)
         enrollmentText = MenuItem("Enrollment: " + str(len(global_vars.university.students)), (320, self.scr_height - 40))
         self.items.append(enrollmentText)
-        incomeText = MenuItem("Income/mo: ", (320, self.scr_height - 15))
+        incomeText = MenuItem("Income/mo: $" + str(global_vars.university.calcRevenue()[0]-global_vars.university.calcExpense()[0]), (320, self.scr_height - 15))
         self.items.append(incomeText)
-        moraleText = MenuItem("Campus Morale: ", (520, self.scr_height - 40))
+        moraleText = MenuItem("Campus Morale: " , (520, self.scr_height - 40))
         self.items.append(moraleText)
-        reputationText = MenuItem("Reputation: ", (520, self.scr_height - 15))
+        reputationText = MenuItem("Reputation: " + str(global_vars.university.reputation), (520, self.scr_height - 15))
         self.items.append(reputationText)
 
     def __init__(self, screen):
@@ -147,8 +147,7 @@ class GameMenu():
         for circle in self.circles:
             if circle.circleRect.collidepoint(pos):
                 return circle.id
-            else:
-                return -1
+        return -1
 
     def drawAll(self):
         for rect in self.rects:

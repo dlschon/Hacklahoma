@@ -17,7 +17,8 @@ class LectureHall(Building):
     self.enable = True
     self.name = "Lecture Hall"
     self.lectureType = "Arts and Sciences"
-    self.effects = "The Lecture Hall is where classes take place. Adding or upgrading a lecture hall increases universities reputation, student morale, graduation rate, and professors"
+    self.effects = ["The Lecture Hall is where classes take place. Adding or upgrading a lecture hall increases ",
+                   "universities reputation, student morale, graduation rate, and professors"]
     self.sprite = Sprite('Resources/lecturehall', (0,0), (10,10))
 
   def _init_(self,constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment, maxEnrollment, professors):
@@ -41,4 +42,4 @@ class LectureHall(Building):
     self.professors += 3
     self.enrollment += self.professors/self.enrollment *10
     if self.level == self.maxLevel:
-      self.enable = false
+      self.enable = False
