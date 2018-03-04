@@ -1,6 +1,6 @@
 class University:
     def __init__(self):
-        self.money = 10000
+        self.money = 20000
         self.grad_rate = .6
         self.reputation = 0
         self.sudent_satisfaction = 0

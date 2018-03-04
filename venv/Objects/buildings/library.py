@@ -7,7 +7,7 @@ class Library(Building):
     super().__init__()
     self.constructionCost = 30000
     self.maxLevel = 3
-    self.constructionCost = 100
+    self.constructionCost = 20000
     self.reputation = 0.05
     self.morale = 0.05
     self.graduationRate = 0.1

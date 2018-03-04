@@ -15,6 +15,8 @@ class InfoPane:
 class BuildingInfo(InfoPane):
     def __init__(self, building):
         InfoPane.__init__(self, 'Building Info')
+        self.building = building
+
         self.labels = [
             'Name',
             'Level',
@@ -45,6 +47,9 @@ class BuildingInfo(InfoPane):
         row.pack(side=TOP, fill=X, padx=5, pady=5)
         lab.pack(side=LEFT)
 
+        def upgrade():
+            UpgradeBuilding(self.building)
+
         if type(self.effects) == str:
             row = Frame(building_info_frame)
             lab = Label(row, text=self.effects, anchor='w')
@@ -58,7 +63,7 @@ class BuildingInfo(InfoPane):
                 lab.pack(side=LEFT, padx=15)
         b2 = Button(building_info_frame, text='Destroy', command=())
         b2.pack(side=BOTTOM, padx=5, pady=5)
-        b1 = Button(building_info_frame, text='Upgrade!', command=())
+        b1 = Button(building_info_frame, text='Upgrade!', command=(upgrade))
         b1.pack(side=BOTTOM, padx=5, pady=10)
 
         while True:
@@ -144,18 +149,90 @@ class BuyBuilding(InfoPane):
         construct_frame.title(self.title)
         r=1
 
-        def buy(building):
-            if global_vars.university.buy(building.constructionCost):
-                global_vars.map.construct_building(lot.pos, type(building)())
-                construct_frame.quit()
+        def buy1():
+            print(building1)
+            if global_vars.university.buy(building1.constructionCost):
+                global_vars.map.construct_building(lot.pos, building1)
+        def buy2():
+            print(building1)
+            if global_vars.university.buy(building2.constructionCost):
+                global_vars.map.construct_building(lot.pos, building2)
+        def buy3():
+            print(building1)
+            if global_vars.university.buy(building3.constructionCost):
+                global_vars.map.construct_building(lot.pos, building3)
+        def buy4():
+            print(building1)
+            if global_vars.university.buy(building4.constructionCost):
+                global_vars.map.construct_building(lot.pos, building4)
+        def buy5():
+            print(building1)
+            if global_vars.university.buy(building5.constructionCost):
+                global_vars.map.construct_building(lot.pos, building5)
+        def buy6():
+            print(building1)
+            if global_vars.university.buy(building6.constructionCost):
+                global_vars.map.construct_building(lot.pos, building6)
+        def buy7():
+            print(building1)
+            if global_vars.university.buy(building7.constructionCost):
+                global_vars.map.construct_building(lot.pos, building7)
 
-        for building in Map.getList():
-            Label(text=building.name, anchor='center').grid(column=1, columnspan=2, row=r)
-            Label(text=building.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
-            Label(text='Price: $'+str(building.constructionCost)).grid(column=1, row=r+2)
-            Label(text='Build Time: '+str(building.constructionTime)+ ' months').grid(column=2, row=r+2)
-            Button(construct_frame, text="Begin Construction", command=(buy(building))).grid(column=1, columnspan=2, row=r+3)
-            r+=4
+        building1 = Map.getList()[0]
+        Label(text=building1 .name, anchor='center').grid(column=1, columnspan=2, row=r)
+        Label(text=building1 .effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
+        Label(text='Price: $'+str(building1.constructionCost)).grid(column=1, row=r+2)
+        Label(text='Build Time: '+str(building1.constructionTime)+ ' months').grid(column=2, row=r+2)
+        Button(construct_frame, text="Begin Construction", command=(buy1)).grid(column=1, columnspan=2, row=r+3)
+        r+=4
+
+        building2 = Map.getList()[1]
+        Label(text=building2.name, anchor='center').grid(column=1, columnspan=2, row=r)
+        Label(text=building2.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
+        Label(text='Price: $'+str(building2.constructionCost)).grid(column=1, row=r+2)
+        Label(text='Build Time: '+str(building2.constructionTime)+ ' months').grid(column=2, row=r+2)
+        Button(construct_frame, text="Begin Construction", command=(buy2)).grid(column=1, columnspan=2, row=r+3)
+        r+=4
+
+        building3 = Map.getList()[2]
+        Label(text=building3.name, anchor='center').grid(column=1, columnspan=2, row=r)
+        Label(text=building3.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
+        Label(text='Price: $'+str(building3.constructionCost)).grid(column=1, row=r+2)
+        Label(text='Build Time: '+str(building3.constructionTime)+ ' months').grid(column=2, row=r+2)
+        Button(construct_frame, text="Begin Construction", command=(buy3)).grid(column=1, columnspan=2, row=r+3)
+        r+=4
+
+        building4 = Map.getList()[3]
+        Label(text=building4.name, anchor='center').grid(column=1, columnspan=2, row=r)
+        Label(text=building4.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
+        Label(text='Price: $'+str(building4.constructionCost)).grid(column=1, row=r+2)
+        Label(text='Build Time: '+str(building4.constructionTime)+ ' months').grid(column=2, row=r+2)
+        Button(construct_frame, text="Begin Construction", command=(buy4)).grid(column=1, columnspan=2, row=r+3)
+        r+=4
+
+        building5 = Map.getList()[4]
+        Label(text=building5.name, anchor='center').grid(column=1, columnspan=2, row=r)
+        Label(text=building5.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
+        Label(text='Price: $'+str(building5.constructionCost)).grid(column=1, row=r+2)
+        Label(text='Build Time: '+str(building5.constructionTime)+ ' months').grid(column=2, row=r+2)
+        Button(construct_frame, text="Begin Construction", command=(buy5)).grid(column=1, columnspan=2, row=r+3)
+        r+=4
+
+        building6 = Map.getList()[5]
+        Label(text=building6.name, anchor='center').grid(column=1, columnspan=2, row=r)
+        Label(text=building6.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
+        Label(text='Price: $'+str(building6.constructionCost)).grid(column=1, row=r+2)
+        Label(text='Build Time: '+str(building6.constructionTime)+ ' months').grid(column=2, row=r+2)
+        Button(construct_frame, text="Begin Construction", command=(buy6)).grid(column=1, columnspan=2, row=r+3)
+        r+=4
+
+        building7 = Map.getList()[6]
+        Label(text=building7.name, anchor='center').grid(column=1, columnspan=2, row=r)
+        Label(text=building7.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
+        Label(text='Price: $'+str(building7.constructionCost)).grid(column=1, row=r+2)
+        Label(text='Build Time: '+str(building7.constructionTime)+ ' months').grid(column=2, row=r+2)
+        Button(construct_frame, text="Begin Construction", command=(buy7)).grid(column=1, columnspan=2, row=r+3)
+        r+=4
 
         while True:
             try:
@@ -166,17 +243,20 @@ class BuyBuilding(InfoPane):
 
 class UpgradeBuilding(InfoPane):
     def __init__(self, building):
-        InfoPane.__init__(self, 'Construct New Building')
+        InfoPane.__init__(self, 'Upgrade Building')
         upgrade_frame = Tk()
         upgrade_frame.title(self.title)
-        progs = global_vars.programs
+        prog_map = global_vars.programs
         r=1
-        for prog in progs[building.name]:
+        progs = prog_map[building.name]
+
+        for prog in progs:
             Label(text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
             Label(text=prog.title).grid(column=1, row=r+1)
             Label(text=prog.desc).grid(column=1, columnspan=2, row=r+2)
             Button(upgrade_frame, text="Implement this Program", command=()).grid(column=1, columnspan=2, row=r+3)
             r+=4
+
         while True:
             try:
                 upgrade_frame.update()
@@ -190,5 +270,3 @@ class InitialMessage():
         messagebox.showinfo('Info',
                             'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
         self.name = simpledialog.askstring('Prompt', 'What is your University called?')
-
-UpgradeBuilding(LectureHall())
