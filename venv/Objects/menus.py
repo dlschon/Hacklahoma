@@ -1,4 +1,7 @@
 import pygame
+from tkinter import *
+from tkinter import messagebox
+
 pygame.init()
 
 LIGHT_GREEN = (100,255,100)
