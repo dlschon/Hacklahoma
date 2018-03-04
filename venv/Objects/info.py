@@ -306,8 +306,12 @@ class TeacherMenu(InfoPane):
             Label(teacher_frame, text='Sorry, you may not hire more teachers at this time').grid(row=1,column=1)
         else:
             Label(teacher_frame, text='You may hire a new teacher!').grid(row=1,column=1)
-            Button(teacher_frame, text='Hire', command=hire).grid(row=3,column=1)
-            Button(teacher_frame, text='Pass', command=skip).grid(row=3,column=2)
+            Label(teacher_frame, text='Name: '+teacher.name).grid(row=2,column=1)
+            Label(teacher_frame, text='Monthly Salary: $'+str(teacher.salary)).grid(row=2,column=2)
+            Label(teacher_frame, text='Research Rating: '+str(teacher.research)).grid(row=3,column=1)
+            Label(teacher_frame, text='Teaching Rating: '+str(teacher.teaching)).grid(row=3,column=2)
+            Button(teacher_frame, text='Hire', command=hire).grid(row=4,column=1)
+            Button(teacher_frame, text='Pass', command=skip).grid(row=4,column=2)
 
 
 
