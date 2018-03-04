@@ -111,7 +111,7 @@ class MoneyInfo(InfoPane):
         print(university)
         revenue, revenues = university.calcRevenue()
         expense, expenses = university.calcExpense()
-        income = revenue - expense
+        income = revenue + expense
         if income >= 0: Label(text='+ $'+str(income), anchor='w').grid(column=2, row=1, pady=(0, 10))
         else: Label(text='+ $'+str(income), anchor='w').grid(column=2, row=1, pady=(0, 10))
         Label(text='Revenues: ', anchor='w').grid(column=1, row=2)
@@ -122,7 +122,7 @@ class MoneyInfo(InfoPane):
             Label(text='+$'+str(rev.value), anchor='w').grid(column=2, row=r)
             r+=1
         Label(text='Expenses: ', anchor='w').grid(column=1, row=r)
-        Label(text='-$'+str(expense), anchor='w').grid(column=2, row=r)
+        Label(text='-$'+str(-expense), anchor='w').grid(column=2, row=r)
         r+=1
         for exp in expenses:
             Label(text=exp.description, anchor='w').grid(column=1, row=r)
@@ -289,21 +289,29 @@ class PauseMenu(InfoPane):
 
 class TeacherMenu(InfoPane):
     def __init__(self, teacher):
+        university = global_vars.university
         InfoPane.__init__(self, 'Teachers')
         teacher_frame = Tk()
         teacher_frame.title(self.title)
         def hire():
             university.can_hire = False
-            university.teachers.append(teacher)
+            teacher.hire()
+            teacher_frame.destroy()
         def skip():
             university.can_hire = False
             teacher_frame.destroy()
-        if not university.can_hire:
+        if not(university.can_hire and len(university.teachers) < university.max_teachers()):
             Label(teacher_frame, text='Sorry, you may not hire more teachers at this time').grid(row=1,column=1)
         else:
             Label(teacher_frame, text='You may hire a new teacher!').grid(row=1,column=1)
             Button(teacher_frame, text='Hire', command=hire).grid(row=3,column=1)
             Button(teacher_frame, text='Pass', command=skip).grid(row=3,column=2)
+
+        while True:
+            try:
+                teacher_frame.update()
+            except:
+                break;
 
 
 
@@ -312,5 +320,3 @@ class InitialMessage():
         Tk().wm_withdraw()  # to hide the main window
         messagebox.showinfo('Info', 'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
         self.name = simpledialog.askstring('Prompt', 'What is your University called?')
-
-TeacherMenu(teacher=)

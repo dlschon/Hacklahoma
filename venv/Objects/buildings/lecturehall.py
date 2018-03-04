@@ -14,7 +14,7 @@ class LectureHall(Building):
     self.tuition = 0
     self.enrollment = 10
     self.maxEnrollment = 0
-    self.professors = 2
+    self.teachers = 2
     self.enable = True
     self.name = "Lecture Hall"
     self.lectureType = "Arts and Sciences"
@@ -22,17 +22,6 @@ class LectureHall(Building):
                    "universities reputation, student morale, graduation rate, and professors"]
     self.sprite = Sprite('Resources/lecturehall', (0,0), (10,10))
 
-  def _init_(self,constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment, maxEnrollment, professors):
-    self.constructionCost = constructionCost
-    self.maxLevel = maxLevel
-    self.reputation = reputation
-    self.morale = morale
-    self.graduationRate = graduationRate
-    self.involvement = involvement
-    self.tuition = tuition
-    self.enrollment = enrollment
-    self.maxEnrollment = maxEnrollment
-    self.professors = professors
 
   def level_upgrade(self):
     self.constructionCost += 2000

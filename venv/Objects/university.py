@@ -8,6 +8,7 @@ class University:
         self.sudent_satisfaction = 0
         self.opportunity = 0
         self.tuition = 200
+        self.can_hire = True
         self.name = ""
         self.target_gpa = 2.5
         self.accept_gpa = 0
@@ -38,6 +39,12 @@ class University:
         sum = 0
         for building in self.buildings:
             sum += building.capacity
+        return sum
+
+    def max_teachers(self):
+        sum = 0
+        for building in self.buildings:
+            sum += building.teachers
         return sum
 
     def buy(self, cost):

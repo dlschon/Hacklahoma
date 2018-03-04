@@ -8,6 +8,7 @@ class Building:
     self.monthlyCost = 0
     self.constructionCost = 0
     self.capacity = 0
+    self.teachers = 0
     self.maxLevel = 1
     self.constructionTime = 6
     self.effects = ['The effects of',

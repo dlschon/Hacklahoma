@@ -17,6 +17,7 @@ class ResearchLab(Building):
     self.tuition = 0
     self.enable = True
     self.enrollment = 2
+    self.teachers = 2
     self.maxEnrollment = 0
     self.professors = 5
     self.name = "Research Lab"

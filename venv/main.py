@@ -17,6 +17,8 @@ from Objects.info import StudentInfo
 from Objects.info import BuyBuilding
 from Objects.info import InitialMessage
 from Objects.info import PauseMenu
+from Objects.info import TeacherMenu
+from Objects.teacher import Teacher
 from Objects.buildings.emptylot import EmptyLot
 import admissions
 from date import Date
@@ -70,6 +72,9 @@ while not crashed:
                     MoneyInfo()
                 if clicked == GameMenu.STUDENTS:
                     StudentInfo()
+                if clicked == GameMenu.TEACHERS:
+                    teacher = Teacher.generate()
+                    tm = TeacherMenu(teacher)
 
 
     # Draw background
@@ -108,6 +113,8 @@ while not crashed:
         # Decrement the counter on all events
         for event in events:
             event[1] -= 1
+
+        global_vars.university.can_hire = True
 
         # Evaluate school
         for student in global_vars.university.students:
