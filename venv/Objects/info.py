@@ -98,11 +98,11 @@ class MoneyInfo(InfoPane):
         money_info_frame = Tk()
         money_info_frame.title(self.title)
         Label(text='Monthly Income: ').grid(column=1, row=1, pady=(0,10))
-        income = university.calcIncome()
-        if income >= 0: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
-        else: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
         revenue, revenues = university.calcRevenue()
         expense, expenses = university.calcExpense()
+        income = revenue - expense
+        if income >= 0: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
+        else: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
         Label(text='Revenues: ', anchor='w').grid(column=1, row=2)
         Label(text='+$'+revenue, anchor='w').grid(column=2, row=2)
         r = 3
