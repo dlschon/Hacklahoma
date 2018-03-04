@@ -6,6 +6,7 @@ from Objects.finance import Finance
 from tkinter import simpledialog
 from Objects.map import Map
 import copy
+from Objects.teacher import Teacher
 
 university = global_vars.university
 
@@ -286,8 +287,30 @@ class PauseMenu(InfoPane):
             except:
                 break;
 
+class TeacherMenu(InfoPane):
+    def __init__(self, teacher):
+        InfoPane.__init__(self, 'Teachers')
+        teacher_frame = Tk()
+        teacher_frame.title(self.title)
+        def hire():
+            university.can_hire = False
+            university.teachers.append(teacher)
+        def skip():
+            university.can_hire = False
+            teacher_frame.destroy()
+        if not university.can_hire:
+            Label(teacher_frame, text='Sorry, you may not hire more teachers at this time').grid(row=1,column=1)
+        else:
+            Label(teacher_frame, text='You may hire a new teacher!').grid(row=1,column=1)
+            Button(teacher_frame, text='Hire', command=hire).grid(row=3,column=1)
+            Button(teacher_frame, text='Pass', command=skip).grid(row=3,column=2)
+
+
+
 class InitialMessage():
     def __init__(self):
         Tk().wm_withdraw()  # to hide the main window
         messagebox.showinfo('Info', 'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
         self.name = simpledialog.askstring('Prompt', 'What is your University called?')
+
+TeacherMenu(teacher=)
