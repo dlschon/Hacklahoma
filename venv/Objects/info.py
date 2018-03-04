@@ -50,8 +50,14 @@ class BuildingInfo(InfoPane):
         b2.pack(side=BOTTOM, padx=5, pady=5)
         b1 = Button(building_info_frame, text='Upgrade!', command=())
         b1.pack(side=BOTTOM, padx=5, pady=10)
+        info_open = True;
 
-        building_info_frame.mainloop()
+        while True:
+            try:
+                building_info_frame.update()
+            except:
+                break
+
 
 class StudentInfo(InfoPane):
     def __init__(self):
