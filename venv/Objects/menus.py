@@ -73,11 +73,10 @@ class Shape:
 
 class GameMenu():
 
-    BUILD = 0
+    PAUSE = 0
     MONEY = 1
-    PROGRAMS = 2
-    TEACHERS = 3
-    STUDENTS = 4
+    TEACHERS = 2
+    STUDENTS = 3
 
     ids = ["Pause", "Money", "Programs", "Teachers", "Students"]
 
@@ -119,24 +118,19 @@ class GameMenu():
         self.circles.append(buildCircle)
         moneyCircle = Shape(LIGHT_GREY, (25,100), 20, id=GameMenu.MONEY)
         self.circles.append(moneyCircle)
-        programsCircle = Shape(LIGHT_GREY, (25,150), 20, id=GameMenu.PROGRAMS)
-        self.circles.append(programsCircle)
-        teachersCircle = Shape(LIGHT_GREY, (25,200), 20, id=GameMenu.TEACHERS)
+        teachersCircle = Shape(LIGHT_GREY, (25,150), 20, id=GameMenu.TEACHERS)
         self.circles.append(teachersCircle)
-        studentsCircle = Shape(LIGHT_GREY, (25,250), 20, id=GameMenu.STUDENTS)
+        studentsCircle = Shape(LIGHT_GREY, (25,200), 20, id=GameMenu.STUDENTS)
         self.circles.append(studentsCircle)
 
         # Array of icons to be drawn on the screen
         self.icons = []
-        buildIcon = pygame.image.load('Resources/icons/pause-button.png')
-        buildIcon = pygame.transform.scale(buildIcon, (30,30))
-        self.icons.append(buildIcon)
+        pauseIcon = pygame.image.load('Resources/icons/pause-button.png')
+        pauseIcon = pygame.transform.scale(pauseIcon, (30,30))
+        self.icons.append(pauseIcon)
         moneyIcon = pygame.image.load('Resources/icons/money.png')
         moneyIcon = pygame.transform.scale(moneyIcon, (30,30))
         self.icons.append(moneyIcon)
-        programsIcon = pygame.image.load('Resources/icons/programs.png')
-        programsIcon = pygame.transform.scale(programsIcon, (30,30))
-        self.icons.append(programsIcon)
         teachersIcon = pygame.image.load('Resources/icons/teachers.png')
         teachersIcon = pygame.transform.scale(teachersIcon, (30,30))
         self.icons.append(teachersIcon)
