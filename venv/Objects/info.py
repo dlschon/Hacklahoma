@@ -15,6 +15,8 @@ class InfoPane:
 class BuildingInfo(InfoPane):
     def __init__(self, building):
         InfoPane.__init__(self, 'Building Info')
+        self.building = building
+
         self.labels = [
             'Name',
             'Level',
@@ -45,6 +47,9 @@ class BuildingInfo(InfoPane):
         row.pack(side=TOP, fill=X, padx=5, pady=5)
         lab.pack(side=LEFT)
 
+        def upgrade():
+            UpgradeBuilding(self.building)
+
         if type(self.effects) == str:
             row = Frame(building_info_frame)
             lab = Label(row, text=self.effects, anchor='w')
@@ -58,7 +63,7 @@ class BuildingInfo(InfoPane):
                 lab.pack(side=LEFT, padx=15)
         b2 = Button(building_info_frame, text='Destroy', command=())
         b2.pack(side=BOTTOM, padx=5, pady=5)
-        b1 = Button(building_info_frame, text='Upgrade!', command=())
+        b1 = Button(building_info_frame, text='Upgrade!', command=(upgrade))
         b1.pack(side=BOTTOM, padx=5, pady=10)
 
         while True:
@@ -238,17 +243,20 @@ class BuyBuilding(InfoPane):
 
 class UpgradeBuilding(InfoPane):
     def __init__(self, building):
-        InfoPane.__init__(self, 'Construct New Building')
+        InfoPane.__init__(self, 'Upgrade Building')
         upgrade_frame = Tk()
         upgrade_frame.title(self.title)
-        progs = global_vars.programs
+        prog_map = global_vars.programs
         r=1
-        for prog in progs[building.name]:
+        progs = prog_map[building.name]
+
+        for prog in progs:
             Label(text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
             Label(text=prog.title).grid(column=1, row=r+1)
             Label(text=prog.desc).grid(column=1, columnspan=2, row=r+2)
             Button(upgrade_frame, text="Implement this Program", command=()).grid(column=1, columnspan=2, row=r+3)
             r+=4
+
         while True:
             try:
                 upgrade_frame.update()
@@ -262,5 +270,3 @@ class InitialMessage():
         messagebox.showinfo('Info',
                             'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
         self.name = simpledialog.askstring('Prompt', 'What is your University called?')
-
-UpgradeBuilding(LectureHall())
