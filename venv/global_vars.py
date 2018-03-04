@@ -26,5 +26,43 @@ import admissions
 
 admissions.first_students()
 
+from Objects.program import *
+
+programs = [
+    {'Library': [
+        Scholarships(),
+        FinancialAid(),
+        StudyAbroad(),
+        AcademicAdvisor()
+    ]},
+    {'Dining Hall': [
+        Buffet(),
+        Freshness(),
+        Variety()
+    ]},
+    {'Lecture Hall': [
+
+    ]},
+    {'Student Union': [
+        AlumniFoundation(),
+        CareerServices()
+    ]},
+    {'Stadium': [
+        Rivalry(),
+        HeadCoach(),
+        BetterBranding()
+    ]},
+    {'Research Lab': [
+        Groundbreaking(),
+        Collaborative(),
+        UndergradResearch()
+    ]},
+    {'Student Housing': [
+        AcademicHalls(),
+        CoedHousing(),
+        ResidentPrograms()
+    ]}
+]
+
 # Game map
 map = Map(pygame, tile_size*tile_scale)

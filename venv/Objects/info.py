@@ -136,11 +136,6 @@ class MoneyInfo(InfoPane):
             except:
                 break;
 
-class InitialMessage():
-    def __init__(self):
-        Tk().wm_withdraw() #to hide the main window
-        messagebox.showinfo('Info','Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
-        self.name = simpledialog.askstring('Prompt', 'What is your University called?')
 
 class BuyBuilding(InfoPane):
     def __init__(self, lot):
@@ -240,3 +235,32 @@ class BuyBuilding(InfoPane):
             except:
                 break;
 
+
+class UpgradeBuilding(InfoPane):
+    def __init__(self, building):
+        InfoPane.__init__(self, 'Construct New Building')
+        upgrade_frame = Tk()
+        upgrade_frame.title(self.title)
+        progs = global_vars.programs
+        r=1
+        for prog in progs[building.name]:
+            Label(text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
+            Label(text=prog.title).grid(column=1, row=r+1)
+            Label(text=prog.desc).grid(column=1, columnspan=2, row=r+2)
+            Button(upgrade_frame, text="Implement this Program", command=()).grid(column=1, columnspan=2, row=r+3)
+            r+=4
+        while True:
+            try:
+                upgrade_frame.update()
+            except:
+                break;
+
+
+class InitialMessage():
+    def __init__(self):
+        Tk().wm_withdraw()  # to hide the main window
+        messagebox.showinfo('Info',
+                            'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
+        self.name = simpledialog.askstring('Prompt', 'What is your University called?')
+
+UpgradeBuilding(LectureHall())
