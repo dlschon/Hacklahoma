@@ -8,6 +8,9 @@ class University:
         self.opportunity = 0
         self.tuition = 0
         self.name = ""
+        self.capacity = 0
+        self.accept_gpa = 0
+
 
         self.teachers = []
         self.students = []
