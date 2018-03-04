@@ -1,15 +1,15 @@
 import global_vars
 class Person:
-    MALE = 0
-    FEMALE = 1
+  MALE = 0
+  FEMALE = 1
 
-    def __init__(self):
-        main.names
-        self.name = ""
-        self.satisfaction = 0
-        self.age = 0
-        self.gender = null
-        self.homeState = null
+  def __init__(self):
+    main.names
+    self.name = ""
+    self.satisfaction = 0
+    self.age = 0
+    self.gender = null
+    self.homeState = null
 
   def __init__(self, satisfaction, age, gender, homeState):
     self.satisfaction = satisfaction
