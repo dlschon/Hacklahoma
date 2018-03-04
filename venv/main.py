@@ -3,7 +3,7 @@ import sys
 from names import Names
 
 pygame.init()
-gameDisplay = pygame.display.set_mode((800,600))
+gameDisplay = pygame.display.set_mode((1200,800))
 clock = pygame.time.Clock()
 
 # Class that contains vital program data
