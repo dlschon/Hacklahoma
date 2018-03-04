@@ -6,7 +6,7 @@ class DiningHall(Building):
     self.constructionCost = 15000
     self.name = "Dining Hall"
     self.effects = "The Dining Hall is where students eat.  Adding or upgrading a lecture hall increases universities student morale and reputation."
-    self.sprite = Sprite('Dininghall', (0,0), (10,10))
+    self.sprite = Sprite('Resources/dininghall', (0,0), (10,10))
 
   def _init_(self,constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment, maxEnrollment, professors):
     self.constructionCost = constructionCost

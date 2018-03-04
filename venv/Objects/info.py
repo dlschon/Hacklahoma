@@ -40,13 +40,14 @@ class BuildingInfo(InfoPane):
             Label(width=15, text=label, anchor='w').grid(column=1,row=r)
             Label(text=value, anchor='e').grid(column=2,row=r)
             r+=1
-        Label(row, width=15, text='Effects', anchor='w').grid(column=1, columnspan=2,row=r)
+        Label(width=15, text='Effects', anchor='w').grid(column=1, columnspan=2,row=r)
 
         def upgrade():
             UpgradeBuilding(self.building)
 
         def clearLot():
             # add function to change building to empty lot
+            pass
 
         if type(self.effects) == str:
             Label(text=self.effects, anchor='w', wraplength=100).grid(column=1, columnspan=2,row=r+1)

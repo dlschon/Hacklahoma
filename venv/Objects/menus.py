@@ -3,6 +3,7 @@ import pygame
 from pygame import Rect
 from tkinter import *
 from tkinter import messagebox
+import global_vars
 
 # pygame = global_vars.pygame
 
@@ -115,7 +116,7 @@ class GameMenu():
         # Array of circles to be drawn on screen
         self.circles = []
         pauseCircle = Shape(LIGHT_GREY, (25,50), 20, id=GameMenu.PAUSE)
-        self.circles.append(buildCircle)
+        self.circles.append(pauseCircle)
         moneyCircle = Shape(LIGHT_GREY, (25,100), 20, id=GameMenu.MONEY)
         self.circles.append(moneyCircle)
         teachersCircle = Shape(LIGHT_GREY, (25,150), 20, id=GameMenu.TEACHERS)
