@@ -1,4 +1,4 @@
-import program
+import global_vars
 import pickle
 
 class Sprite:
@@ -8,10 +8,10 @@ class Sprite:
         self.pos = pos
 
         # Get some global variables from Program
-        pygame = program.pygame
-        tileset = program.tileset
-        tile_size = program.tile_size
-        tile_scale = program.tile_scale
+        pygame = global_vars.pygame
+        tileset = global_vars.tileset
+        tile_size = global_vars.tile_size
+        tile_scale = global_vars.tile_scale
 
         # Create a blank surface to draw sprite on
         self.surface = pygame.Surface((tileset.tile_size*tile_scale*size[0], tileset.tile_size*tile_scale*size[1]))

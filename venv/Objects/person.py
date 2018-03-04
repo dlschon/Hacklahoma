@@ -1,6 +1,4 @@
-from names import Names
-from main import Program
-
+import global_vars
 class Person:
   MALE = 0
   FEMALE = 1
@@ -17,5 +15,5 @@ class Person:
     self.satisfaction = satisfaction
     self.age = age
     self.gender = gender
-    self.name = Program.names.generate_name_full_male() if gender == Person.MALE else Program.names.generate_name_full_female()
+    self.name = global_vars.names.generate_name_full_male() if gender == Person.MALE else Program.names.generate_name_full_female()
     self.homeState = homeState

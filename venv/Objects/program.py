@@ -8,3 +8,7 @@ class Program:
     self.amountInvested = amountInvested
     self.impact = impact
     self.unlocked = unlocked
+
+class AlumniFoundation(Program):
+  def __init__(self):
+    self.
