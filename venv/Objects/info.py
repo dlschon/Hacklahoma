@@ -53,10 +53,10 @@ class BuildingInfo(InfoPane):
             Label(text=self.effects, anchor='w', wraplength=100).grid(column=1, columnspan=2,row=r+1)
         else:
             for effect in self.effects:
-                Label(text=effect, anchor='w').grid(column=1, columnspan=2,row=r+2)
+                Label(text=effect, anchor='w').grid(column=1, columnspan=2,row=r+1)
                 r+=1
-        Button(building_info_frame, text='Upgrade!', command=(upgrade)).grid(column=1, columnspan=2,row=r+3)
-        Button(building_info_frame, text='Destroy', command=(clearLot)).grid(column=1, columnspan=2,row=r+4)
+        Button(building_info_frame, text='Upgrade!', command=(upgrade)).grid(column=1, columnspan=2,row=r+2)
+        Button(building_info_frame, text='Destroy', command=(clearLot)).grid(column=1, columnspan=2,row=r+3)
 
         while True:
             try:
@@ -239,15 +239,28 @@ class UpgradeBuilding(InfoPane):
         upgrade_frame = Tk()
         upgrade_frame.title(self.title)
         prog_map = global_vars.programs
-        r=1
         progs = prog_map[building.name]
+        def buy1():
+            progs[0].trigger()
+        def buy2():
+            progs[1].trigger()
+        def buy3():
+            progs[2].trigger()
+        def buy4():
+            progs[3].trigger()
 
+        buycmd = [buy1, buy2, buy3, buy4]
+        r=1; p=0
         for prog in progs:
             Label(upgrade_frame, text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
             Label(upgrade_frame, text=prog.title).grid(column=1, row=r+1)
             Label(upgrade_frame, text=prog.desc).grid(column=1, columnspan=2, row=r+2)
-            Button(upgrade_frame, text="Implement this Program", command=()).grid(column=1, columnspan=2, row=r+3)
             r+=4
+            if prog.unlocked:
+                Button(upgrade_frame, text="Implement this Program", command=(buycmd[p])).grid(column=1, columnspan=2, row=r+3)
+
+            else: Label(upgrade_frame, text="Program already implemented").grid(column=1, columnspan=2, row=r+3)
+            r+=4; p+=1
 
         while True:
             try:
@@ -255,6 +268,20 @@ class UpgradeBuilding(InfoPane):
             except:
                 break;
 
+class PauseMenu(InfoPane):
+    def __init__(self):
+        InfoPane.__init__(self, 'Game Paused')
+        pause_frame = Tk()
+        pause_frame.minsize(300, 300)
+        pause_frame.geometry("500x500")
+        pause_frame.title(self.title)
+        Label(pause_frame, text='GAME IS PAUSED', font=('Arial', 20, 'bold')).grid(row=1,column=1)
+        
+        while True:
+            try:
+                pause_frame.update()
+            except:
+                break;
 
 class InitialMessage():
     def __init__(self):
