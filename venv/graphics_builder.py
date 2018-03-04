@@ -23,7 +23,7 @@ pallet_width = 8
 pallet_height = 21
 tile_size = 256/8
 
-editor_size = (3, 10)
+editor_size = (10, 10)
 
 selected_tile = (0,0)
 

@@ -5,8 +5,10 @@ from Objects.buildings.researchlab import ResearchLab
 from Objects.buildings.stadium import Stadium
 from Objects.buildings.studenthousing import StudentHousing
 from Objects.buildings.studentunion import StudentUnion
+from Objects.buildings.dininghall import DiningHall
 from Objects.sprite import Sprite
 import random
+from pygame import Rect
 
 class Map:
 
@@ -19,38 +21,49 @@ class Map:
     STUDENT_UNION = 6
 
     def __init__(self, pygame, tile_size):
+        self.rects = []
         self.pygame = pygame
         self.tile_size = tile_size
         self.map = [[EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()],
                     [EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()],
                     [EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()]]
 
-        # Add a random student union
-        su = (random.randint(0,4), random.randint(0,2))
-        self.map[su[1]][su[0]] = StudentUnion()
+        options = []
+        for x in range(5):
+            for y in range(3):
+                options.append((x,y))
 
-        # Add a random student housing
-        sh = (su[0],su[1])
-        while sh[0] == su[0] and sh[1] == su[1]:
-            sh = (random.randint(0,4), random.randint(0,2))
+        # Add a random dining hall
+        dh = random.choice(options)
+        options.remove(dh)
+        self.map[dh[1]][dh[0]] = DiningHall()
+
+        # Add a random student housimg
+        sh = random.choice(options)
+        options.remove(sh)
         self.map[sh[1]][sh[0]] = StudentHousing()
 
         # Add a random lecture hall
-        lh = (su[0], su[1])
-        while (lh[0] == su[0] and lh[1] == su[1]) or (lh[0] == sh[0] and lh[1] == sh[1]):
-            lh = (random.randint(0, 4), random.randint(0, 2))
+        lh = random.choice(options)
+        options.remove(lh)
         self.map[lh[1]][lh[0]] = LectureHall()
 
+        # Add a random library
+        l = random.choice(options)
+        options.remove(l)
+        self.map[l[1]][l[0]] = Library()
+
     def try_click(self, pos):
-        if (pos[0] < 68*self.tile_size and pos[1] < 42*self.tile_size):
-            click_index = (int(pos[0]*5/(68*self.tile_size)), int(pos[1]*3/(42*self.tile_size)))
-            return self.map[click_index[1]][click_index[0]]
-        else:
-            return None
+        for rect in self.rects:
+            if rect[0].collidepoint(pos):
+                return rect[1]
+
+        return None
 
     def get_surface(self):
         tile_size = self.tile_size
         pygame = self.pygame
+        self.rects.clear()
 
         map_surface = pygame.Surface((68*tile_size, 42*tile_size))
 
@@ -65,6 +78,7 @@ class Map:
             x = 3*tile_size
             for col in range(5):
                 map_surface.blit(street_horiz.surface, (x,y))
+
                 x+=13*tile_size
             y+=13*tile_size
 
@@ -93,6 +107,7 @@ class Map:
             for building in row:
                 # Draw the building
                 map_surface.blit(building.sprite.surface, (x,y))
+                self.rects.append((Rect(x, y, 10 * tile_size, 10 * tile_size), building))
                 # Move x, leaving room from the road between the buidlings
                 x += 13*tile_size
             y += 13*tile_size
