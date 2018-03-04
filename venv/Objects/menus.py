@@ -4,10 +4,29 @@ pygame.init()
 LIGHT_GREEN = (100,255,100)
 LIGHT_RED = (255,100,100)
 LIGHT_GREY = (100,100,100)
+BLACK = (0,0,0)
+
+class FillBar:
+    def __init__(self, xy, w, h, percent, bg_color, fill_color, font_size=20, font_color=(BLACK), font=None):
+        self.xy = xy
+        self.x, self.y = self.xy
+        self.w = w
+        self.h = h
+        self.percent = percent
+        self.bg_color = bg_color
+        self.fill_color = fill_color
+        self.font_size = font_size
+        self.font_color = font_color
+        self.font = font
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.bg_color, (self.x, self.y, self.w, self.h)) #Background
+        pygame.draw.rect(screen, self.fill_color, (self.x, self.y + 2, self.w * self.percent, self.h - 4)) #Fill
+        txt = MenuItem("60%", (self.x + self.w / 2, self.y + self.h / 2), self.font_size, self.font_color, self.font) #Text
+        txt.set_position(txt.pos_x - txt.width / 2, txt.pos_y - txt.height / 2)
+        screen.blit(txt.label, txt.position)
 
 class MenuItem(pygame.font.Font):
-    def __init__(self, text, xy=(0, 0), font=None, font_size=20,
-               font_color=(0, 0, 0)):
+    def __init__(self, text, xy=(0, 0), font_size=20, font_color=(0, 0, 0), font=None):
         pygame.font.Font.__init__(self, font, font_size)
         self.text = text
         self.font_size = font_size
@@ -48,7 +67,7 @@ class Shape:
         return (x, y, self.w, self.h)
 
 class GameMenu():
-    def __init__(self, screen, items, bg_color=(0,0,0)):
+    def __init__(self, screen, bg_color=(0,0,0)):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
@@ -108,6 +127,26 @@ class GameMenu():
         studentsIcon = pygame.transform.scale(studentsIcon, (30,30))
         self.icons.append(studentsIcon)
 
+    def drawAll(self):
+        for rect in self.rects:
+            pygame.draw.rect(self.screen, rect.color, rect.get_shape())
+        for circle in self.circles:
+            pygame.draw.circle(self.screen, circle.color, circle.xy, circle.w)
+        x = 10;
+        y = 35
+        for icon in self.icons:
+            self.screen.blit(icon, (x, y))
+            y += 50
+        for item in self.items:
+            if item.is_mouse_selection():
+                item.set_font_color((255, 0, 0))
+                item.set_italic(True)
+            else:
+                item.set_font_color((255, 255, 255))
+                item.set_italic(False)
+            self.screen.blit(item.label, item.position)
+        fb = FillBar((200,200), 300, 50, 0.7, LIGHT_GREY, LIGHT_GREEN, 60, LIGHT_RED)
+        fb.draw(self.screen)
 
     def run(self):
         mainloop = True
@@ -119,22 +158,7 @@ class GameMenu():
                     mainloop = False
             # Redraw the background
             self.screen.fill(self.bg_color)
-            for rect in self.rects:
-                pygame.draw.rect(self.screen, rect.color, rect.get_shape())
-            for circle in self.circles:
-                pygame.draw.circle(self.screen, circle.color, circle.xy, circle.w)
-            x = 10; y = 35
-            for icon in self.icons:
-                self.screen.blit(icon, (x,y))
-                y+=50
-            for item in self.items:
-                if item.is_mouse_selection():
-                    item.set_font_color((255, 0, 0))
-                    item.set_italic(True)
-                else:
-                    item.set_font_color((255, 255, 255))
-                    item.set_italic(False)
-                self.screen.blit(item.label, item.position)
+            self.drawAll()
             pygame.display.flip()
 
 if __name__ == "__main__":
