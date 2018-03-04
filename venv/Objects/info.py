@@ -311,3 +311,4 @@ class InitialMessage():
                             'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
         self.name = simpledialog.askstring('Prompt', 'What is your University called?')
 
+TeacherMenu(teacher=)
