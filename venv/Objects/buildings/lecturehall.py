@@ -14,7 +14,7 @@ class LectureHall(Building):
     self.enrollment = 10
     self.maxEnrollment = 0
     self.professors = 2
-    self.enable = true
+    self.enable = True
     self.name = "Lecture Hall"
     self.lectureType = "Arts and Sciences"
     self.effects = "The Lecture Hall is where classes take place. Adding or upgrading a lecture hall increases universities reputation, student morale, graduation rate, and professors"

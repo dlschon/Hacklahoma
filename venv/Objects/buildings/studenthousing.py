@@ -11,7 +11,7 @@ class StudentHousing(Building):
     self.involvement = 0
     self.tuition = 0
     self.enrollment = 0
-    self.enable = true
+    self.enable = True
     self.maxEnrollment = 20
     self.professors = 0
     self.effects = "Student Housing is where the students stay while they are going to the university. Student Housing increases max enrollment."

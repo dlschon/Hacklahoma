@@ -14,7 +14,7 @@ class Library(Building):
     self.involvement = 0
     self.tuition = 0
     self.enrollment = 3
-    self.enable = true
+    self.enable = True
     self.maxEnrollment = 0
     self.professors = 0
     self.name = "Library"
