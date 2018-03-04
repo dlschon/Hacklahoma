@@ -10,7 +10,8 @@ class Building:
     self.type = None
     self.sprite = None
 
-  def __init__(self, type, level, impact, monthlyCost, constructionCost, capacity, maxLevel):
+  def __init__(self, name, type, level, impact, monthlyCost, constructionCost, capacity, maxLevel):
+    self.name = name
     self.type = type
     self.level = level
     self.impact = impact
