@@ -23,14 +23,14 @@ pallet_width = 8
 pallet_height = 21
 tile_size = 256/8
 
-editor_size = 10
+editor_size = (3, 10)
 
 selected_tile = (0,0)
 
 tileMatrix = []
-for x in range(editor_size):
+for x in range(editor_size[0]):
     tileMatrix.append([])
-    for y in range(editor_size):
+    for y in range(editor_size[1]):
         tileMatrix[x].append((0,0))
 
 tileset = Tileset(pygame, './Resources/city_tiles.png', pallet_width, pallet_height)
@@ -76,8 +76,6 @@ while not crashed:
                     tileMatrix = pickle.loads(eval(f.read()))
                 f.close()
 
-    pygame.display.update()
-
     # Draw background
     gameDisplay.fill((255,255,255))
 
@@ -91,10 +89,11 @@ while not crashed:
     x = 0
     y = 0
 
-    for y in range(editor_size):
-        for x in range(editor_size):
+    for y in range(editor_size[1]):
+        for x in range(editor_size[0]):
             cell = tileMatrix[x][y]
             gameDisplay.blit(pygame.transform.scale(tileset.get_tile(cell), (int(tile_size), int(tile_size))), (start_x + x*tile_size, y*tile_size))
 
+    pygame.display.update()
     clock.tick(60)
 

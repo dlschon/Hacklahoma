@@ -7,6 +7,7 @@ class Building:
     self.capacity = 0
     self.maxLevel = 1
     self.type = null
+    self.sprite = null;
 
   def __init__(self, type, level, impact, monthlyCost, constructionCost, capacity, maxLevel):
     self.type = type
@@ -16,3 +17,4 @@ class Building:
     self.constructionCost = constructionCost
     self.capacity = capacity
     self.maxLevel = maxLevel
+    self.sprite = null;
