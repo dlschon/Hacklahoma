@@ -20,9 +20,7 @@ class BuildingInfo(InfoPane):
             str(building.monthlyCost),
             str(building.capacity) + ' students'
         ]
-        self.effects = [
-            building.effects
-        ]
+        self.effects = building.effects
         self.makeform()
 
     def makeform(self):
