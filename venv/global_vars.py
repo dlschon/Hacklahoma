@@ -2,8 +2,10 @@ from Objects.map import Map
 from names import Names
 import pygame
 from tileset import Tileset
+from date import Date
 
-# Important program objects
+# Important global variables
+
 # Object that generates human names
 names = Names()
 # Our pygame object
@@ -16,3 +18,5 @@ tile_size = 8
 tile_scale = 2
 # Game map
 map = Map(pygame, tile_size*tile_scale)
+# Current date
+date = Date()
