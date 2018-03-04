@@ -1,10 +1,13 @@
 from Objects.building import Building
 from Objects.sprite import Sprite
+import global_vars
 
 class Library(Building):
   def __init__(self):
+    super().__init__()
     self.constructionCost = 30000
     self.maxLevel = 3
+    self.constructionCost = 100
     self.reputation = 0.05
     self.morale = 0.05
     self.graduationRate = 0.1

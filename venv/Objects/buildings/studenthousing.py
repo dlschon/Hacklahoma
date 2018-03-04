@@ -2,6 +2,7 @@ from Objects.building import Building
 from Objects.sprite import Sprite
 class StudentHousing(Building):
   def __init__(self):
+    super().__init__()
     self.constructionCost = 10000
     self.maxLevel = 3
     self.reputation = 0

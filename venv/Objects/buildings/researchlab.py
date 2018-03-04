@@ -1,7 +1,9 @@
 from Objects.building import Building
 from Objects.sprite import Sprite
 class ResearchLab(Building):
+
   def __init__(self):
+    super().__init__()
     self.constructionCost = 50000
     self.maxLevel = 3
     self.reputation = 0.125
