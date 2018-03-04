@@ -23,6 +23,13 @@ class University:
             sum += building.capacity
         return sum
 
+    def buy(self, cost):
+        if (self.money > cost):
+            self.money -= cost
+            return True
+        else:
+            return False;
+
     def calcRevenue(self):
         revenue = []
         total = 0

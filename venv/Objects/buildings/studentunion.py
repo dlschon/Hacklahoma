@@ -3,7 +3,7 @@ from Objects.sprite import Sprite
 class StudentUnion(Building):
   def __init__(self):
     super().__init__()
-    selfs.constructionCost = 25000
+    self.constructionCost = 25000
     self.maxLevel = 3
     self.reputation = 0.05
     self.morale = 0.075
@@ -13,7 +13,7 @@ class StudentUnion(Building):
     self.enrollment = 2
     self.maxEnrollment = 0
     self.professors = 0
-    self.enable = true
+    self.enable = True
     self.name = "Student Union"
     self.effects = ["The Student Union is a place students can go to get involved in different activities. ",
                    "Adding or upgrading the student union increases the universities reputation, morale, involvement and enrollment."]

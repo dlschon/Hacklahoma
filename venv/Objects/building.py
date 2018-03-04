@@ -13,9 +13,4 @@ class Building:
     self.type = None
     self.sprite = None
 
-  def getList(self):
-      list = []
-      list.append(Building())
-      list.append(Building())
 
-      return list

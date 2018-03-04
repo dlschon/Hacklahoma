@@ -11,7 +11,7 @@ class ResearchLab(Building):
     self.graduationRate = 0.075
     self.involvement = 0.075
     self.tuition = 0
-    self.enable = true
+    self.enable = True
     self.enrollment = 2
     self.maxEnrollment = 0
     self.professors = 5

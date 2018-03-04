@@ -14,7 +14,9 @@ from Objects.menus import GameMenu
 from Objects.info import BuildingInfo
 from Objects.info import MoneyInfo
 from Objects.info import StudentInfo
+from Objects.info import BuyBuilding
 from Objects.info import InitialMessage
+from Objects.buildings.emptylot import EmptyLot
 import admissions
 from date import Date
 
@@ -53,7 +55,10 @@ while not crashed:
             # Try clicking the map
             clicked = global_vars.map.try_click(pos)
             if clicked != None:
-                BuildingInfo(clicked)
+                if type(clicked) == EmptyLot:
+                    BuyBuilding(clicked)
+                else:
+                    BuildingInfo(clicked)
 
             # Try clicking the menu
             clicked = gameMenu.try_click(pos)

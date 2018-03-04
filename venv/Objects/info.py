@@ -3,6 +3,8 @@ from tkinter import ttk
 from Objects.building import Building
 import global_vars
 from Objects.finance import Finance
+from Objects.map import Map
+import copy
 
 university = global_vars.university
 
@@ -51,7 +53,7 @@ class BuildingInfo(InfoPane):
         else:
             for effect in self.effects:
                 row = Frame(building_info_frame)
-                lab = Label(row, width=15, text=effect, anchor='w')
+                lab = Label(row, text=effect, anchor='w')
                 row.pack(side=TOP, fill=X, padx=5, pady=1)
                 lab.pack(side=LEFT, padx=15)
         b2 = Button(building_info_frame, text='Destroy', command=())
@@ -139,18 +141,25 @@ class InitialMessage():
         Tk().wm_withdraw() #to hide the main window
         messagebox.showinfo('Info','Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
         self.name = simpledialog.askstring('Prompt', 'What is your University called?')
+
 class BuyBuilding(InfoPane):
-    def __init__(self):
+    def __init__(self, lot):
         InfoPane.__init__(self, 'Construct New Building')
         construct_frame = Tk()
         construct_frame.title(self.title)
         r=1
-        for building in Building.getList():
-            Label(text=building.name, anchor='CENTER').grid(column=1, columnspan=2, row=r)
-            Label(text=building.effects, anchor='CENTER').grid(column=1, columnspan=2, row=r+1)
+
+        def buy(building):
+            if global_vars.university.buy(building.constructionCost):
+                global_vars.map.construct_building(lot.pos, type(building)())
+                construct_frame.quit()
+
+        for building in Map.getList():
+            Label(text=building.name, anchor='center').grid(column=1, columnspan=2, row=r)
+            Label(text=building.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
             Label(text='Price: $'+str(building.constructionCost)).grid(column=1, row=r+2)
             Label(text='Build Time: '+str(building.constructionTime)+ ' months').grid(column=2, row=r+2)
-            Button(construct_frame, text="Begin Construction", command=()).grid(column=1, columnspan=2, row=r+3)
+            Button(construct_frame, text="Begin Construction", command=(buy(building))).grid(column=1, columnspan=2, row=r+3)
             r+=4
 
         while True:

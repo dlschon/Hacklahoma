@@ -16,7 +16,7 @@ class Stadium(Building):
     self.enrollment = 10
     self.maxEnrollment = 0
     self.professors = 0
-    self.enable = true
+    self.enable = True
     self.effects = "The Stadium is a place students can go to get involved in different activities. " \
                    "Adding or upgrading the student union increases the universities reputation, morale, involvement and enrollment."
     self.name = "Stadium"

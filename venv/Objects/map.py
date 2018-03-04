@@ -27,9 +27,9 @@ class Map:
         self.rects = []
         self.pygame = pygame
         self.tile_size = tile_size
-        self.map = [[EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()],
-                    [EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()],
-                    [EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()]]
+        self.map = [[EmptyLot((0,0)),EmptyLot((0,1)),EmptyLot((0,2)),EmptyLot((0,3)),EmptyLot((0,4))],
+                    [EmptyLot((1,0)),EmptyLot((1,1)),EmptyLot((1,2)),EmptyLot((1,3)),EmptyLot((1,4))],
+                    [EmptyLot((2,0)),EmptyLot((2,1)),EmptyLot((2,2)),EmptyLot((2,3)),EmptyLot((2,4))]]
 
         options = []
         for x in range(5):
@@ -77,6 +77,14 @@ class Map:
         con.future = building
         con.pos = pos
         self.map[pos[0]][pos[1]] = con
+        self.constructions.append(con)
+        self.surface = self.get_surface()
+
+    def replace_lot(self, lot, building):
+        con = Construction(building.constructionTime, lot.pos, building.name)
+        con.future = building
+        con.pos = lot.pos
+        lot = con
         self.constructions.append(con)
         self.surface = self.get_surface()
 
@@ -147,3 +155,14 @@ class Map:
 
         return map_surface
 
+    def getList():
+        list = []
+        list.append(DiningHall())
+        list.append(LectureHall())
+        list.append(Library())
+        list.append(ResearchLab())
+        list.append(Stadium())
+        list.append(StudentHousing())
+        list.append(StudentUnion())
+
+        return list
