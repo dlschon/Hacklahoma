@@ -69,15 +69,17 @@ while not crashed:
         item = MenuItem(hovering.name, pos)
         gameDisplay.blit(item.label, (pos[0]+20, pos[1]))
 
+    # Increment time
+    progress, new_month = global_vars.date.increment_time()
+
     # Draw the Game menu
-    hovering = gameMenu.run(pos)
+    hovering = gameMenu.run(pos, progress)
     if hovering != None:
         pygame.draw.rect(gameDisplay, (255,255,255), Rect(pos[0], pos[1], 125, 20))
         item = MenuItem(hovering, pos)
         gameDisplay.blit(item.label, (pos[0]+20, pos[1]))
 
     pygame.display.update()
-    progress, new_month = global_vars.date.increment_time()
     # The month has rolled over, do monthly events
     if new_month:
         # Decrement the counter on all events

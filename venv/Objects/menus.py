@@ -5,7 +5,7 @@ from tkinter import messagebox
 
 pygame = global_vars.pygame
 
-LIGHT_GREEN = (100,255,100)
+LIGHT_GREEN = (73, 164, 100)
 LIGHT_RED = (255,100,100)
 LIGHT_GREY = (100,100,100)
 BLACK = (0,0,0)
@@ -22,12 +22,10 @@ class FillBar:
         self.font_size = font_size
         self.font_color = font_color
         self.font = font
+
     def draw(self, screen):
         pygame.draw.rect(screen, self.bg_color, (self.x, self.y, self.w, self.h)) #Background
         pygame.draw.rect(screen, self.fill_color, (self.x, self.y + 2, self.w * self.percent, self.h - 4)) #Fill
-        txt = MenuItem("60%", (self.x + self.w / 2, self.y + self.h / 2), self.font_size, self.font_color, self.font) #Text
-        txt.set_position(txt.pos_x - txt.width / 2, txt.pos_y - txt.height / 2)
-        screen.blit(txt.label, txt.position)
 
 class MenuItem(pygame.font.Font):
     def __init__(self, text, xy=(0, 0), font_size=20, font_color=(0, 0, 0), font=None):
@@ -102,6 +100,7 @@ class GameMenu():
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
         self.clock = pygame.time.Clock()
+        self.fb = FillBar((20, self.scr_height - 45), 150, 20, 0.0, LIGHT_GREY, LIGHT_GREEN, 60, LIGHT_RED)
 
         # Array of menu items (text) to be displayed on screen
         self.set_items()
@@ -150,6 +149,7 @@ class GameMenu():
                 return circle.id
             else:
                 return -1
+
     def drawAll(self):
         for rect in self.rects:
             pygame.draw.rect(self.screen, rect.color, rect.get_shape())
@@ -160,6 +160,9 @@ class GameMenu():
         for icon in self.icons:
             self.screen.blit(icon, (x, y))
             y += 50
+
+        self.fb.draw(self.screen)
+
         for item in self.items:
             if item.is_mouse_selection():
                 item.set_font_color((255, 0, 0))
@@ -168,18 +171,17 @@ class GameMenu():
                 item.set_font_color((255, 255, 255))
                 item.set_italic(False)
             self.screen.blit(item.label, item.position)
-        fb = FillBar((200,200), 300, 50, 0.7, LIGHT_GREY, LIGHT_GREEN, 60, LIGHT_RED)
-        fb.draw(self.screen)
 
-    def run(self, pos):
+    def run(self, pos, progress):
             self.set_items()
+            self.fb.percent = progress
 
             # Redraw the background
             hovering = None
-            self.drawAll()
             for rect in self.rects:
                 pygame.draw.rect(self.screen, rect.color, rect.get_shape())
 
+            self.drawAll()
             for circle in self.circles:
                 pygame.draw.circle(self.screen, circle.color, circle.xy, circle.w)
 
