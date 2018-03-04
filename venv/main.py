@@ -7,6 +7,7 @@ from tkinter import *
 from tkinter import messagebox
 import os
 from pygame import Rect
+import Objects.info
 
 # Usual pygame initialization
 pygame.init()
