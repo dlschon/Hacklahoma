@@ -120,6 +120,5 @@ class MoneyInfo(InfoPane):
 
         
 
-building1 = Building('test','test','test','test','test','test','test', 'test')
 obj = MoneyInfo()
-print(university)
+#print(university)
