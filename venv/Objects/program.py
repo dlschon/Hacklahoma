@@ -5,11 +5,16 @@ from Objects.finance import Finance
 class Program:
     def __init__(self):
         self.amountInvested = 0
-        self.unlocked = False
+        self.unlocked = True
 
     def __init__(self, amountInvested, unlocked):
         self.amountInvested = amountInvested
         self.unlocked = unlocked
+
+    def trigger(self):
+        self.enabled = False
+        self.impact()
+
 
 
 # union programs
@@ -17,7 +22,7 @@ class AlumniFoundation(Program):
     def __init__(self):
         self.desc = "Foundation for Alumni to give back through"
         self.title = "Alumni Foundation"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -31,7 +36,7 @@ class CareerServices(Program):
     def __init__(self):
         self.title = "Career Services"
         self.desc = "An office to assist student in finding careers after college"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -45,7 +50,7 @@ class Scholarships(Program):
     def __init__(self):
         self.title = "Scholarships"
         self.desc = "Money given to achieving students by the university for tuition"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -57,7 +62,7 @@ class FinancialAid(Program):
     def __init__(self):
         self.title = "Financial Aid"
         self.desc = "Money given to students with financial need by the university for tuition"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -69,7 +74,7 @@ class StudyAbroad(Program):
     def __init__(self):
         self.title = "Study Abroad Program"
         self.desc = "A program for students to complete courses for credit while abroad"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -82,7 +87,7 @@ class AcademicAdvisor(Program):
     def __init__(self):
         self.title = "Academic Advisors"
         self.desc = "Advisors to assist students in picking out classes"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -96,7 +101,7 @@ class Rivalry(Program):
     def __init__(self):
         self.title = "Strike up a rivalry"
         self.desc = "Another local university believes their athletics team is superior. Prove them wrong"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -112,7 +117,7 @@ class HeadCoach(Program):
     def __init__(self):
         self.title = "Hire a head coach"
         self.desc = "Every good team has a great leader. Hiring one will strike up the fans"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -124,7 +129,7 @@ class BetterBranding(Program):
     def __init__(self):
         self.title = "Unify the athletic brand"
         self.desc = "Sell merchandise of your universities' team"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -141,7 +146,7 @@ class Groundbreaking(Program):
     def __init__(self):
         self.title = "Groundbreaking Research"
         self.desc = "A professor discovers something great"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -157,7 +162,7 @@ class Collaborative(Program):
     def __init__(self):
         self.title = "Collaborative Research"
         self.desc = "Professors collaborate alongside other universities"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -173,7 +178,7 @@ class UndergradResearch(Program):
     def __init__(self):
         self.title = "Undergraduate Research"
         self.desc = "Implement a new undergraduate research program"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -192,7 +197,7 @@ class Buffet(Program):
     def __init__(self):
         self.title = "Buffet Menu"
         self.desc = "All you can eat"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -204,7 +209,7 @@ class Freshness(Program):
     def __init__(self):
         self.title = "Fresh Ingredients"
         self.desc = "Fresher food for fresher folks"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -216,7 +221,7 @@ class MoreOptions(Program):
     def __init__(self):
         self.title = "More Dining Options"
         self.desc = "Variety is the spice of life"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -229,7 +234,7 @@ class AcademicHalls(Program):
     def __init__(self):
         self.title = "Lecture Hall"
         self.desc = "Place where students learn"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -241,7 +246,7 @@ class CoedHousing(Program):
     def __init__(self):
         self.title = "Coed Housing"
         self.desc = "Allow for intermingling"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):
@@ -253,7 +258,7 @@ class ResidentPrograms(Program):
     def __init__(self):
         self.title = "Housing Center Programs"
         self.desc = "Put on events for the students within housing"
-        self.unlocked = False
+        self.unlocked = True
         self.cost = 1000
 
     def impact(self):

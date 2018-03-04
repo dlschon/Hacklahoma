@@ -238,15 +238,26 @@ class UpgradeBuilding(InfoPane):
         upgrade_frame = Tk()
         upgrade_frame.title(self.title)
         prog_map = global_vars.programs
-        r=1
         progs = prog_map[building.name]
+        def buy1():
+            progs[0].super.trigger()
+        def buy2():
+            progs[1].super.trigger()
+        def buy3():
+            progs[2].super.trigger()
+        def buy4():
+            progs[3].super.trigger()
 
+        buycmd = [buy1(), buy2(), buy3(), buy4()]
+        r=1; p=0
         for prog in progs:
-            Label(text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
-            Label(text=prog.title).grid(column=1, row=r+1)
-            Label(text=prog.desc).grid(column=1, columnspan=2, row=r+2)
-            Button(upgrade_frame, text="Implement this Program", command=()).grid(column=1, columnspan=2, row=r+3)
-            r+=4
+            Label(upgrade_frame, text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
+            Label(upgrade_frame, text=prog.title).grid(column=1, row=r+1)
+            Label(upgrade_frame, text=prog.desc).grid(column=1, columnspan=2, row=r+2)
+            if prog.enabled:
+                Button(upgrade_frame, text="Implement this Program", command=(buycmd[p])).grid(column=1, columnspan=2, row=r+3)
+            else: Label(upgrade_frame, text="Program already implemented").grid(column=1, columnspan=2, row=r+3)
+            r+=4; p+=1
 
         while True:
             try:
