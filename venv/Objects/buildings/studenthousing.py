@@ -4,6 +4,7 @@ class StudentHousing(Building):
   def __init__(self):
     super().__init__()
     self.constructionCost = 10000
+    self.constructionTime = 4
     self.maxLevel = 3
     self.reputation = 0
     self.morale = 0

@@ -1,3 +1,5 @@
+from Objects.finance import Finance
+
 class University:
     def __init__(self):
         self.money = 20000
@@ -5,17 +7,25 @@ class University:
         self.reputation = 0
         self.sudent_satisfaction = 0
         self.opportunity = 0
-        self.tuition = 0
+        self.tuition = 200
         self.name = ""
         self.target_gpa = 2.5
         self.accept_gpa = 0
         self.max_enrollment = 50
+        self.tuition_income = Finance()
+        self.tuition_income.description = 'Tuition: '
+        self.tuition_income.value = 0
 
         self.teachers = []
         self.students = []
         self.programs = []
         self.buildings = []
         self.finances = []
+
+        self.finances.append(self.tuition_income)
+
+    def update_tuition(self):
+        self.tuition_income.value = len(self.students)*self.tuition
 
     def capacity(self):
         sum = 0

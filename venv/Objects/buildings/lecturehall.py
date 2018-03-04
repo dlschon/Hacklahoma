@@ -4,6 +4,7 @@ class LectureHall(Building):
   def __init__(self):
     super().__init__()
     self.constructionCost = 10000
+    self.constructionTime = 4
     self.maxLevel = 3
     self.level = 1
     self.reputation = 0.05

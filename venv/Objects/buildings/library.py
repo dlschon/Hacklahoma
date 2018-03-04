@@ -8,6 +8,7 @@ class Library(Building):
     self.constructionCost = 30000
     self.maxLevel = 3
     self.constructionCost = 20000
+    self.constructionTime = 5
     self.reputation = 0.05
     self.morale = 0.05
     self.graduationRate = 0.1

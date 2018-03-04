@@ -4,6 +4,7 @@ class StudentUnion(Building):
   def __init__(self):
     super().__init__()
     self.constructionCost = 25000
+    self.constructionTime = 6
     self.maxLevel = 3
     self.reputation = 0.05
     self.morale = 0.075
