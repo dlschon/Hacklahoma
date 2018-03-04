@@ -1,4 +1,5 @@
 from Objects.person import Person
+import global_vars
 
 class Student(Person):
   def __init__(self):
@@ -19,7 +20,7 @@ class Student(Person):
     self.year = year
 
   def evalSchool(self):
-    programs = global_var.university.programs
+    programs = global_vars.university.programs
     happy = ((len(programs) / 18) * 30) + (self.involvement * 20) + ((self.gpa / 4.0) * 30) + (self.morale * 20)
-    global_var.university.reputation += (100 / len(global_var.university.students))(happy / 100)
+    global_vars.university.reputation += (100 / len(global_vars.university.students))*(happy / 100)
 

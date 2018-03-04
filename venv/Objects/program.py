@@ -28,7 +28,7 @@ class AlumniFoundation(Program):
 
     def impact(self):
         f = Finance()
-        f.desciption = "The Alumni Foundation gives back"
+        f.description = "Alumni Foundation"
         f.value = 1000
         global_vars.university.finances.append(f)
 

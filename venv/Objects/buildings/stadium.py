@@ -28,8 +28,9 @@ class Stadium(Building):
 
   def activate(self):
     super().activate()
+    self.finances = Finance()
     self.finances.description = "Football: "
-    self.finances.value = 6000
+    self.finances.value = 4500
     global_vars.university.finances.append(self.finances)
 
   def _init_(self, constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment,
