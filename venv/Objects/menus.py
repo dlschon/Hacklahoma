@@ -91,7 +91,7 @@ class GameMenu():
         self.items.append(enrollmentText)
         incomeText = MenuItem("Income/mo: $" + str(global_vars.university.calcRevenue()[0]+global_vars.university.calcExpense()[0]), (320, self.scr_height - 15))
         self.items.append(incomeText)
-        moraleText = MenuItem("Campus Morale: " , (520, self.scr_height - 40))
+        moraleText = MenuItem("Teachers: " + str(len(global_vars.university.teachers)), (520, self.scr_height - 40))
         self.items.append(moraleText)
         reputationText = MenuItem("Reputation: " + str(global_vars.university.reputation), (520, self.scr_height - 15))
         self.items.append(reputationText)

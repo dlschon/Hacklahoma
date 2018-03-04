@@ -1,5 +1,6 @@
 from Objects.finance import Finance
 
+
 class University:
     def __init__(self):
         self.money = 20000
