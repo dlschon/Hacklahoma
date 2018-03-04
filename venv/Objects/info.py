@@ -95,6 +95,16 @@ class StudentInfo(InfoPane):
         pbar = ttk.Progressbar(orient=HORIZONTAL, length=300, mode='determinate', value=(78))
         pbar.grid(column=1, row=9, columnspan=2, pady=(0,15))
 
+        scrollbar = Scrollbar(student_info_frame)
+        scrollbar.grid(column=3, row=1, rowspan=9)
+
+        mylist = Listbox(student_info_frame, yscrollcommand=scrollbar.set)
+        for student in university.students:
+            mylist.insert(END, student.name)
+
+        mylist.grid(column=3, row=1, rowspan=9)
+        scrollbar.config(command=mylist.yview)
+
         while True:
             try:
                 student_info_frame.update()
@@ -126,7 +136,7 @@ class MoneyInfo(InfoPane):
         r+=1
         for exp in expenses:
             Label(text=exp.description, anchor='w').grid(column=1, row=r)
-            Label(text='-$'+str(exp.value), anchor='w').grid(column=2, row=r)
+            Label(text='-$'+str(-exp.value), anchor='w').grid(column=2, row=r)
             r+=1
 
         while True:
@@ -303,9 +313,13 @@ class TeacherMenu(InfoPane):
         if not(university.can_hire and len(university.teachers) < university.max_teachers()):
             Label(teacher_frame, text='Sorry, you may not hire more teachers at this time').grid(row=1,column=1)
         else:
-            Label(teacher_frame, text='You may hire a new teacher!').grid(row=1,column=1)
-            Button(teacher_frame, text='Hire', command=hire).grid(row=3,column=1)
-            Button(teacher_frame, text='Pass', command=skip).grid(row=3,column=2)
+            Label(teacher_frame, text='You may hire a new teacher!').grid(row=1, column=1)
+            Label(teacher_frame, text='Name: Dr. ' + teacher.name).grid(row=2, column=1)
+            Label(teacher_frame, text='Monthly Salary: $' + str(teacher.salary)).grid(row=2, column=2)
+            Label(teacher_frame, text='Research Rating: ' + str(teacher.research)).grid(row=3, column=1)
+            Label(teacher_frame, text='Teaching Rating: ' + str(teacher.teaching)).grid(row=3, column=2)
+            Button(teacher_frame, text='Hire', command=hire).grid(row=4, column=1)
+            Button(teacher_frame, text='Pass', command=skip).grid(row=4, column=2)
 
         while True:
             try:

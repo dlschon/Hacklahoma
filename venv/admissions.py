@@ -58,6 +58,11 @@ def admit_students():
 	accept = [] 
 	for p in range(int(population)):
 		p = Student(0, random.randint(0,1), random.random(), random.uniform(2.0,4.0), .5, 0)
+		p.gender = random.randint(0,1)
+		if p.gender == 0:
+			p.name = global_vars.names.generate_name_full_male()
+		else:
+			p.name = global_vars.names.generate_name_full_female()
 		if(p.gpa >  global_vars.university.accept_gpa):
 			accept.append(p)
 	curr_students = global_vars.university.students

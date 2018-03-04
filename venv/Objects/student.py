@@ -7,6 +7,7 @@ class Student(Person):
     self.productivity = None
     self.gender = None
     self.involvement = None
+    self.name = ""
     self.gpa = 0
     self.morale = 0
     self.year = 0
@@ -15,6 +16,7 @@ class Student(Person):
     self.productivity = productivity
     self.gender = gender
     self.involvement = involvement
+    self.name = global_vars.names.generate_name_full_male() if gender == 0 else global_vars.names.generate_name_full_female()
     self.gpa = gpa
     self.morale = morale
     self.year = year
