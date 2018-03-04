@@ -6,6 +6,9 @@ class University:
         self.graduation_rate = 0
         self.opportunity = 0
         self.tuition = 0
+        self.capacity = 0
+        self.accept_gpa = 0
+
 
         self.teachers = []
         self.students = []
