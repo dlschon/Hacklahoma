@@ -29,5 +29,6 @@ class Building:
      self.upgrade_cost += 5000 * self.level
 
   def add_program(self,program):	
-    if(global_var.university.buy(program.cost)):
-     self.programs.append(program)
+   if(global_var.university.buy(program.cost)):
+     if(not (program.unlocked) and len(self.programs) < level):
+      self.programs.append(program)
