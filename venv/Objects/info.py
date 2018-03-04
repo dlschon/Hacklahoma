@@ -58,7 +58,6 @@ class BuildingInfo(InfoPane):
         b2.pack(side=BOTTOM, padx=5, pady=5)
         b1 = Button(building_info_frame, text='Upgrade!', command=())
         b1.pack(side=BOTTOM, padx=5, pady=10)
-        info_open = True;
 
         while True:
             try:
@@ -140,3 +139,23 @@ class InitialMessage():
         Tk().wm_withdraw() #to hide the main window
         messagebox.showinfo('Info','Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
         self.name = simpledialog.askstring('Prompt', 'What is your University called?')
+class BuyBuilding(InfoPane):
+    def __init__(self):
+        InfoPane.__init__(self, 'Construct New Building')
+        construct_frame = Tk()
+        construct_frame.title(self.title)
+        r=1
+        for building in Building.getList():
+            Label(text=building.name, anchor='CENTER').grid(column=1, columnspan=2, row=r)
+            Label(text=building.effects, anchor='CENTER').grid(column=1, columnspan=2, row=r+1)
+            Label(text='Price: $'+str(building.constructionCost)).grid(column=1, row=r+2)
+            Label(text='Build Time: '+str(building.constructionTime)+ ' months').grid(column=2, row=r+2)
+            Button(construct_frame, text="Begin Construction", command=()).grid(column=1, columnspan=2, row=r+3)
+            r+=4
+
+        while True:
+            try:
+                construct_frame.update()
+            except:
+                break;
+
