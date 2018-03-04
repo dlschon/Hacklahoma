@@ -3,7 +3,6 @@ from Objects.sprite import Sprite
 class ResearchLab(Building):
 
   def __init__(self):
-    super().__init__()
     self.constructionCost = 50000
     self.constructionTime = 7
     self.maxLevel = 3

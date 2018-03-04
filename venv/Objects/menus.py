@@ -1,9 +1,11 @@
-import global_vars
+# import global_vars
+import pygame
 from pygame import Rect
 from tkinter import *
 from tkinter import messagebox
+import global_vars
 
-pygame = global_vars.pygame
+# pygame = global_vars.pygame
 
 LIGHT_GREEN = (73, 164, 100)
 LIGHT_RED = (255,100,100)
@@ -72,13 +74,12 @@ class Shape:
 
 class GameMenu():
 
-    BUILD = 0
+    PAUSE = 0
     MONEY = 1
-    PROGRAMS = 2
-    TEACHERS = 3
-    STUDENTS = 4
+    TEACHERS = 2
+    STUDENTS = 3
 
-    ids = ["Build", "Money", "Programs", "Teachers", "Students"]
+    ids = ["Pause", "Money", "Programs", "Teachers", "Students"]
 
     def set_items(self):
         self.items = []
@@ -114,28 +115,23 @@ class GameMenu():
 
         # Array of circles to be drawn on screen
         self.circles = []
-        buildCircle = Shape(LIGHT_GREY, (25,50), 20, id=GameMenu.BUILD)
-        self.circles.append(buildCircle)
+        pauseCircle = Shape(LIGHT_GREY, (25,50), 20, id=GameMenu.PAUSE)
+        self.circles.append(pauseCircle)
         moneyCircle = Shape(LIGHT_GREY, (25,100), 20, id=GameMenu.MONEY)
         self.circles.append(moneyCircle)
-        programsCircle = Shape(LIGHT_GREY, (25,150), 20, id=GameMenu.PROGRAMS)
-        self.circles.append(programsCircle)
-        teachersCircle = Shape(LIGHT_GREY, (25,200), 20, id=GameMenu.TEACHERS)
+        teachersCircle = Shape(LIGHT_GREY, (25,150), 20, id=GameMenu.TEACHERS)
         self.circles.append(teachersCircle)
-        studentsCircle = Shape(LIGHT_GREY, (25,250), 20, id=GameMenu.STUDENTS)
+        studentsCircle = Shape(LIGHT_GREY, (25,200), 20, id=GameMenu.STUDENTS)
         self.circles.append(studentsCircle)
 
         # Array of icons to be drawn on the screen
         self.icons = []
-        buildIcon = pygame.image.load('Resources/icons/build.png')
-        buildIcon = pygame.transform.scale(buildIcon, (30,30))
-        self.icons.append(buildIcon)
+        pauseIcon = pygame.image.load('Resources/icons/pause-button.png')
+        pauseIcon = pygame.transform.scale(pauseIcon, (30,30))
+        self.icons.append(pauseIcon)
         moneyIcon = pygame.image.load('Resources/icons/money.png')
         moneyIcon = pygame.transform.scale(moneyIcon, (30,30))
         self.icons.append(moneyIcon)
-        programsIcon = pygame.image.load('Resources/icons/programs.png')
-        programsIcon = pygame.transform.scale(programsIcon, (30,30))
-        self.icons.append(programsIcon)
         teachersIcon = pygame.image.load('Resources/icons/teachers.png')
         teachersIcon = pygame.transform.scale(teachersIcon, (30,30))
         self.icons.append(teachersIcon)
