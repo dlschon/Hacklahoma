@@ -1,10 +1,11 @@
-import pygame
+import global_vars
+from pygame import Rect
 from tkinter import *
 from tkinter import messagebox
 
-pygame.init()
+pygame = global_vars.pygame
 
-LIGHT_GREEN = (100,255,100)
+LIGHT_GREEN = (73, 164, 100)
 LIGHT_RED = (255,100,100)
 LIGHT_GREY = (100,100,100)
 BLACK = (0,0,0)
@@ -21,12 +22,10 @@ class FillBar:
         self.font_size = font_size
         self.font_color = font_color
         self.font = font
+
     def draw(self, screen):
         pygame.draw.rect(screen, self.bg_color, (self.x, self.y, self.w, self.h)) #Background
         pygame.draw.rect(screen, self.fill_color, (self.x, self.y + 2, self.w * self.percent, self.h - 4)) #Fill
-        txt = MenuItem("60%", (self.x + self.w / 2, self.y + self.h / 2), self.font_size, self.font_color, self.font) #Text
-        txt.set_position(txt.pos_x - txt.width / 2, txt.pos_y - txt.height / 2)
-        screen.blit(txt.label, txt.position)
 
 class MenuItem(pygame.font.Font):
     def __init__(self, text, xy=(0, 0), font_size=20, font_color=(0, 0, 0), font=None):
@@ -59,38 +58,52 @@ class MenuItem(pygame.font.Font):
 
 
 class Shape:
-    def __init__(self, color=(100,100,100),xy=(0,0), w=0, h=0):
+    def __init__(self, color=(100,100,100),xy=(0,0), w=0, h=0, id=0):
         self.color = color
         self.w = w
         self.h = h
         self.xy = xy
+        self.id = id
+        self.circleRect = Rect(xy[0]-w, xy[1]-w, w*2, w*2)
 
     def get_shape(self):
         x, y = self.xy
         return (x, y, self.w, self.h)
 
 class GameMenu():
-    def __init__(self, screen, bg_color=(0,0,0)):
+
+    BUILD = 0
+    MONEY = 1
+    PROGRAMS = 2
+    TEACHERS = 3
+    STUDENTS = 4
+
+    ids = ["Build", "Money", "Programs", "Teachers", "Students"]
+
+    def set_items(self):
+        self.items = []
+        dateText = MenuItem("Date: " + global_vars.date.get_month_name(), (20, self.scr_height - 40))
+        self.items.append(dateText)
+        moneyText = MenuItem("Money: $" + str(global_vars.university.money), (20, self.scr_height - 15))
+        self.items.append(moneyText)
+        enrollmentText = MenuItem("Enrollment: " + str(len(global_vars.university.students)), (320, self.scr_height - 40))
+        self.items.append(enrollmentText)
+        incomeText = MenuItem("Income/mo: ", (320, self.scr_height - 15))
+        self.items.append(incomeText)
+        moraleText = MenuItem("Campus Morale: ", (520, self.scr_height - 40))
+        self.items.append(moraleText)
+        reputationText = MenuItem("Reputation: ", (520, self.scr_height - 15))
+        self.items.append(reputationText)
+
+    def __init__(self, screen):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
-        self.bg_color = bg_color
         self.clock = pygame.time.Clock()
+        self.fb = FillBar((20, self.scr_height - 45), 150, 20, 0.0, LIGHT_GREY, LIGHT_GREEN, 60, LIGHT_RED)
 
         # Array of menu items (text) to be displayed on screen
-        self.items = []
-        dateText = MenuItem("Date", (20, self.scr_height - 40))
-        self.items.append(dateText)
-        moneyText = MenuItem("Money", (20, self.scr_height - 15))
-        self.items.append(moneyText)
-        enrollmentText = MenuItem("Enrollment", (320, self.scr_height - 40))
-        self.items.append(enrollmentText)
-        incomeText = MenuItem("Income/mo.", (320, self.scr_height - 15))
-        self.items.append(incomeText)
-        moraleText = MenuItem("Campus Morale", (520, self.scr_height - 40))
-        self.items.append(moraleText)
-        reputationText = MenuItem("Reputation", (520, self.scr_height - 15))
-        self.items.append(reputationText)
+        self.set_items()
 
         # Array of rects to be drawn on screen
         self.rects = []
@@ -101,34 +114,41 @@ class GameMenu():
 
         # Array of circles to be drawn on screen
         self.circles = []
-        buildCircle = Shape(LIGHT_GREY, (25,50), 20)
+        buildCircle = Shape(LIGHT_GREY, (25,50), 20, id=GameMenu.BUILD)
         self.circles.append(buildCircle)
-        moneyCircle = Shape(LIGHT_GREY, (25,100), 20)
+        moneyCircle = Shape(LIGHT_GREY, (25,100), 20, id=GameMenu.MONEY)
         self.circles.append(moneyCircle)
-        programsCircle = Shape(LIGHT_GREY, (25,150), 20)
+        programsCircle = Shape(LIGHT_GREY, (25,150), 20, id=GameMenu.PROGRAMS)
         self.circles.append(programsCircle)
-        teachersCircle = Shape(LIGHT_GREY, (25,200), 20)
+        teachersCircle = Shape(LIGHT_GREY, (25,200), 20, id=GameMenu.TEACHERS)
         self.circles.append(teachersCircle)
-        studentsCircle = Shape(LIGHT_GREY, (25,250), 20)
+        studentsCircle = Shape(LIGHT_GREY, (25,250), 20, id=GameMenu.STUDENTS)
         self.circles.append(studentsCircle)
 
         # Array of icons to be drawn on the screen
         self.icons = []
-        buildIcon = pygame.image.load('../Resources/icons/build.png')
+        buildIcon = pygame.image.load('Resources/icons/build.png')
         buildIcon = pygame.transform.scale(buildIcon, (30,30))
         self.icons.append(buildIcon)
-        moneyIcon = pygame.image.load('../Resources/icons/money.png')
+        moneyIcon = pygame.image.load('Resources/icons/money.png')
         moneyIcon = pygame.transform.scale(moneyIcon, (30,30))
         self.icons.append(moneyIcon)
-        programsIcon = pygame.image.load('../Resources/icons/programs.png')
+        programsIcon = pygame.image.load('Resources/icons/programs.png')
         programsIcon = pygame.transform.scale(programsIcon, (30,30))
         self.icons.append(programsIcon)
-        teachersIcon = pygame.image.load('../Resources/icons/teachers.png')
+        teachersIcon = pygame.image.load('Resources/icons/teachers.png')
         teachersIcon = pygame.transform.scale(teachersIcon, (30,30))
         self.icons.append(teachersIcon)
-        studentsIcon = pygame.image.load('../Resources/icons/students.png')
+        studentsIcon = pygame.image.load('Resources/icons/students.png')
         studentsIcon = pygame.transform.scale(studentsIcon, (30,30))
         self.icons.append(studentsIcon)
+
+    def try_click(self, pos):
+        for circle in self.circles:
+            if circle.circleRect.collidepoint(pos):
+                return circle.id
+            else:
+                return -1
 
     def drawAll(self):
         for rect in self.rects:
@@ -140,6 +160,9 @@ class GameMenu():
         for icon in self.icons:
             self.screen.blit(icon, (x, y))
             y += 50
+
+        self.fb.draw(self.screen)
+
         for item in self.items:
             if item.is_mouse_selection():
                 item.set_font_color((255, 0, 0))
@@ -148,25 +171,35 @@ class GameMenu():
                 item.set_font_color((255, 255, 255))
                 item.set_italic(False)
             self.screen.blit(item.label, item.position)
-        fb = FillBar((200,200), 300, 50, 0.7, LIGHT_GREY, LIGHT_GREEN, 60, LIGHT_RED)
-        fb.draw(self.screen)
 
-    def run(self):
-        mainloop = True
-        while mainloop:
-            # Limit frame speed to 50 FPS
-            self.clock.tick(50)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    mainloop = False
+    def run(self, pos, progress):
+            self.set_items()
+            self.fb.percent = progress
+
             # Redraw the background
-            self.screen.fill(self.bg_color)
+            hovering = None
+            for rect in self.rects:
+                pygame.draw.rect(self.screen, rect.color, rect.get_shape())
+
             self.drawAll()
+            for circle in self.circles:
+                pygame.draw.circle(self.screen, circle.color, circle.xy, circle.w)
+
+                if circle.circleRect.collidepoint(pos):
+                    hovering = GameMenu.ids[circle.id]
+
+            x = 10; y = 35
+            for icon in self.icons:
+                self.screen.blit(icon, (x,y))
+                y+=50
+            for item in self.items:
+                if item.is_mouse_selection():
+                    item.set_font_color((255, 0, 0))
+                    item.set_italic(True)
+                else:
+                    item.set_font_color((255, 255, 255))
+                    item.set_italic(False)
+                self.screen.blit(item.label, item.position)
             pygame.display.flip()
 
-if __name__ == "__main__":
-    # Creating the screen
-    screen = pygame.display.set_mode((800, 600), 0, 32)
-    pygame.display.set_caption('Game Menu')
-    gm = GameMenu(screen)
-    gm.run()
+            return hovering

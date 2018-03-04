@@ -6,9 +6,13 @@ class University:
         self.sudent_satisfaction = 0
         self.opportunity = 0
         self.tuition = 0
+        self.name = ""
         self.target_gpa = 2.5
+        self.capacity = 0
         self.enrollment = 10
+        self.accept_gpa = 0
         self.max_enrollment = 50
+
 
         self.teachers = []
         self.students = []

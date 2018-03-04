@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import ttk
-from building import Building
+from Objects.building import Building
 import global_vars
+from Objects.finance import Finance
 
 university = global_vars.university
 
@@ -14,23 +15,17 @@ class BuildingInfo(InfoPane):
         InfoPane.__init__(self, 'Building Info')
         self.labels = [
             'Name',
-            'Type',
             'Level',
             'Monthly Cost',
             'Capacity'
         ]
         self.values = [
-            building.name,
-            building.type,
-            building.level,
-            building.monthlyCost,
-            building.capacity + ' students'
+            str(building.name),
+            str(building.level),
+            str(building.monthlyCost),
+            str(building.capacity) + ' students'
         ]
-        self.effects = [
-            '+3 morale/student',
-            '+10 reputation',
-            '+$2000/month'
-        ]
+        self.effects = building.effects
         self.makeform()
 
     def makeform(self):
@@ -56,9 +51,13 @@ class BuildingInfo(InfoPane):
         b2.pack(side=BOTTOM, padx=5, pady=5)
         b1 = Button(building_info_frame, text='Upgrade!', command=())
         b1.pack(side=BOTTOM, padx=5, pady=10)
+        info_open = True;
 
-        building_info_frame.mainloop()
-
+        while True:
+            try:
+                building_info_frame.update()
+            except:
+                break
 
 class StudentInfo(InfoPane):
     def __init__(self):
@@ -101,27 +100,25 @@ class MoneyInfo(InfoPane):
         revenue, revenues = university.calcRevenue()
         expense, expenses = university.calcExpense()
         income = revenue - expense
-        if income >= 0: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
-        else: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
+        if income >= 0: Label(text='+ $'+str(income), anchor='w').grid(column=2, row=1, pady=(0, 10))
+        else: Label(text='+ $'+str(income), anchor='w').grid(column=2, row=1, pady=(0, 10))
         Label(text='Revenues: ', anchor='w').grid(column=1, row=2)
-        Label(text='+$'+revenue, anchor='w').grid(column=2, row=2)
+        Label(text='+$'+str(revenue), anchor='w').grid(column=2, row=2)
         r = 3
         for rev in revenues:
-            Label(text=rev.desc, anchor='w').grid(column=1, row=r)
-            Label(text='+$'+rev.value, anchor='w').grid(column=2, row=r)
+            Label(text=rev.description, anchor='w').grid(column=1, row=r)
+            Label(text='+$'+str(rev.value), anchor='w').grid(column=2, row=r)
             r+=1
         Label(text='Expenses: ', anchor='w').grid(column=1, row=r)
-        Label(text='-$'+expense, anchor='w').grid(column=2, row=r)
+        Label(text='-$'+str(expense), anchor='w').grid(column=2, row=r)
         r+=1
         for exp in expenses:
-            Label(text=exp.desc, anchor='w').grid(column=1, row=r)
-            Label(text='-$'+exp.value, anchor='w').grid(column=2, row=r)
+            Label(text=exp.description, anchor='w').grid(column=1, row=r)
+            Label(text='-$'+str(exp.value), anchor='w').grid(column=2, row=r)
             r+=1
 
-        money_info_frame.mainloop()
-
-        
-
-building1 = Building('test','test','test','test','test','test','test', 'test')
-obj = MoneyInfo()
-print(university)
+        while True:
+            try:
+                money_info_frame.update()
+            except:
+                break;

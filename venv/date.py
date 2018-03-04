@@ -12,7 +12,7 @@ class Date:
                   "October",
                   "November",
                   "December"]
-    frames_per_month = 300
+    frames_per_month = 900
 
     fall_enrollment = 7
     spring_enrollment = 0
