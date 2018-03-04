@@ -48,13 +48,15 @@ while not crashed:
     # Draw the map
     gameDisplay.blit(mapSurface, (0,0))
 
+    # Hover text
     pos = pygame.mouse.get_pos()
     hovering = global_vars.map.try_click(pos)
     if hovering != None:
         pygame.draw.rect(gameDisplay, (255,255,255), Rect(pos[0], pos[1], 50, 20))
-        label = global_vars.font.render(hovering.name, 1, (255, 255, 0))
-        gameDisplay.blit(label, pos)
+        #label = global_vars.font.render(hovering.name, 1, (255, 255, 0))
+        #gameDisplay.blit(label, pos)
 
+    pygame.display.update()
     progress, new_month = global_vars.date.increment_time()
     # The month has rolled over, do monthly events
     if new_month:

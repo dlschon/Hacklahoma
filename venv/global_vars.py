@@ -11,8 +11,6 @@ from Objects.university import University
 names = Names()
 # Our pygame object
 pygame = pygame
-# Global font
-font = pygame.font.SysFont("monospace", 15)
 # Tileset of game graphics
 tileset = Tileset(pygame, './Resources/city_tiles.png', 8, 21)
 # Standard size of one tile
