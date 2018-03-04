@@ -1,5 +1,5 @@
 from tkinter import *
-from building import Building
+from Objects.building import Building
 
 class InfoPane:
     def __init__(self, title):
@@ -10,17 +10,15 @@ class BuildingInfo(InfoPane):
         InfoPane.__init__(self, 'Building Info')
         self.labels = [
             'Name',
-            'Type',
             'Level',
             'Monthly Cost',
             'Capacity'
         ]
         self.values = [
-            building.name,
-            building.type,
-            building.level,
-            building.monthlyCost,
-            building.capacity + ' students'
+            str(building.name),
+            str(building.level),
+            str(building.monthlyCost),
+            str(building.capacity) + ' students'
         ]
         self.effects = [
             '+3 morale/student',
@@ -55,7 +53,6 @@ class BuildingInfo(InfoPane):
 
         building_info_frame.mainloop()
 
-
 class StudentInfo(InfoPane):
     def __init__(self):
         InfoPane.__init__(self, 'Student Info')
@@ -67,8 +64,3 @@ class StudentInfo(InfoPane):
 
         student_info_frame.mainloop()
 
-
-        
-
-building1 = Building('test','test','test','test','test','test','test', 'test')
-obj = StudentInfo()

@@ -6,6 +6,7 @@ from Objects.buildings.stadium import Stadium
 from Objects.buildings.studenthousing import StudentHousing
 from Objects.buildings.studentunion import StudentUnion
 from Objects.buildings.dininghall import DiningHall
+from Objects.buildings.construction import Construction
 from Objects.sprite import Sprite
 import random
 from pygame import Rect
@@ -59,6 +60,9 @@ class Map:
                 return rect[1]
 
         return None
+
+    def construct_building(self, pos, building):
+        self.map[pos[0]][pos[1]] = Construction()
 
     def get_surface(self):
         tile_size = self.tile_size
