@@ -4,7 +4,7 @@ import global_vars
 
 class Library(Building):
   def __init__(self):
-    super().__init__()
+    .__init__()
     self.constructionCost = 30000
     self.maxLevel = 3
     self.constructionCost = 100
