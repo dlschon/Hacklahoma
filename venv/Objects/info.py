@@ -93,6 +93,16 @@ class StudentInfo(InfoPane):
         pbar = ttk.Progressbar(orient=HORIZONTAL, length=300, mode='determinate', value=(78))
         pbar.grid(column=1, row=9, columnspan=2, pady=(0,15))
 
+        scrollbar = Scrollbar(student_info_frame)
+        scrollbar.grid(column=3, row=1, rowspan=9)
+
+        mylist = Listbox(student_info_frame, yscrollcommand=scrollbar.set)
+        for student in university.students:
+            mylist.insert(END, student.name)
+
+        mylist.grid(column=3, row=1, rowspan=9)
+        scrollbar.config(command=mylist.yview)
+
         while True:
             try:
                 student_info_frame.update()
