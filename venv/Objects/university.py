@@ -7,6 +7,7 @@ class University:
         self.graduation_rate = 0
         self.opportunity = 0
         self.tuition = 0
+        self.name = ""
 
         self.teachers = []
         self.students = []
