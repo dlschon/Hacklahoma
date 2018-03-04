@@ -24,5 +24,7 @@ while not crashed:
     # Draw the map
     gameDisplay.blit(mapSurface, (0,0))
 
+
+
     pygame.display.update()
     clock.tick(60)
