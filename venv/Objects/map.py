@@ -41,6 +41,12 @@ class Map:
             lh = (random.randint(0, 4), random.randint(0, 2))
         self.map[lh[1]][lh[0]] = LectureHall()
 
+    def try_click(self, pos):
+        if (pos[0] < 68*self.tile_size and pos[1] < 42*self.tile_size):
+            click_index = (int(pos[0]*5/(68*self.tile_size)), int(pos[1]*3/(42*self.tile_size)))
+            return self.map[click_index[1]][click_index[0]]
+        else:
+            return None
 
     def get_surface(self):
         tile_size = self.tile_size

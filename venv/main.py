@@ -17,6 +17,7 @@ clock = pygame.time.Clock()
 
 map = global_vars.map
 mapSurface = map.get_surface()
+university = global_vars.university
 
 events = []
 
@@ -31,6 +32,13 @@ while not crashed:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             crashed = True
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            pos = pygame.mouse.get_pos()
+            clicked = global_vars.map.try_click(pos)
+
+            if clicked != None:
+                messagebox.showinfo('Info', clicked.name)
 
     # Draw background
     gameDisplay.fill((255,255,255))
