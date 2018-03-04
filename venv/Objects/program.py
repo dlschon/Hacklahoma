@@ -11,4 +11,4 @@ class Program:
 
 class AlumniFoundation(Program):
   def __init__(self):
-    self.
+    self.s
