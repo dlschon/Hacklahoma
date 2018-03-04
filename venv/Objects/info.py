@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from Objects.building import Building
 import global_vars
+from Objects.finance import Finance
 
 university = global_vars.university
 
@@ -96,29 +97,30 @@ class MoneyInfo(InfoPane):
         money_info_frame = Tk()
         money_info_frame.title(self.title)
         Label(text='Monthly Income: ').grid(column=1, row=1, pady=(0,10))
-        income = university.calcIncome()
-        if income >= 0: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
-        else: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
         revenue, revenues = university.calcRevenue()
         expense, expenses = university.calcExpense()
+        income = revenue - expense
+        if income >= 0: Label(text='+ $'+str(income), anchor='w').grid(column=2, row=1, pady=(0, 10))
+        else: Label(text='+ $'+str(income), anchor='w').grid(column=2, row=1, pady=(0, 10))
         Label(text='Revenues: ', anchor='w').grid(column=1, row=2)
-        Label(text='+$'+revenue, anchor='w').grid(column=2, row=2)
+        Label(text='+$'+str(revenue), anchor='w').grid(column=2, row=2)
         r = 3
         for rev in revenues:
-            Label(text=rev.desc, anchor='w').grid(column=1, row=r)
-            Label(text='+$'+rev.value, anchor='w').grid(column=2, row=r)
+            Label(text=rev.description, anchor='w').grid(column=1, row=r)
+            Label(text='+$'+str(rev.value), anchor='w').grid(column=2, row=r)
             r+=1
         Label(text='Expenses: ', anchor='w').grid(column=1, row=r)
-        Label(text='-$'+expense, anchor='w').grid(column=2, row=r)
+        Label(text='-$'+str(expense), anchor='w').grid(column=2, row=r)
         r+=1
         for exp in expenses:
-            Label(text=exp.desc, anchor='w').grid(column=1, row=r)
-            Label(text='-$'+exp.value, anchor='w').grid(column=2, row=r)
+            Label(text=exp.description, anchor='w').grid(column=1, row=r)
+            Label(text='-$'+str(exp.value), anchor='w').grid(column=2, row=r)
             r+=1
 
-        money_info_frame.mainloop()
-
-        
-
+        while True:
+            try:
+                money_info_frame.update()
+            except:
+                break;
 obj = MoneyInfo()
 #print(university)

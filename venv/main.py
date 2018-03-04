@@ -9,6 +9,7 @@ from tkinter import simpledialog;
 import os
 from pygame import Rect
 from Objects.menus import MenuItem
+import Objects.info
 from Objects.menus import GameMenu
 from Objects.info import BuildingInfo
 
