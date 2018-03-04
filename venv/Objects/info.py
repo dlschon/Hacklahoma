@@ -243,9 +243,9 @@ class UpgradeBuilding(InfoPane):
         progs = prog_map[building.name]
 
         for prog in progs:
-            Label(text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
-            Label(text=prog.title).grid(column=1, row=r+1)
-            Label(text=prog.desc).grid(column=1, columnspan=2, row=r+2)
+            Label(upgrade_frame, text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
+            Label(upgrade_frame, text=prog.title).grid(column=1, row=r+1)
+            Label(upgrade_frame, text=prog.desc).grid(column=1, columnspan=2, row=r+2)
             Button(upgrade_frame, text="Implement this Program", command=()).grid(column=1, columnspan=2, row=r+3)
             r+=4
 
