@@ -5,7 +5,6 @@ class Stadium(Building):
   levels = [(0, 2000),
             ()]
   def __init__(self):
-    super().__init__()
     self.constructionCost = 50000
     self.maxLevel = 3
     self.reputation = 0.075

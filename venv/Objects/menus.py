@@ -1,9 +1,10 @@
-import global_vars
+# import global_vars
+import pygame
 from pygame import Rect
 from tkinter import *
 from tkinter import messagebox
 
-pygame = global_vars.pygame
+# pygame = global_vars.pygame
 
 LIGHT_GREEN = (73, 164, 100)
 LIGHT_RED = (255,100,100)
@@ -78,7 +79,7 @@ class GameMenu():
     TEACHERS = 3
     STUDENTS = 4
 
-    ids = ["Build", "Money", "Programs", "Teachers", "Students"]
+    ids = ["Pause", "Money", "Programs", "Teachers", "Students"]
 
     def set_items(self):
         self.items = []
@@ -114,7 +115,7 @@ class GameMenu():
 
         # Array of circles to be drawn on screen
         self.circles = []
-        buildCircle = Shape(LIGHT_GREY, (25,50), 20, id=GameMenu.BUILD)
+        pauseCircle = Shape(LIGHT_GREY, (25,50), 20, id=GameMenu.PAUSE)
         self.circles.append(buildCircle)
         moneyCircle = Shape(LIGHT_GREY, (25,100), 20, id=GameMenu.MONEY)
         self.circles.append(moneyCircle)
@@ -127,7 +128,7 @@ class GameMenu():
 
         # Array of icons to be drawn on the screen
         self.icons = []
-        buildIcon = pygame.image.load('Resources/icons/build.png')
+        buildIcon = pygame.image.load('Resources/icons/pause-button.png')
         buildIcon = pygame.transform.scale(buildIcon, (30,30))
         self.icons.append(buildIcon)
         moneyIcon = pygame.image.load('Resources/icons/money.png')
