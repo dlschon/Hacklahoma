@@ -1,4 +1,5 @@
 class Building:
+
   def __init__(self):
     self.level = 1
     self.impact = None
@@ -7,7 +8,8 @@ class Building:
     self.capacity = 0
     self.maxLevel = 1
     self.constructionTime = 6
-    self.effects = 'The effects of the building'
+    self.effects = ['The effects of',
+                    'the building']
     self.type = None
     self.sprite = None
 

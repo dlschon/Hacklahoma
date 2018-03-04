@@ -55,7 +55,8 @@ class Map:
         options.remove(l)
         self.map[l[1]][l[0]] = Library()
 
-        self.construct_building((0,0), Stadium())
+        self.surface = self.get_surface()
+
 
     def try_click(self, pos):
         for rect in self.rects:
@@ -65,16 +66,24 @@ class Map:
         return None
 
     def construct_building(self, pos, building):
-        con = Construction(building.constructionTime, building.name)
+        con = Construction(building.constructionTime, pos, building.name)
+        con.future = building
+        con.pos = pos
         self.map[pos[0]][pos[1]] = con
         self.constructions.append(con)
+        self.surface = self.get_surface()
 
     def update_construction(self):
         for con in self.constructions:
             con.counter -= 1
-            con.effects = con.name + " will be completed in " + str(con.counter)
+            con.effects = [con.name + " will be",
+                            "completed in ",
+                           str(con.counter) + " months."]
             if con.counter == 0:
-                pass
+                self.map[con.pos[0]][con.pos[1]] = con.future
+                self.surface = self.get_surface()
+
+
 
     def get_surface(self):
         tile_size = self.tile_size

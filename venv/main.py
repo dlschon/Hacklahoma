@@ -9,6 +9,7 @@ from tkinter import simpledialog;
 import os
 from pygame import Rect
 from Objects.menus import MenuItem
+import Objects.info
 from Objects.menus import GameMenu
 from Objects.info import BuildingInfo
 
@@ -21,7 +22,6 @@ gameDisplay = pygame.display.set_mode((1100,720))
 clock = pygame.time.Clock()
 
 map = global_vars.map
-mapSurface = map.get_surface()
 university = global_vars.university
 
 events = []
@@ -60,7 +60,7 @@ while not crashed:
     gameDisplay.fill((255,255,255))
 
     # Draw the map
-    gameDisplay.blit(mapSurface, (0,0))
+    gameDisplay.blit(map.surface, (0,0))
 
     # Hover text
     pos = pygame.mouse.get_pos()
@@ -83,6 +83,8 @@ while not crashed:
     pygame.display.update()
     # The month has rolled over, do monthly events
     if new_month:
+        # Update construction projects
+        global_vars.map.update_construction()
         # Decrement the counter on all events
         for event in events:
             event[1] -= 1
