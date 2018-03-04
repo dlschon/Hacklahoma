@@ -1,5 +1,9 @@
 from tkinter import *
+from tkinter import ttk
 from Objects.building import Building
+import global_vars
+
+university = global_vars.university
 
 class InfoPane:
     def __init__(self, title):
@@ -59,9 +63,63 @@ class StudentInfo(InfoPane):
         InfoPane.__init__(self, 'Student Info')
         student_info_frame = Tk()
         student_info_frame.title(self.title)
-        lbl = Label(text='Target GPA')
-        lbl.grid(column=1, row=1)
-
+        Label(text='Target GPA').grid(column=1, row=1, columnspan=2, pady=(10,0))
+        slider = Scale(from_=2.0, to=4.0, orient=HORIZONTAL, resolution=0.1, length=400)
+        slider.set(university.target_gpa)
+        slider.grid(column=1, row=2, columnspan=2, pady=(0,15))
+        university.target_gpa = slider.set()
+        Label(text='Current Enrollment: ', anchor='w').grid(column=1, row=3)
+        Label(text=university.enrollment, anchor='e').grid(column=2, row=3)
+        Label(text='Max Enrollment: ', anchor='w').grid(column=1, row=4)
+        Label(text=university.max_enrollment, anchor='e').grid(column=2, row=4)
+        pbar = ttk.Progressbar(orient=HORIZONTAL, length=300, mode='determinate',
+                               value=(university.enrollment/university.max_enrollment*100))
+        pbar.grid(column=1, row=5, columnspan=2, pady=(0,15))
+        Label(text='Average GPA: ').grid(column=1, row=6, pady=15)
+        # need to add grad_rate
+        Label(text=2.3).grid(column=2, row=6, pady=15)
+        Label(text='Graduation Rate: ').grid(column=1, row=7, pady=15)
+        Label(text=university.grad_rate).grid(column=2, row=7, pady=15)
+        Label(text='Average Morale: ').grid(column=1, row=8, pady=(15,0))
+        # need to add morale
+        Label(text='78%').grid(column=2, row=8, pady=(15,0))
+        # need to add morale to value
+        pbar = ttk.Progressbar(orient=HORIZONTAL, length=300, mode='determinate', value=(78))
+        pbar.grid(column=1, row=9, columnspan=2, pady=(0,15))
 
         student_info_frame.mainloop()
 
+
+class MoneyInfo(InfoPane):
+    def __init__(self):
+        InfoPane.__init__(self, 'Money Info')
+        money_info_frame = Tk()
+        money_info_frame.title(self.title)
+        Label(text='Monthly Income: ').grid(column=1, row=1, pady=(0,10))
+        income = university.calcIncome()
+        if income >= 0: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
+        else: Label(text='+ $'+income, anchor='w').grid(column=2, row=1, pady=(0, 10))
+        revenue, revenues = university.calcRevenue()
+        expense, expenses = university.calcExpense()
+        Label(text='Revenues: ', anchor='w').grid(column=1, row=2)
+        Label(text='+$'+revenue, anchor='w').grid(column=2, row=2)
+        r = 3
+        for rev in revenues:
+            Label(text=rev.desc, anchor='w').grid(column=1, row=r)
+            Label(text='+$'+rev.value, anchor='w').grid(column=2, row=r)
+            r+=1
+        Label(text='Expenses: ', anchor='w').grid(column=1, row=r)
+        Label(text='-$'+expense, anchor='w').grid(column=2, row=r)
+        r+=1
+        for exp in expenses:
+            Label(text=exp.desc, anchor='w').grid(column=1, row=r)
+            Label(text='-$'+exp.value, anchor='w').grid(column=2, row=r)
+            r+=1
+
+        money_info_frame.mainloop()
+
+        
+
+building1 = Building('test','test','test','test','test','test','test', 'test')
+obj = MoneyInfo()
+print(university)
