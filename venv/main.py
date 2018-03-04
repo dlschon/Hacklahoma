@@ -16,6 +16,7 @@ from Objects.info import MoneyInfo
 from Objects.info import StudentInfo
 from Objects.info import BuyBuilding
 from Objects.info import InitialMessage
+from Objects.info import PauseMenu
 from Objects.buildings.emptylot import EmptyLot
 import admissions
 from date import Date
@@ -63,6 +64,8 @@ while not crashed:
             # Try clicking the menu
             clicked = gameMenu.try_click(pos)
             if clicked != -1:
+                if clicked == GameMenu.PAUSE:
+                    PauseMenu()
                 if clicked == GameMenu.MONEY:
                     MoneyInfo()
                 if clicked == GameMenu.STUDENTS:
