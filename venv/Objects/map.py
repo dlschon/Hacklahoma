@@ -41,12 +41,14 @@ class Map:
         options.remove(dh)
         self.map[dh[1]][dh[0]] = DiningHall()
         global_vars.university.buildings.append(self.map[dh[1]][dh[0]])
+        self.map[dh[1]][dh[0]].activate()
 
         # Add a random student housimg
         sh = random.choice(options)
         options.remove(sh)
         self.map[sh[1]][sh[0]] = StudentHousing()
         global_vars.university.buildings.append(self.map[sh[1]][sh[0]])
+        self.map[sh[1]][sh[0]].activate()
 
         # Add a random lecture hall
         lh = random.choice(options)
@@ -97,9 +99,8 @@ class Map:
             if con.counter == 0:
                 self.map[con.pos[0]][con.pos[1]] = con.future
                 global_vars.university.buildings.append(con.future)
+                con.future.activate()
                 self.surface = self.get_surface()
-
-
 
     def get_surface(self):
         tile_size = self.tile_size

@@ -15,6 +15,9 @@ class University:
         self.tuition_income = Finance()
         self.tuition_income.description = 'Tuition: '
         self.tuition_income.value = 0
+        self.maintenance = Finance()
+        self.maintenance.description = 'Building maintenance'
+        self.maintenance.value = 0
 
         self.teachers = []
         self.students = []
@@ -23,6 +26,10 @@ class University:
         self.finances = []
 
         self.finances.append(self.tuition_income)
+        self.finances.append(self.maintenance)
+
+    def calc_maintenance(self):
+        self.maintenance.value = len(self.buildings) * -750
 
     def update_tuition(self):
         self.tuition_income.value = len(self.students)*self.tuition

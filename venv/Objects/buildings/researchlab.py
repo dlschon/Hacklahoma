@@ -1,8 +1,12 @@
 from Objects.building import Building
 from Objects.sprite import Sprite
+import global_vars
+from Objects.finance import Finance
+
 class ResearchLab(Building):
 
   def __init__(self):
+    super().__init__()
     self.constructionCost = 50000
     self.constructionTime = 7
     self.maxLevel = 3
@@ -18,6 +22,12 @@ class ResearchLab(Building):
     self.name = "Research Lab"
     self.effects = "The research lab gives students a place todo undergraduate research. Adding or upgrading a research lab increases universities reputation, student morale, and graduation rate."
     self.sprite = Sprite('Resources/researchlab', (0,0), (10,10))
+
+  def activate(self):
+    super().activate()
+    self.finances.description = "Reasearch grant: "
+    self.finances.value = 4000
+    global_vars.university.finances.append(self.finances)
 
   def _init_(self,constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment, maxEnrollment, professors):
     self.constructionCost = constructionCost

@@ -17,3 +17,9 @@ class Student(Person):
     self.gpa = gpa
     self.morale = morale
     self.year = year
+
+  def evalSchool(self):
+    programs = global_var.university.programs
+    happy = ((len(programs) / 18) * 30) + (self.involvement * 20) + ((self.gpa / 4.0) * 30) + (self.morale * 20)
+    global_var.university.reputation += (100 / len(global_var.university.students))(happy / 100)
+

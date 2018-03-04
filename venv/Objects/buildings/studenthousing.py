@@ -1,10 +1,14 @@
 from Objects.building import Building
 from Objects.sprite import Sprite
+import global_vars
+from Objects.finance import Finance
 class StudentHousing(Building):
   def __init__(self):
     super().__init__()
     self.constructionCost = 10000
     self.constructionTime = 4
+    self.finances = Finance()
+
     self.maxLevel = 3
     self.reputation = 0
     self.morale = 0
@@ -41,3 +45,9 @@ class StudentHousing(Building):
     self.enrollment -= self.professors / self.enrollment * 10
     if self.level == self.maxLevel:
       self.enable = false
+
+  def activate(self):
+    super().activate()
+    self.finances.description = "Housing: "
+    self.finances.value = 2000
+    global_vars.university.finances.append(self.finances)

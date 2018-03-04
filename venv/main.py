@@ -99,9 +99,16 @@ while not crashed:
         # Update construction projects
         global_vars.map.update_construction()
 
+        # update finances
+        global_vars.university.money += global_vars.university.calcRevenue()[0] - global_vars.university.calcExpense()[0]
+
         # Decrement the counter on all events
         for event in events:
             event[1] -= 1
+
+        # Evaluate school
+        for student in global_vars.university.students:
+            student.evalSchool()
 
         if global_vars.date.current == Date.fall_enrollment or global_vars.date.current == Date.spring_enrollment:
             admissions.admit_students()

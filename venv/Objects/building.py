@@ -1,3 +1,5 @@
+import global_vars
+
 class Building:
 
   def __init__(self):
@@ -13,4 +15,5 @@ class Building:
     self.type = None
     self.sprite = None
 
-
+  def activate(self):
+    global_vars.university.calc_maintenance()
