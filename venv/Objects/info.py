@@ -254,6 +254,20 @@ class UpgradeBuilding(InfoPane):
             except:
                 break;
 
+class PauseMenu(InfoPane):
+    def __init__(self):
+        InfoPane.__init__(self, 'Game Paused')
+        pause_frame = Tk()
+        pause_frame.minsize(300, 300)
+        pause_frame.geometry("500x500")
+        pause_frame.title(self.title)
+        Label(pause_frame, text='GAME IS PAUSED', font=('Arial', 20, 'bold')).grid(row=1,column=1)
+        Button(pause_frame, text='RESUME', command=quit).grid(row=2,column=1)
+        while True:
+            try:
+                upgrade_frame.update()
+            except:
+                break;
 
 class InitialMessage():
     def __init__(self):
