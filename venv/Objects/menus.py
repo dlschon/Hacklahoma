@@ -48,8 +48,7 @@ class Shape:
         return (x, y, self.w, self.h)
 
 class GameMenu():
-    def __init__(self, screen, items, bg_color=(0,0,0), font=None, font_size=30,
-                    font_color=(255, 255, 255)):
+    def __init__(self, screen, items, bg_color=(0,0,0)):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
@@ -91,6 +90,24 @@ class GameMenu():
         studentsCircle = Shape(LIGHT_GREY, (25,250), 20)
         self.circles.append(studentsCircle)
 
+        # Array of icons to be drawn on the screen
+        self.icons = []
+        buildIcon = pygame.image.load('../Resources/icons/build.png')
+        buildIcon = pygame.transform.scale(buildIcon, (30,30))
+        self.icons.append(buildIcon)
+        moneyIcon = pygame.image.load('../Resources/icons/money.png')
+        moneyIcon = pygame.transform.scale(moneyIcon, (30,30))
+        self.icons.append(moneyIcon)
+        programsIcon = pygame.image.load('../Resources/icons/programs.png')
+        programsIcon = pygame.transform.scale(programsIcon, (30,30))
+        self.icons.append(programsIcon)
+        teachersIcon = pygame.image.load('../Resources/icons/teachers.png')
+        teachersIcon = pygame.transform.scale(teachersIcon, (30,30))
+        self.icons.append(teachersIcon)
+        studentsIcon = pygame.image.load('../Resources/icons/students.png')
+        studentsIcon = pygame.transform.scale(studentsIcon, (30,30))
+        self.icons.append(studentsIcon)
+
 
     def run(self):
         mainloop = True
@@ -106,6 +123,10 @@ class GameMenu():
                 pygame.draw.rect(self.screen, rect.color, rect.get_shape())
             for circle in self.circles:
                 pygame.draw.circle(self.screen, circle.color, circle.xy, circle.w)
+            x = 10; y = 35
+            for icon in self.icons:
+                self.screen.blit(icon, (x,y))
+                y+=50
             for item in self.items:
                 if item.is_mouse_selection():
                     item.set_font_color((255, 0, 0))
@@ -119,7 +140,6 @@ class GameMenu():
 if __name__ == "__main__":
     # Creating the screen
     screen = pygame.display.set_mode((800, 600), 0, 32)
-    menu_items = ['Start', 'Quit']
     pygame.display.set_caption('Game Menu')
-    gm = GameMenu(screen, menu_items)
+    gm = GameMenu(screen)
     gm.run()
