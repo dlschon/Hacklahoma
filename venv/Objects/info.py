@@ -118,10 +118,13 @@ class MoneyInfo(InfoPane):
             Label(text='-$'+exp.value, anchor='w').grid(column=2, row=r)
             r+=1
 
-        money_info_frame.mainloop()
+        while True:
+            try:
+                money_info_frame.update()
+            except:
+                break;
 
         
 
-building1 = Building('test','test','test','test','test','test','test', 'test')
 obj = MoneyInfo()
 print(university)
