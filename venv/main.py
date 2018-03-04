@@ -8,18 +8,18 @@ from tkinter import messagebox
 from tkinter import simpledialog;
 import os
 from pygame import Rect
-from Objects.menus import MenuItem
-import Objects.info
-from Objects.menus import GameMenu
-from Objects.info import BuildingInfo
-from Objects.info import MoneyInfo
-from Objects.info import StudentInfo
-from Objects.info import BuyBuilding
-from Objects.info import InitialMessage
-from Objects.info import PauseMenu
-from Objects.info import TeacherMenu
-from Objects.teacher import Teacher
-from Objects.buildings.emptylot import EmptyLot
+from menus import MenuItem
+import info
+from menus import GameMenu
+from info import BuildingInfo
+from info import MoneyInfo
+from info import StudentInfo
+from info import BuyBuilding
+from info import InitialMessage
+from info import PauseMenu
+from info import TeacherMenu
+from teacher import Teacher
+from buildings.emptylot import EmptyLot
 import admissions
 from date import Date
 

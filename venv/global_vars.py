@@ -1,9 +1,9 @@
-from Objects.map import Map
+from map import Map
 from names import Names
 import pygame
 from tileset import Tileset
 from date import Date
-from Objects.university import University
+from university import University
 
 # Important global variables
 
