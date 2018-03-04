@@ -9,7 +9,8 @@ class Building:
     self.type = null
     self.sprite = null;
 
-  def __init__(self, type, level, impact, monthlyCost, constructionCost, capacity, maxLevel):
+  def __init__(self, name, type, level, impact, monthlyCost, constructionCost, capacity, maxLevel):
+    self.name = name
     self.type = type
     self.level = level
     self.impact = impact
@@ -17,15 +18,4 @@ class Building:
     self.constructionCost = constructionCost
     self.capacity = capacity
     self.maxLevel = maxLevel
-    self.sprite = null;
-
-    def __init__(self, type, level, impact, monthlyCost, constructionCost, capacity, maxLevel, dateBuilt):
-        self.type = type
-        self.level = level
-        self.impact = impact
-        self.monthlyCost = monthlyCost
-        self.constructionCost = constructionCost
-        self.capacity = capacity
-        self.maxLevel = maxLevel
-        self.dateBuilt = dateBuilt
->>>>>>> Temporary merge branch 2
+    self.sprite = None;
