@@ -140,33 +140,29 @@ class BuyBuilding(InfoPane):
         construct_frame = Tk()
         construct_frame.title(self.title)
         r=1
-
         def buy1():
-            print(building1)
             if global_vars.university.buy(building1.constructionCost):
                 global_vars.map.construct_building(lot.pos, building1)
         def buy2():
-            print(building1)
             if global_vars.university.buy(building2.constructionCost):
                 global_vars.map.construct_building(lot.pos, building2)
         def buy3():
-            print(building1)
             if global_vars.university.buy(building3.constructionCost):
                 global_vars.map.construct_building(lot.pos, building3)
+
         def buy4():
-            print(building1)
             if global_vars.university.buy(building4.constructionCost):
                 global_vars.map.construct_building(lot.pos, building4)
+
         def buy5():
-            print(building1)
             if global_vars.university.buy(building5.constructionCost):
                 global_vars.map.construct_building(lot.pos, building5)
+
         def buy6():
-            print(building1)
             if global_vars.university.buy(building6.constructionCost):
                 global_vars.map.construct_building(lot.pos, building6)
+
         def buy7():
-            print(building1)
             if global_vars.university.buy(building7.constructionCost):
                 global_vars.map.construct_building(lot.pos, building7)
 
@@ -242,12 +238,18 @@ class UpgradeBuilding(InfoPane):
         progs = prog_map[building.name]
         def buy1():
             progs[0].trigger()
+            upgrade_frame.destroy()
         def buy2():
             progs[1].trigger()
+            upgrade_frame.destroy()
+
         def buy3():
             progs[2].trigger()
+            upgrade_frame.destroy()
+
         def buy4():
             progs[3].trigger()
+            upgrade_frame.destroy()
 
         buycmd = [buy1, buy2, buy3, buy4]
         r=1; p=0
