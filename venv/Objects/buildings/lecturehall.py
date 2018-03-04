@@ -2,6 +2,7 @@ from Objects.building import Building
 from Objects.sprite import Sprite
 class LectureHall(Building):
   def __init__(self):
+    super().__init__()
     self.constructionCost = 100
     self.name = "Lecture Hall"
     self.lecuretype = "Arts and Sciences"

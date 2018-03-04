@@ -1,10 +1,8 @@
 from Objects.building import Building
 from Objects.sprite import Sprite
-import global_vars
-
-class Library(Building):
+class DiningHall(Building):
   def __init__(self):
     super().__init__()
     self.constructionCost = 100
-    self.name = "Library"
-    self.sprite = Sprite('Resources/library', (0,0), (10,10))
+    self.name = "Dining Hall"
+    self.sprite = Sprite('Resources/dininghall', (0,0), (10,10))
