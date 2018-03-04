@@ -52,10 +52,10 @@ class BuildingInfo(InfoPane):
             Label(text=self.effects, anchor='w', wraplength=100).grid(column=1, columnspan=2,row=r+1)
         else:
             for effect in self.effects:
-                Label(text=effect, anchor='w').grid(column=1, columnspan=2,row=r+2)
+                Label(text=effect, anchor='w').grid(column=1, columnspan=2,row=r+1)
                 r+=1
-        Button(building_info_frame, text='Upgrade!', command=(upgrade)).grid(column=1, columnspan=2,row=r+3)
-        Button(building_info_frame, text='Destroy', command=(clearLot)).grid(column=1, columnspan=2,row=r+4)
+        Button(building_info_frame, text='Upgrade!', command=(upgrade)).grid(column=1, columnspan=2,row=r+2)
+        Button(building_info_frame, text='Destroy', command=(clearLot)).grid(column=1, columnspan=2,row=r+3)
 
         while True:
             try:
