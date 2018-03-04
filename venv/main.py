@@ -10,6 +10,7 @@ import os
 from pygame import Rect
 from Objects.menus import MenuItem
 from Objects.menus import GameMenu
+from Objects.info import BuildingInfo
 
 # Usual pygame initialization
 pygame.init()
@@ -48,7 +49,7 @@ while not crashed:
             # Try clicking the map
             clicked = global_vars.map.try_click(pos)
             if clicked != None:
-                messagebox.showinfo('Info', clicked.name)
+                BuildingInfo(clicked)
 
             # Try clicking the menu
             clicked = gameMenu.try_click(pos)

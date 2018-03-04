@@ -6,6 +6,7 @@ from Objects.buildings.stadium import Stadium
 from Objects.buildings.studenthousing import StudentHousing
 from Objects.buildings.studentunion import StudentUnion
 from Objects.buildings.dininghall import DiningHall
+from Objects.buildings.construction import Construction
 from Objects.sprite import Sprite
 import random
 from pygame import Rect
@@ -21,6 +22,7 @@ class Map:
     STUDENT_UNION = 6
 
     def __init__(self, pygame, tile_size):
+        self.constructions = []
         self.rects = []
         self.pygame = pygame
         self.tile_size = tile_size
@@ -53,12 +55,26 @@ class Map:
         options.remove(l)
         self.map[l[1]][l[0]] = Library()
 
+        self.construct_building((0,0), Stadium())
+
     def try_click(self, pos):
         for rect in self.rects:
             if rect[0].collidepoint(pos):
                 return rect[1]
 
         return None
+
+    def construct_building(self, pos, building):
+        con = Construction(building.constructionTime, building.name)
+        self.map[pos[0]][pos[1]] = con
+        self.constructions.append(con)
+
+    def update_construction(self):
+        for con in self.constructions:
+            con.counter -= 1
+            con.effects = con.name + " will be completed in " + str(con.counter)
+            if con.counter == 0:
+                pass
 
     def get_surface(self):
         tile_size = self.tile_size

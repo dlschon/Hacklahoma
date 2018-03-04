@@ -1,5 +1,5 @@
 from tkinter import *
-from building import Building
+from Objects.building import Building
 
 class InfoPane:
     def __init__(self, title):
@@ -10,22 +10,18 @@ class BuildingInfo(InfoPane):
         InfoPane.__init__(self, 'Building Info')
         self.labels = [
             'Name',
-            'Type',
             'Level',
             'Monthly Cost',
             'Capacity'
         ]
         self.values = [
-            building.name,
-            building.type,
-            building.level,
-            building.monthlyCost,
-            building.capacity + ' students'
+            str(building.name),
+            str(building.level),
+            str(building.monthlyCost),
+            str(building.capacity) + ' students'
         ]
         self.effects = [
-            '+3 morale/student',
-            '+10 reputation',
-            '+$2000/month'
+            building.effects
         ]
         self.makeform()
 
@@ -52,9 +48,13 @@ class BuildingInfo(InfoPane):
         b2.pack(side=BOTTOM, padx=5, pady=5)
         b1 = Button(building_info_frame, text='Upgrade!', command=())
         b1.pack(side=BOTTOM, padx=5, pady=10)
+        info_open = True;
 
-        building_info_frame.mainloop()
-
+        while True:
+            try:
+                building_info_frame.update()
+            except:
+                break
 
 class StudentInfo(InfoPane):
     def __init__(self):
@@ -67,8 +67,3 @@ class StudentInfo(InfoPane):
 
         student_info_frame.mainloop()
 
-
-        
-
-building1 = Building('test','test','test','test','test','test','test', 'test')
-obj = StudentInfo()
