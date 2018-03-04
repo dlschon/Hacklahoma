@@ -6,6 +6,7 @@ from Objects.buildings.stadium import Stadium
 from Objects.buildings.studenthousing import StudentHousing
 from Objects.buildings.studentunion import StudentUnion
 from Objects.sprite import Sprite
+import random
 
 class Map:
 
@@ -20,10 +21,32 @@ class Map:
     def __init__(self, pygame, tile_size):
         self.pygame = pygame
         self.tile_size = tile_size
-        self.map = [[EmptyLot(),LectureHall(),Library(),EmptyLot(),EmptyLot()],
-                    [EmptyLot(),Stadium(),StudentUnion(),StudentHousing(),EmptyLot()],
-                    [EmptyLot(),EmptyLot(),ResearchLab(),LectureHall(),LectureHall()]]
+        self.map = [[EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()],
+                    [EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()],
+                    [EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot(),EmptyLot()]]
 
+        # Add a random student union
+        su = (random.randint(0,4), random.randint(0,2))
+        self.map[su[1]][su[0]] = StudentUnion()
+
+        # Add a random student housing
+        sh = (su[0],su[1])
+        while sh[0] == su[0] and sh[1] == su[1]:
+            sh = (random.randint(0,4), random.randint(0,2))
+        self.map[sh[1]][sh[0]] = StudentHousing()
+
+        # Add a random lecture hall
+        lh = (su[0], su[1])
+        while (lh[0] == su[0] and lh[1] == su[1]) or (lh[0] == sh[0] and lh[1] == sh[1]):
+            lh = (random.randint(0, 4), random.randint(0, 2))
+        self.map[lh[1]][lh[0]] = LectureHall()
+
+    def try_click(self, pos):
+        if (pos[0] < 68*self.tile_size and pos[1] < 42*self.tile_size):
+            click_index = (int(pos[0]*5/(68*self.tile_size)), int(pos[1]*3/(42*self.tile_size)))
+            return self.map[click_index[1]][click_index[0]]
+        else:
+            return None
 
     def get_surface(self):
         tile_size = self.tile_size

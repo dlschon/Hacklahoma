@@ -3,6 +3,7 @@ from names import Names
 import pygame
 from tileset import Tileset
 from date import Date
+from Objects.university import University
 
 # Important global variables
 
@@ -20,3 +21,5 @@ tile_scale = 2
 map = Map(pygame, tile_size*tile_scale)
 # Current date
 date = Date()
+# The University
+university = University()
