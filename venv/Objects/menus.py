@@ -61,6 +61,21 @@ class GameMenu():
 
     ids = ["Build", "Money", "Programs", "Teachers", "Students"]
 
+    def set_items(self):
+        self.items = []
+        dateText = MenuItem("Date: " + global_vars.date.get_month_name(), (20, self.scr_height - 40))
+        self.items.append(dateText)
+        moneyText = MenuItem("Money: $" + str(global_vars.university.money), (20, self.scr_height - 15))
+        self.items.append(moneyText)
+        enrollmentText = MenuItem("Enrollment: " + str(len(global_vars.university.students)), (320, self.scr_height - 40))
+        self.items.append(enrollmentText)
+        incomeText = MenuItem("Income/mo: ", (320, self.scr_height - 15))
+        self.items.append(incomeText)
+        moraleText = MenuItem("Campus Morale: ", (520, self.scr_height - 40))
+        self.items.append(moraleText)
+        reputationText = MenuItem("Reputation: ", (520, self.scr_height - 15))
+        self.items.append(reputationText)
+
     def __init__(self, screen):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
@@ -68,19 +83,7 @@ class GameMenu():
         self.clock = pygame.time.Clock()
 
         # Array of menu items (text) to be displayed on screen
-        self.items = []
-        dateText = MenuItem("Date", (20, self.scr_height - 40))
-        self.items.append(dateText)
-        moneyText = MenuItem("Money", (20, self.scr_height - 15))
-        self.items.append(moneyText)
-        enrollmentText = MenuItem("Enrollment", (320, self.scr_height - 40))
-        self.items.append(enrollmentText)
-        incomeText = MenuItem("Income/mo.", (320, self.scr_height - 15))
-        self.items.append(incomeText)
-        moraleText = MenuItem("Campus Morale", (520, self.scr_height - 40))
-        self.items.append(moraleText)
-        reputationText = MenuItem("Reputation", (520, self.scr_height - 15))
-        self.items.append(reputationText)
+        self.set_items()
 
         # Array of rects to be drawn on screen
         self.rects = []
@@ -128,6 +131,8 @@ class GameMenu():
                 return -1
 
     def run(self, pos):
+            self.set_items()
+
             # Redraw the background
             hovering = None
             for rect in self.rects:
