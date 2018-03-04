@@ -21,9 +21,7 @@ class BuildingInfo(InfoPane):
             str(building.capacity) + ' students'
         ]
         self.effects = [
-            '+3 morale/student',
-            '+10 reputation',
-            '+$2000/month'
+            building.effects
         ]
         self.makeform()
 
@@ -57,7 +55,6 @@ class BuildingInfo(InfoPane):
                 building_info_frame.update()
             except:
                 break
-
 
 class StudentInfo(InfoPane):
     def __init__(self):
