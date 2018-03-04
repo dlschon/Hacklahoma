@@ -6,7 +6,7 @@ class Stadium(Building):
             ()]
   def __init__(self):
     super().__init__()
-    self.constructionCost = 50000
+    self.constructionCost = 60000
     self.constructionTime = 8
     self.maxLevel = 3
     self.reputation = 0.075

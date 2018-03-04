@@ -3,7 +3,7 @@ from Objects.sprite import Sprite
 class StudentUnion(Building):
   def __init__(self):
     super().__init__()
-    self.constructionCost = 25000
+    self.constructionCost = 30000
     self.constructionTime = 6
     self.maxLevel = 3
     self.reputation = 0.05

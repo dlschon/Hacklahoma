@@ -5,9 +5,8 @@ import global_vars
 class Library(Building):
   def __init__(self):
     super().__init__()
-    self.constructionCost = 30000
+    self.constructionCost = 25000
     self.maxLevel = 3
-    self.constructionCost = 20000
     self.constructionTime = 5
     self.reputation = 0.05
     self.morale = 0.05
