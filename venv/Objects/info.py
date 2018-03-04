@@ -122,5 +122,3 @@ class MoneyInfo(InfoPane):
                 money_info_frame.update()
             except:
                 break;
-obj = MoneyInfo()
-#print(university)
