@@ -48,7 +48,7 @@ class Shape:
         return (x, y, self.w, self.h)
 
 class GameMenu():
-    def __init__(self, screen, items, bg_color=(0,0,0)):
+    def __init__(self, screen,  bg_color=(0,0,0)):
         self.screen = screen
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
