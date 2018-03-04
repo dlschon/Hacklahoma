@@ -10,7 +10,7 @@ from pygame import Rect
 
 # Usual pygame initialization
 pygame.init()
-
+gameDisplay = pygame.display.set_mode((1200,800))
 pygame = global_vars.pygame
 pygame.init()
 gameDisplay = pygame.display.set_mode((1200,800))
