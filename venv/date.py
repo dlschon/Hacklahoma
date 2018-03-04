@@ -32,7 +32,7 @@ class Date:
             new_month = True
             self.progress = 0
             self.current += 1
-            if self.current >= 12:
+            if self.current >= 11:
                 self.current = 0
             print(self.get_month_name())
         return self.progress / Date.frames_per_month, new_month;
