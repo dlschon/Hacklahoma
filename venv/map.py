@@ -105,7 +105,7 @@ class Map:
     def get_surface(self):
         tile_size = self.tile_size
         pygame = self.pygame
-        self.rects.clear()
+        self.rects[:] = []
 
         map_surface = pygame.Surface((68*tile_size, 42*tile_size))
 

@@ -1,9 +1,8 @@
-from tkinter import *
-from tkinter import ttk
+from Tkinter import *
+import ttk
 from building import Building
 import global_vars
 from finance import Finance
-from tkinter import simpledialog
 from map import Map
 import copy
 from teacher import Teacher
@@ -337,11 +336,3 @@ class TeacherMenu(InfoPane):
                 teacher_frame.update()
             except:
                 break;
-
-
-
-class InitialMessage():
-    def __init__(self):
-        Tk().wm_withdraw()  # to hide the main window
-        messagebox.showinfo('Info', 'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
-        self.name = simpledialog.askstring('Prompt', 'What is your University called?')

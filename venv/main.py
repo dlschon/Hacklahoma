@@ -3,9 +3,6 @@ import sys
 from names import Names
 from tileset import Tileset
 import global_vars
-from tkinter import *
-from tkinter import messagebox
-from tkinter import simpledialog;
 import os
 from pygame import Rect
 from menus import MenuItem
@@ -15,11 +12,10 @@ from info import BuildingInfo
 from info import MoneyInfo
 from info import StudentInfo
 from info import BuyBuilding
-from info import InitialMessage
 from info import PauseMenu
 from info import TeacherMenu
 from teacher import Teacher
-from buildings.emptylot import EmptyLot
+from emptylot import EmptyLot
 import admissions
 from date import Date
 
@@ -35,14 +31,6 @@ map = global_vars.map
 university = global_vars.university
 
 events = []
-
-# Push the initial message to the user
-def initial_message():
-    message = InitialMessage()
-    university.name = message.name
-    pygame.display.set_caption(university.name)
-
-#events.append((initial_message, 0))
 
 gameMenu = GameMenu(gameDisplay)
 
@@ -108,7 +96,7 @@ while not crashed:
         global_vars.map.update_construction()
 
         # update finances
-        global_vars.university.money += global_vars.university.calcRevenue()[0] - global_vars.university.calcExpense()[0]
+        global_vars.university.money += global_vars.university.calcRevenue()[0] 6 global_vars.university.calcExpense()[0]
 
         # Decrement the counter on all events
         for event in events:

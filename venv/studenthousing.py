@@ -4,7 +4,7 @@ import global_vars
 from finance import Finance
 class StudentHousing(Building):
   def __init__(self):
-    super().__init__()
+    Building.__init__(self)
     self.constructionCost = 10000
     self.constructionTime = 4
     self.finances = Finance()
@@ -25,18 +25,6 @@ class StudentHousing(Building):
     self.name = "Student Housing"
     self.sprite = Sprite('Resources/studenthousing', (0,0), (10,10))
 
-  def _init_(self, constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment,
-             maxEnrollment, professors):
-    self.constructionCost = constructionCost
-    self.maxLevel = maxLevel
-    self.reputation = reputation
-    self.morale = morale
-    self.graduationRate = graduationRate
-    self.involvement = involvement
-    self.tuition = tuition
-    self.enrollment = enrollment
-    self.maxEnrollment = maxEnrollment
-    self.professors = professors
 
   def level_upgrade(self):
     self.constructionCost += 2000
@@ -47,7 +35,7 @@ class StudentHousing(Building):
       self.enable = false
 
   def activate(self):
-    super().activate()
+    Building.activate(self)
     self.finances.description = "Housing: "
     self.finances.value = 2000
     global_vars.university.finances.append(self.finances)

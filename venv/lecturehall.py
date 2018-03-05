@@ -2,7 +2,7 @@ from building import Building
 from sprite import Sprite
 class LectureHall(Building):
   def __init__(self):
-    super().__init__()
+    Building.__init__(self)
     self.constructionCost = 10000
     self.constructionTime = 4
     self.maxLevel = 3

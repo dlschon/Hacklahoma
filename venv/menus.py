@@ -1,8 +1,7 @@
 # import global_vars
 import pygame
 from pygame import Rect
-from tkinter import *
-from tkinter import messagebox
+from Tkinter import *
 import global_vars
 
 # pygame = global_vars.pygame
