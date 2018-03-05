@@ -28,7 +28,7 @@ pygame.init()
 pygame = global_vars.pygame
 pygame.init()
 pygame.display.set_caption('SimU')
-gameDisplay = pygame.display.set_mode((1100,720))
+gameDisplay = pygame.display.set_mode((980,640))
 clock = pygame.time.Clock()
 
 map = global_vars.map
