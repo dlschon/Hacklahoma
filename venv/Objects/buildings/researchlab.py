@@ -7,7 +7,7 @@ class ResearchLab(Building):
 
   def __init__(self):
     super().__init__()
-    self.constructionCost = 50000
+    self.constructionCost = 60000
     self.constructionTime = 7
     self.maxLevel = 3
     self.reputation = 0.125
@@ -26,6 +26,7 @@ class ResearchLab(Building):
 
   def activate(self):
     super().activate()
+    self.finances = Finance()
     self.finances.description = "Reasearch grant: "
     self.finances.value = 4000
     global_vars.university.finances.append(self.finances)

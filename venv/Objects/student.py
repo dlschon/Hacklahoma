@@ -16,7 +16,10 @@ class Student(Person):
     self.productivity = productivity
     self.gender = gender
     self.involvement = involvement
-    self.name = global_vars.names.generate_name_full_male() if gender == 0 else global_vars.names.generate_name_full_female()
+    try:
+      self.name = global_vars.names.generate_name_full_male() if gender == 0 else global_vars.names.generate_name_full_female()
+    except:
+      self.name = "Jay Leno"
     self.gpa = gpa
     self.morale = morale
     self.year = year

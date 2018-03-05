@@ -52,10 +52,19 @@ class Names:
         return Names.generate_name(self.first_names_female)
 
     def generate_name_last(self):
-        return Names.generate_name(self.last_names)
+        try:
+            return Names.generate_name(self.last_names)
+        except:
+            return "Smith"
 
     def generate_name_full_male(self):
-        return Names.generate_name(self.first_names_male) + " " + self.generate_name_last()
+        try:
+            return Names.generate_name(self.first_names_male) + " " + self.generate_name_last()
+        except:
+            return "John Smith"
 
     def generate_name_full_female(self):
-        return Names.generate_name(self.first_names_female) + " " + self.generate_name_last()
+        try:
+            return Names.generate_name(self.first_names_female) + " " + self.generate_name_last()
+        except:
+            return "Cindi Lauper"
