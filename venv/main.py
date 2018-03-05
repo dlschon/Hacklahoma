@@ -108,7 +108,7 @@ while not crashed:
         global_vars.map.update_construction()
 
         # update finances
-        global_vars.university.money += global_vars.university.calcRevenue()[0] - global_vars.university.calcExpense()[0]
+        global_vars.university.money += global_vars.university.calcRevenue()[0] + global_vars.university.calcExpense()[0]
 
         # Decrement the counter on all events
         for event in events:
