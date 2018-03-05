@@ -1,15 +1,15 @@
 import global_vars
-from Objects.student import Student
-from Objects.person import Person
-from Objects.teacher import Teacher
+from student import Student
+from person import Person
+from teacher import *
 import random
 
 def first_students():
 	for i in range(0,10):
 		global_vars.university.students.append(Student(0, random.randint(0,1), random.random(),random.uniform(2.3,4.0),.5,0))
 	global_vars.university.update_tuition()
-	Teacher.generate().hire()
-	Teacher.generate().hire()
+	generate().hire()
+	generate().hire()
 
 def admit_students():
 	global_vars.university.calcMorale()

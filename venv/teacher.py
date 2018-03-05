@@ -18,18 +18,18 @@ class Teacher(Person):
         global_vars.university.teachers.append(self)
         global_vars.university.finances.append(finance)
 
-    def generate():
-        teacher = Teacher()
-        teacher.salary = random.randrange(500, 3000, 25)
-        if (teacher.salary >= 2500):
-            val = (random.uniform(.8, 1), random.uniform(.8, 1), random.uniform(.8, 1))
-        elif (teacher.salary >= 1500):
-            val = (random.uniform(.5, .85), random.uniform(.5, .85), random.uniform(.5, .85))
-        elif (teacher.salary >= 1000):
-            val = (random.uniform(.2, .6), random.uniform(.2, .6), random.uniform(.2, .6))
-        else:
-            val = (random.uniform(0, .25), random.uniform(0, .25), random.uniform(0, .25))
-        teacher.research = val[0]
-        teacher.teaching = val[1]
-        teacher.prestige = val[2]
-        return teacher
+def generate():
+	teacher = Teacher()
+	teacher.salary = random.randrange(500, 3000, 25)
+	if (teacher.salary >= 2500):
+	    val = (random.uniform(.8, 1), random.uniform(.8, 1), random.uniform(.8, 1))
+	elif (teacher.salary >= 1500):
+	    val = (random.uniform(.5, .85), random.uniform(.5, .85), random.uniform(.5, .85))
+	elif (teacher.salary >= 1000):
+	    val = (random.uniform(.2, .6), random.uniform(.2, .6), random.uniform(.2, .6))
+	else:
+	    val = (random.uniform(0, .25), random.uniform(0, .25), random.uniform(0, .25))
+	teacher.research = val[0]
+	teacher.teaching = val[1]
+	teacher.prestige = val[2]
+	return teacher

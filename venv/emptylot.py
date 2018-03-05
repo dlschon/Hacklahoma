@@ -3,7 +3,6 @@ from sprite import Sprite
 
 class EmptyLot(Building):
     def __init__(self, pos):
-        super().__init__()
         self.constructionCost = 0
         self.name = "Empty Lot"
         self.pos = pos

@@ -26,7 +26,7 @@ import admissions
 
 admissions.first_students()
 
-from Objects.program import *
+from program import *
 
 programs = {'Library': [
         Scholarships(),

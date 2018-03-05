@@ -7,7 +7,7 @@ class Names:
     file_firstnames_female = "./Resources/names.first.female.txt"
 
     # Parses the file and returns an array of type (string, float)
-    def parse_file(fname):
+    def parse_file(self, fname):
         # Parse the last names file
         with open(fname) as f:
             content = f.readlines()
@@ -30,11 +30,11 @@ class Names:
             return name_set
 
     def __init__(self):
-        self.last_names = Names.parse_file(Names.file_lastnames)
-        self.first_names_male = Names.parse_file(Names.file_firstnames_male)
-        self.first_names_female = Names.parse_file(Names.file_firstnames_female)
+        self.last_names = self.parse_file(Names.file_lastnames)
+        self.first_names_male = self.parse_file(Names.file_firstnames_male)
+        self.first_names_female = self.parse_file(Names.file_firstnames_female)
 
-    def generate_name(name_set):
+    def generate_name(self, name_set):
         # a random number from 0 to 1 used to pick a name
         rand_num = random.random()
         for name in name_set:
@@ -46,16 +46,16 @@ class Names:
                 return name[0][0].upper() + name[0][1:].lower()
 
     def generate_name_first_male(self):
-        return Names.generate_name(self.first_names_male)
+        return self.generate_name(self.first_names_male)
 
     def generate_name_first_female(self):
-        return Names.generate_name(self.first_names_female)
+        return self.generate_name(self.first_names_female)
 
     def generate_name_last(self):
-        return Names.generate_name(self.last_names)
+        return self.generate_name(self.last_names)
 
     def generate_name_full_male(self):
-        return Names.generate_name(self.first_names_male) + " " + self.generate_name_last()
+        return self.generate_name(self.first_names_male) + " " + self.generate_name_last()
 
     def generate_name_full_female(self):
-        return Names.generate_name(self.first_names_female) + " " + self.generate_name_last()
+        return self.generate_name(self.first_names_female) + " " + self.generate_name_last()
