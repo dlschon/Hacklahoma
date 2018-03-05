@@ -28,7 +28,7 @@ pygame.init()
 pygame = global_vars.pygame
 pygame.init()
 pygame.display.set_caption('SimU')
-gameDisplay = pygame.display.set_mode((1100,720))
+gameDisplay = pygame.display.set_mode((980,640))
 clock = pygame.time.Clock()
 
 map = global_vars.map
@@ -108,7 +108,7 @@ while not crashed:
         global_vars.map.update_construction()
 
         # update finances
-        global_vars.university.money += global_vars.university.calcRevenue()[0] - global_vars.university.calcExpense()[0]
+        global_vars.university.money += global_vars.university.calcRevenue()[0] + global_vars.university.calcExpense()[0]
 
         # Decrement the counter on all events
         for event in events:

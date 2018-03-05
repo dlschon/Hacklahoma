@@ -107,31 +107,31 @@ class Map:
         pygame = self.pygame
         self.rects.clear()
 
-        map_surface = pygame.Surface((68*tile_size, 42*tile_size))
+        map_surface = pygame.Surface((62*tile_size, 38*tile_size))
 
         # Draw the sidewalks
-        street_horiz = Sprite('Resources/street_horizontal', (0,0), (10,3))
-        street_vert = Sprite('Resources/street_vertical', (0,0), (3,10))
-        street_hub = Sprite('Resources/street_hub', (0,0), (3,3))
+        street_horiz = Sprite('Resources/street_horizontal', (0,0), (10,2))
+        street_vert = Sprite('Resources/street_vertical', (0,0), (2,10))
+        street_hub = Sprite('Resources/street_hub', (0,0), (2,2))
 
         # Draw the horizontal streets
         y = 0
         for row in range(4):
-            x = 3*tile_size
+            x = 2*tile_size
             for col in range(5):
                 map_surface.blit(street_horiz.surface, (x,y))
 
-                x+=13*tile_size
-            y+=13*tile_size
+                x+=12*tile_size
+            y+=12*tile_size
 
         # Draw the vertical streets
-        y = 3*tile_size
+        y = 2*tile_size
         for row in range(3):
             x=0
             for col in range(6):
                 map_surface.blit(street_vert.surface, (x,y))
-                x+=13*tile_size
-            y+=13*tile_size
+                x+=12*tile_size
+            y+=12*tile_size
 
         # Draw the hubs
         y = 0
@@ -139,20 +139,20 @@ class Map:
             x=0
             for col in range(6):
                 map_surface.blit(street_hub.surface, (x,y))
-                x+=13*tile_size
-            y+=13*tile_size
+                x+=12*tile_size
+            y+=12*tile_size
 
         # Draw grid of sprites
-        y = 3*tile_size
+        y = 2*tile_size
         for row in self.map:
-            x = 3*tile_size
+            x = 2*tile_size
             for building in row:
                 # Draw the building
                 map_surface.blit(building.sprite.surface, (x,y))
                 self.rects.append((Rect(x, y, 10 * tile_size, 10 * tile_size), building))
                 # Move x, leaving room from the road between the buidlings
-                x += 13*tile_size
-            y += 13*tile_size
+                x += 12*tile_size
+            y += 12*tile_size
 
         return map_surface
 
