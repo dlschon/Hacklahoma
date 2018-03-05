@@ -23,7 +23,7 @@ pallet_width = 8
 pallet_height = 21
 tile_size = 256/8
 
-editor_size = (10, 10)
+editor_size = (10, 3)
 
 selected_tile = (0,0)
 
@@ -64,7 +64,7 @@ while not crashed:
 
                 f = filedialog.asksaveasfile()
                 if not(f is None):
-                    f.write(str(pickle.dumps(tileMatrix)))
+                    f.write(str(pickle.dumps(tileMatrix, protocol=2)))
                 f.close()
 
             if event.key == pygame.K_ESCAPE:
