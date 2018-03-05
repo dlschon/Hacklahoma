@@ -55,14 +55,6 @@ while not crashed:
         if event.type == pygame.MOUSEBUTTONUP:
             pos = pygame.mouse.get_pos()
 
-            # Try clicking the map
-            clicked = global_vars.map.try_click(pos)
-            if clicked != None:
-                if type(clicked) == EmptyLot:
-                    BuyBuilding(clicked)
-                else:
-                    BuildingInfo(clicked)
-
             # Try clicking the menu
             clicked = gameMenu.try_click(pos)
             if clicked != -1:
@@ -75,7 +67,14 @@ while not crashed:
                 if clicked == GameMenu.TEACHERS:
                     teacher = Teacher.generate()
                     tm = TeacherMenu(teacher)
-
+            else:
+                # Try clicking the map
+                clicked = global_vars.map.try_click(pos)
+                if clicked != None:
+                    if type(clicked) == EmptyLot:
+                        BuyBuilding(clicked)
+                    else:
+                        BuildingInfo(clicked)
 
     # Draw background
     gameDisplay.fill((255,255,255))
