@@ -5,8 +5,6 @@ from Objects.finance import Finance
 
 class Stadium(Building):
 
-  levels = [(0, 2000),
-            ()]
   def __init__(self):
     super().__init__()
     self.constructionCost = 60000
@@ -32,26 +30,3 @@ class Stadium(Building):
     self.finances.description = "Football: "
     self.finances.value = 4500
     global_vars.university.finances.append(self.finances)
-
-  def _init_(self, constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment,
-             maxEnrollment, professors):
-    self.constructionCost = constructionCost
-    self.maxLevel = maxLevel
-    self.reputation = reputation
-    self.morale = morale
-    self.graduationRate = graduationRate
-    self.involvement = involvement
-    self.tuition = tuition
-    self.enrollment = enrollment
-    self.maxEnrollment = maxEnrollment
-    self.professors = professors
-
-  def level_upgrade(self):
-    self.constructionCost += 3000
-    self.level += 1
-    self.reputation += 0.025
-    self.morale += 0.1
-    self.involvement += 0.1
-    self.enrollment += 5
-    if self.level == self.maxLevel:
-      self.enable = false

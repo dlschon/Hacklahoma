@@ -30,27 +30,3 @@ class ResearchLab(Building):
     self.finances.description = "Reasearch grant: "
     self.finances.value = 4000
     global_vars.university.finances.append(self.finances)
-
-  def _init_(self,constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment, maxEnrollment, professors):
-    self.constructionCost = constructionCost
-    self.maxLevel = maxLevel
-    self.reputation = reputation
-    self.morale = morale
-    self.graduationRate = graduationRate
-    self.involvement = involvement
-    self.tuition = tuition
-    self.enrollment = enrollment
-    self.maxEnrollment = maxEnrollment
-    self.professors = professors
-
-  def level_upgrade(self):
-    self.constructionCost += 3000
-    self.level += 1
-    self.reputation += 0.1
-    self.graduationRate += 0.05
-    self.involvement += 0.05
-    self.enrollment += 2
-    self.professors += 3
-    self.enrollment += self.professors / self.enrollment * 10
-    if self.level == self.maxLevel:
-      self.enable = false
