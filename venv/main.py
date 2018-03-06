@@ -35,6 +35,19 @@ def initial_message():
     university.name = message.name
     pygame.display.set_caption(university.name)
 
+def open_form(form, on_mouse=False):
+    geom = (0,0,0,0)
+    if on_mouse:
+        pos = pygame.mouse.get_pos()
+        size = form.size
+        geom = (pos[0], pos[1], size[0], size[1])
+    else:
+        pos = form.pos
+        size = form.size
+        geom = (pos[0], pos[1], size[0], size[1])
+
+    pyforms.start_app(form, geometry=geom)
+
 #events.append((initial_message, 0))
 
 gameMenu = GameMenu(gameDisplay)
@@ -54,7 +67,7 @@ while not crashed:
                 if clicked == GameMenu.PAUSE:
                     PauseMenu()
                 if clicked == GameMenu.MONEY:
-                    pyforms.start_app(MoneyInfo, geometry = (200,200,200,400))
+                    open_form(MoneyInfo, True)
                 if clicked == GameMenu.STUDENTS:
                     StudentInfo()
                 if clicked == GameMenu.TEACHERS:
@@ -67,7 +80,8 @@ while not crashed:
                     if type(clicked) == EmptyLot:
                         BuyBuilding(clicked)
                     else:
-                        BuildingInfo(clicked)
+                        BuildingInfo.building = clicked
+                        open_form(BuildingInfo, True)
 
     # Draw background
     gameDisplay.fill((255,255,255))

@@ -15,57 +15,60 @@ class InfoPane:
     def __init__(self, title):
         self.title = title
 
-class BuildingInfo(InfoPane):
-    def __init__(self, building):
-        InfoPane.__init__(self, 'Building Info')
-        self.building = building
+class BuildingInfo(BaseWidget):
 
-        self.labels = [
-            'Name',
-            'Level',
-            'Monthly Cost',
-            'Capacity'
-        ]
-        self.values = [
-            str(building.name),
-            str(building.level),
-            str(building.monthlyCost),
-            str(building.capacity) + ' students'
-        ]
-        self.effects = building.effects
-        self.makeform()
+    pos = (200, 200)
+    size = (200, 400)
 
-    def makeform(self):
-        building_info_frame = Tk()
-        building_info_frame.title(self.title)
-        r=1
-        for label, value in zip(self.labels, self.values):
-            Label(width=15, text=label, anchor='w').grid(column=1,row=r)
-            Label(text=value, anchor='e').grid(column=2,row=r)
-            r+=1
-        Label(width=15, text='Effects', anchor='w').grid(column=1, columnspan=2,row=r)
+    building = None
 
-        def upgrade():
-            UpgradeBuilding(self.building)
+    def upgrade_click(self):
+        UpgradeBuilding(self.building)
 
-        def clearLot():
-            # add function to change building to empty lot
-            pass
+    def destroy_click(self):
+        # add function to change building to empty lot
+        pass
 
-        if type(self.effects) == str:
-            Label(text=self.effects, anchor='w', wraplength=100).grid(column=1, columnspan=2,row=r+1)
-        else:
-            for effect in self.effects:
-                Label(text=effect, anchor='w').grid(column=1, columnspan=2,row=r+1)
-                r+=1
-        Button(building_info_frame, text='Upgrade!', command=(upgrade)).grid(column=1, columnspan=2,row=r+2)
-        Button(building_info_frame, text='Destroy', command=(clearLot)).grid(column=1, columnspan=2,row=r+3)
+    def __init__(self):
+        super().__init__('Building Info')
 
-        while True:
-            try:
-                building_info_frame.update()
-            except:
-                break
+        self.set_margin(10)
+
+        self.formset = []
+
+        self.formset.append(('Name', ' ', str(BuildingInfo.building.name)))
+        self.formset.append(('Monthly Cost', ' ', '500'))
+        self.formset.append(('Capacity', ' ', str(BuildingInfo.building.capacity)))
+        self.formset.append('Effects:')
+
+        effs = BuildingInfo.building.effects
+
+        # Change a string into a list of string
+        if type(effs) == str:
+            if len(effs) > 40:
+                effs_list = []
+                # Text wrap, preferring spaces
+                while len(effs) > 40:
+                    cutoff = effs.find(' ', 40)
+                    if cutoff == -1:
+                        cutoff = 40
+                    effs_list.append(effs[:cutoff])
+                    effs = effs[cutoff:]
+                # add the final section
+                effs_list.append(effs)
+                effs = effs_list
+            else:
+                effs = [effs]
+
+        for eff in effs:
+            self.formset.append(str(eff))
+
+        self.upgrade = ControlButton('Upgrade!')
+        self.upgrade.value = self.upgrade_click
+        self.formset.append('upgrade')
+        self.destroy = ControlButton('Destroy')
+        self.destroy.value = self.destroy_click
+        self.formset.append('destroy')
 
 class StudentInfo(InfoPane):
     def __init__(self):
@@ -114,8 +117,13 @@ class StudentInfo(InfoPane):
 
 
 class MoneyInfo(BaseWidget):
+    pos = (200, 200)
+    size = (200, 400)
+
     def __init__(self):
         BaseWidget.__init__(self, "Money")
+
+        self.set_margin(10)
 
         self.formset = []
         self.formset.append('Monthly Income: ')
