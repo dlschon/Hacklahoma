@@ -19,8 +19,8 @@ class StudentHousing(Building):
     self.maxEnrollment = 20
     self.capacity = 20
     self.professors = 0
-    self.effects = ["Student Housing is where the students stay while they are going to the university.",\
-                   " Student Housing increases max enrollment."]
+    self.effects = "Student Housing is where the students stay while they are going to the university."\
+                   " Student Housing increases max enrollment."
     self.name = "Student Housing"
     self.sprite = Sprite('Resources/studenthousing', (0,0), (10,10))
 

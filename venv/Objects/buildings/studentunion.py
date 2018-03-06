@@ -18,6 +18,6 @@ class StudentUnion(Building):
     self.professors = 0
     self.enable = True
     self.name = "Student Union"
-    self.effects = ["The Student Union is a place students can go to get involved in different activities. ",
-                   "Adding or upgrading the student union increases the universities reputation, morale, involvement and enrollment."]
+    self.effects = "The Student Union is a place students can go to get involved in different activities. \
+                   Adding or upgrading the student union increases the universities reputation, morale, involvement and enrollment."
     self.sprite = Sprite('Resources/studentunion', (0,0), (10,10))

@@ -18,8 +18,8 @@ class Library(Building):
     self.maxEnrollment = 0
     self.professors = 0
     self.name = "Library"
-    self.effects = ["The library is where students at your university will study. Adding or upgrading a library increases ",
-                   "universities reputation, student morale, and graduation rate."]
+    self.effects = "The library is where students at your university will study. Adding or upgrading a library increases \
+                   universities reputation, student morale, and graduation rate."
     self.sprite = Sprite('Resources/library', (0,0), (10,10))
 
   def _init_(self,constructionCost, maxLevel, reputation, morale, graduationRate, involvement, tuition, enrollment, maxEnrollment, professors):

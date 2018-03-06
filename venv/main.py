@@ -8,8 +8,8 @@ from Objects.info import BuildingInfo
 from Objects.info import MoneyInfo
 from Objects.info import StudentInfo
 from Objects.info import BuyBuilding
+from Objects.info import MessageDialog
 from Objects.info import InitialMessage
-from Objects.info import PauseMenu
 from Objects.info import TeacherMenu
 from Objects.teacher import Teacher
 from Objects.buildings.emptylot import EmptyLot
@@ -35,6 +35,8 @@ def initial_message():
     university.name = message.name
     pygame.display.set_caption(university.name)
 
+events.append((initial_message,0))
+
 def open_form(form, on_mouse=False):
     geom = (0,0,0,0)
     if on_mouse:
@@ -51,7 +53,6 @@ def open_form(form, on_mouse=False):
 #events.append((initial_message, 0))
 
 gameMenu = GameMenu(gameDisplay)
-
 crashed = False
 while not crashed:
     for event in pygame.event.get():
@@ -65,20 +66,22 @@ while not crashed:
             clicked = gameMenu.try_click(pos)
             if clicked != -1:
                 if clicked == GameMenu.PAUSE:
-                    PauseMenu()
+                    MessageDialog.message = 'Game is paused'
+                    open_form(MessageDialog, True)
                 if clicked == GameMenu.MONEY:
                     open_form(MoneyInfo, True)
                 if clicked == GameMenu.STUDENTS:
-                    StudentInfo()
+                    open_form(StudentInfo, True)
                 if clicked == GameMenu.TEACHERS:
-                    teacher = Teacher.generate()
-                    tm = TeacherMenu(teacher)
+                    TeacherMenu.teacher = Teacher.generate()
+                    open_form(TeacherMenu, True)
             else:
                 # Try clicking the map
                 clicked = global_vars.map.try_click(pos)
                 if clicked != None:
                     if type(clicked) == EmptyLot:
-                        BuyBuilding(clicked)
+                        BuyBuilding.lot = clicked
+                        open_form(BuyBuilding)
                     else:
                         BuildingInfo.building = clicked
                         open_form(BuildingInfo, True)
@@ -114,7 +117,7 @@ while not crashed:
         global_vars.map.update_construction()
 
         # update finances
-        global_vars.university.money += global_vars.university.calcRevenue()[0] + global_vars.university.calcExpense()[0]
+        global_vars.university.do_month()
 
         # Decrement the counter on all events
         for event in events:

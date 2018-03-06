@@ -21,7 +21,7 @@ class ResearchLab(Building):
     self.maxEnrollment = 0
     self.professors = 5
     self.name = "Research Lab"
-    self.effects = "The research lab gives students a place todo undergraduate research. Adding or upgrading a research lab increases universities reputation, student morale, and graduation rate."
+    self.effects = "The research lab gives students a place to research. Adding or upgrading a research lab increases  reputation, student morale, and graduation rate."
     self.sprite = Sprite('Resources/researchlab', (0,0), (10,10))
 
   def activate(self):

@@ -1,19 +1,31 @@
-from tkinter import *
-from tkinter import ttk
 import global_vars
-from tkinter import simpledialog
 from Objects.map import Map
 import pyforms
 from pyforms import BaseWidget
 from pyforms.controls import ControlText
 from pyforms.controls import ControlLabel
 from pyforms.controls import ControlButton
+from pyforms.controls import ControlProgress
+from pyforms.controls import ControlSlider
+from pyforms.controls import ControlList
+from pyforms.controls import ControlToolBox
+import KeyStroker
 
 university = global_vars.university
 
-class InfoPane:
-    def __init__(self, title):
-        self.title = title
+def wrap_text(string, line_width):
+    str_list = []
+
+    # Text wrap, preferring spaces
+    while len(string) > line_width:
+        cutoff = string.find(' ', line_width)
+        if cutoff == -1:
+            cutoff = 40
+        str_list.append(string[:cutoff])
+        string = string[cutoff:]
+    # add the final section
+    str_list.append(string)
+    return str_list
 
 class BuildingInfo(BaseWidget):
 
@@ -23,11 +35,14 @@ class BuildingInfo(BaseWidget):
     building = None
 
     def upgrade_click(self):
-        UpgradeBuilding(self.building)
+        UpgradeBuilding.building = self.building
+        ub = UpgradeBuilding()
+        ub.parent = self
+        ub.show()
 
     def destroy_click(self):
-        # add function to change building to empty lot
-        pass
+        self.close()
+
 
     def __init__(self):
         super().__init__('Building Info')
@@ -46,17 +61,7 @@ class BuildingInfo(BaseWidget):
         # Change a string into a list of string
         if type(effs) == str:
             if len(effs) > 40:
-                effs_list = []
-                # Text wrap, preferring spaces
-                while len(effs) > 40:
-                    cutoff = effs.find(' ', 40)
-                    if cutoff == -1:
-                        cutoff = 40
-                    effs_list.append(effs[:cutoff])
-                    effs = effs[cutoff:]
-                # add the final section
-                effs_list.append(effs)
-                effs = effs_list
+                effs = wrap_text(effs, 40)
             else:
                 effs = [effs]
 
@@ -70,50 +75,62 @@ class BuildingInfo(BaseWidget):
         self.destroy.value = self.destroy_click
         self.formset.append('destroy')
 
-class StudentInfo(InfoPane):
+class StudentInfo(BaseWidget):
+
+    pos = (200,200)
+    size = (600,400)
+
     def __init__(self):
-        InfoPane.__init__(self, 'Student Info')
-        student_info_frame = Tk()
-        student_info_frame.title(self.title)
-        Label(text='Target GPA').grid(column=1, row=1, columnspan=2, pady=(10,0))
-        slider = Scale(from_=2.0, to=4.0, orient=HORIZONTAL, resolution=0.1, length=400)
-        slider.set(university.target_gpa)
-        slider.grid(column=1, row=2, columnspan=2, pady=(0,15))
-        #university.target_gpa = slider.set(3.0)
-        Label(text='Current Enrollment: ', anchor='w').grid(column=1, row=3)
-        Label(text=len(university.students), anchor='e').grid(column=2, row=3)
-        Label(text='Max Enrollment: ', anchor='w').grid(column=1, row=4)
-        Label(text=university.capacity(), anchor='e').grid(column=2, row=4)
-        pbar = ttk.Progressbar(orient=HORIZONTAL, length=300, mode='determinate',
-                               value=(len(university.students)/university.max_enrollment*100))
-        pbar.grid(column=1, row=5, columnspan=2, pady=(0,15))
-        Label(text='Average GPA: ').grid(column=1, row=6, pady=15)
+        super().__init__('Student Info')
+
+        self.set_margin(10)
+
+        self.formset = []
+
+        leftside = []
+
+        leftside.append('Target GPA')
+        self.slider = ControlSlider('', 2.5, 1.0, 4.0)
+        leftside.append('slider')
+
+        leftside.append('Current Enrollment: ')
+        leftside.append(str(len(university.students)))
+
+        leftside.append('Max Enrollment: ')
+        leftside.append(str(university.capacity()))
+
+        self.pbar = ControlProgress()
+        self.pbar.min = 0
+        self.pbar.max = university.capacity()
+        self.pbar.value = len(university.students)
+        leftside.append('pbar')
+
+        leftside.append('Average GPA: ')
         # need to add grad_rate
-        Label(text=2.3).grid(column=2, row=6, pady=15)
-        Label(text='Graduation Rate: ').grid(column=1, row=7, pady=15)
-        Label(text=university.grad_rate).grid(column=2, row=7, pady=15)
-        Label(text='Average Morale: ').grid(column=1, row=8, pady=(15,0))
+        leftside.append('2.3')
+        leftside.append('Graduation Rate: ')
+        leftside.append(str(university.grad_rate))
+        leftside.append('Average Morale: ')
+
         # need to add morale
-        Label(text='78%').grid(column=2, row=8, pady=(15,0))
+        leftside.append('78%')
+
         # need to add morale to value
-        pbar = ttk.Progressbar(orient=HORIZONTAL, length=300, mode='determinate', value=(78))
-        pbar.grid(column=1, row=9, columnspan=2, pady=(0,15))
+        self.morale_pbar = ControlProgress()
+        self.morale_pbar.min = 0
+        self.morale_pbar.max = 100
+        self.morale_pbar.value = 78
+        leftside.append('morale_pbar')
 
-        scrollbar = Scrollbar(student_info_frame)
-        scrollbar.grid(column=3, row=1, rowspan=9)
 
-        mylist = Listbox(student_info_frame, yscrollcommand=scrollbar.set)
+        self.mylist = ControlList('Students')
+        self.mylist.horizontal_headers = ['Name', 'GPA', 'Morale']
+
         for student in university.students:
-            mylist.insert(END, student.name)
+            self.mylist += (student.name, student.gpa, student.morale)
 
-        mylist.grid(column=3, row=1, rowspan=9)
-        scrollbar.config(command=mylist.yview)
+        self.formset.append((leftside, ' ', 'mylist'))
 
-        while True:
-            try:
-                student_info_frame.update()
-            except:
-                break
 
 
 class MoneyInfo(BaseWidget):
@@ -151,202 +168,222 @@ class MoneyInfo(BaseWidget):
 
 
 
-class BuyBuilding(InfoPane):
-    def __init__(self, lot):
-        InfoPane.__init__(self, 'Construct New Building')
-        construct_frame = Tk()
-        construct_frame.title(self.title)
-        r=1
-        def buy1():
-            if global_vars.university.buy(building1.constructionCost):
-                global_vars.map.construct_building(lot.pos, building1)
-            kill()
+class BuyBuilding(BaseWidget):
 
-        def buy2():
-            if global_vars.university.buy(building2.constructionCost):
-                global_vars.map.construct_building(lot.pos, building2)
-            kill()
-        def buy3():
-            if global_vars.university.buy(building3.constructionCost):
-                global_vars.map.construct_building(lot.pos, building3)
-            kill()
+    lot = None
+    pos = (200, 100)
+    size = (400, 700)
 
-        def buy4():
-            if global_vars.university.buy(building4.constructionCost):
-                global_vars.map.construct_building(lot.pos, building4)
-            kill()
+    def __init__(self):
+        super().__init__('Construct New Building')
 
-        def buy5():
-            if global_vars.university.buy(building5.constructionCost):
-                global_vars.map.construct_building(lot.pos, building5)
-            kill()
-
-        def buy6():
-            if global_vars.university.buy(building6.constructionCost):
-                global_vars.map.construct_building(lot.pos, building6)
-            kill()
-
-        def buy7():
-            if global_vars.university.buy(building7.constructionCost):
-                global_vars.map.construct_building(lot.pos, building7)
-            kill()
-
-        building1 = Map.getList()[0]
-        Label(text=building1 .name, anchor='center').grid(column=1, columnspan=2, row=r)
-        Label(text=building1 .effects, anchor='center', wraplength=650).grid(column=1, columnspan=2, row=r+1)
-        Label(text='Price: $'+str(building1.constructionCost)).grid(column=1, row=r+2)
-        Label(text='Build Time: '+str(building1.constructionTime)+ ' months').grid(column=2, row=r+2)
-        Button(construct_frame, text="Begin Construction", command=(buy1)).grid(column=1, columnspan=2, row=r+3)
-        r+=4
-
-        building2 = Map.getList()[1]
-        Label(text=building2.name, anchor='center').grid(column=1, columnspan=2, row=r)
-        Label(text=building2.effects, anchor='center', wraplength=650).grid(column=1, columnspan=2, row=r+1)
-        Label(text='Price: $'+str(building2.constructionCost)).grid(column=1, row=r+2)
-        Label(text='Build Time: '+str(building2.constructionTime)+ ' months').grid(column=2, row=r+2)
-        Button(construct_frame, text="Begin Construction", command=(buy2)).grid(column=1, columnspan=2, row=r+3)
-        r+=4
-
-        building3 = Map.getList()[2]
-        Label(text=building3.name, anchor='center').grid(column=1, columnspan=2, row=r)
-        Label(text=building3.effects, anchor='center', wraplength=650).grid(column=1, columnspan=2, row=r+1)
-        Label(text='Price: $'+str(building3.constructionCost)).grid(column=1, row=r+2)
-        Label(text='Build Time: '+str(building3.constructionTime)+ ' months').grid(column=2, row=r+2)
-        Button(construct_frame, text="Begin Construction", command=(buy3)).grid(column=1, columnspan=2, row=r+3)
-        r+=4
-
-        building4 = Map.getList()[3]
-        Label(text=building4.name, anchor='center').grid(column=1, columnspan=2, row=r)
-        Label(text=building4.effects, anchor='center', wraplength=500).grid(column=1, columnspan=2, row=r+1)
-        Label(text='Price: $'+str(building4.constructionCost)).grid(column=1, row=r+2)
-        Label(text='Build Time: '+str(building4.constructionTime)+ ' months').grid(column=2, row=r+2)
-        Button(construct_frame, text="Begin Construction", command=(buy4)).grid(column=1, columnspan=2, row=r+3)
-        r+=4
-
-        building5 = Map.getList()[4]
-        Label(text=building5.name, anchor='center').grid(column=1, columnspan=2, row=r)
-        Label(text=building5.effects, anchor='center', wraplength=650).grid(column=1, columnspan=2, row=r+1)
-        Label(text='Price: $'+str(building5.constructionCost)).grid(column=1, row=r+2)
-        Label(text='Build Time: '+str(building5.constructionTime)+ ' months').grid(column=2, row=r+2)
-        Button(construct_frame, text="Begin Construction", command=(buy5)).grid(column=1, columnspan=2, row=r+3)
-        r+=4
-
-        building6 = Map.getList()[5]
-        Label(text=building6.name, anchor='center').grid(column=1, columnspan=2, row=r)
-        Label(text=building6.effects, anchor='center', wraplength=650).grid(column=1, columnspan=2, row=r+1)
-        Label(text='Price: $'+str(building6.constructionCost)).grid(column=1, row=r+2)
-        Label(text='Build Time: '+str(building6.constructionTime)+ ' months').grid(column=2, row=r+2)
-        Button(construct_frame, text="Begin Construction", command=(buy6)).grid(column=1, columnspan=2, row=r+3)
-        r+=4
-
-        building7 = Map.getList()[6]
-        Label(text=building7.name, anchor='center').grid(column=1, columnspan=2, row=r)
-        Label(text=building7.effects, anchor='center', wraplength=650).grid(column=1, columnspan=2, row=r+1)
-        Label(text='Price: $'+str(building7.constructionCost)).grid(column=1, row=r+2)
-        Label(text='Build Time: '+str(building7.constructionTime)+ ' months').grid(column=2, row=r+2)
-        Button(construct_frame, text="Begin Construction", command=(buy7)).grid(column=1, columnspan=2, row=r+3)
-        r+=4
-
-        def kill():
-            construct_frame.destroy()
-
-        while True:
-            try:
-                construct_frame.update()
-            except:
-                break;
+        self.formset = []
+        self.set_margin(10)
+        lot = BuyBuilding.lot
+        building_list = Map.getList()
 
 
-class UpgradeBuilding(InfoPane):
-    def __init__(self, building):
-        InfoPane.__init__(self, 'Upgrade Building')
-        upgrade_frame = Tk()
-        upgrade_frame.title(self.title)
+        # Create list of functions to buy the buildings
+        i = 0
+        bboxes = []
+        leftside = []
+
+        self._buttons = [None]*7
+        self.buyfuncs = [None]*7
+
+        def get_buy_func(building):
+            def buy():
+                if global_vars.university.buy(building.constructionCost):
+                    global_vars.map.construct_building(lot.pos, building)
+                KeyStroker.AltF4()
+
+            return buy
+
+        for building in building_list:
+
+            self.buyfuncs[i] = None
+            #b1box = ControlToolBox()
+            #b1box.value = []
+            b1box = []
+            b1box.append(building.name)
+            effects = wrap_text(building.effects, 40)
+            for eff in effects:
+                b1box.append(eff)
+            b1box.append('Price: $'+str(building.constructionCost))
+            b1box.append('Build Time: '+str(building.constructionTime)+ ' months')
+            buy_button = ControlButton("Begin Construction")
+            buy_button.value = get_buy_func(building)
+            self._buttons[i] = buy_button
+
+            b1box.append('_button' + str(i+1))
+            bboxes.append(b1box)
+
+            if i%2 == 0:
+                leftside = bboxes[i]
+            else:
+                self.formset.append((leftside, ' ', bboxes[i]))
+            i+=1
+
+        self._button1 = self._buttons[0]
+        self._button2 = self._buttons[1]
+        self._button3 = self._buttons[2]
+        self._button4 = self._buttons[3]
+        self._button5 = self._buttons[4]
+        self._button6 = self._buttons[5]
+        self._button7 = self._buttons[6]
+
+
+class UpgradeBuilding(BaseWidget):
+
+    pos = (200,200)
+    size = (400, 400)
+
+    building = None
+
+    def __init__(self):
+        super().__init__('Upgrade Building')
+
+        self.formset = []
         prog_map = global_vars.programs
+        building = UpgradeBuilding.building
+
         progs = prog_map[building.name]
         def buy1():
             progs[0].trigger()
-            upgrade_frame.destroy()
+            KeyStroker.AltF4()
         def buy2():
             progs[1].trigger()
-            upgrade_frame.destroy()
+            KeyStroker.AltF4()
 
         def buy3():
             progs[2].trigger()
-            upgrade_frame.destroy()
+            KeyStroker.AltF4()
 
         def buy4():
             progs[3].trigger()
-            upgrade_frame.destroy()
+            KeyStroker.AltF4()
 
         buycmd = [buy1, buy2, buy3, buy4]
-        r=1; p=0
+        buttons = [None,None,None,None]
+
+        b = ControlButton("test")
+        print(b)
+
+        def get_buy_func(index):
+            return buycmd[index]
+
+        p=0
+        self.formset.append('Pick a program to implement in the '+str(building.name))
         for prog in progs:
-            Label(upgrade_frame, text='Pick a program to implement in the '+str(building.name)).grid(column=1, row=r, columnspan=2)
-            Label(upgrade_frame, text=prog.title).grid(column=1, row=r+1)
-            Label(upgrade_frame, text=prog.desc).grid(column=1, columnspan=2, row=r+2)
-            r+=4
+            self.formset.append(prog.title)
+            self.formset.append(prog.desc)
+
             if prog.unlocked:
-                Button(upgrade_frame, text="Implement this Program", command=(buycmd[p])).grid(column=1, columnspan=2, row=r+3)
+                button = ControlButton("Implement this program")
+                button.value = get_buy_func(p)
+                buttons[p] = button
+                self.formset.append('_button'+str(p+1))
+            else:
+                self.formset.append("Program already implemented")
+            p+=1
 
-            else: Label(upgrade_frame, text="Program already implemented").grid(column=1, columnspan=2, row=r+3)
-            r+=4; p+=1
+        self._button1 = buttons[0]
+        self._button2 = buttons[1]
+        self._button3 = buttons[2]
+        self._button4 = buttons[3]
 
-        while True:
-            try:
-                upgrade_frame.update()
-            except:
-                break;
 
-class PauseMenu(InfoPane):
+class TeacherMenu(BaseWidget):
+
+    pos = (200, 200)
+    size = (400, 200)
+    teacher = None
+
     def __init__(self):
-        InfoPane.__init__(self, 'Game Paused')
-        pause_frame = Tk()
-        pause_frame.minsize(300, 300)
-        pause_frame.geometry("500x500")
-        pause_frame.title(self.title)
-        Label(pause_frame, text='GAME IS PAUSED', font=('Arial', 20, 'bold')).grid(row=1,column=1)
-        
-        while True:
-            try:
-                pause_frame.update()
-            except:
-                break;
+        super().__init__('Teachers')
 
-class TeacherMenu(InfoPane):
-    def __init__(self, teacher):
+        self.set_margin(10)
+        self.formset = []
         university = global_vars.university
-        InfoPane.__init__(self, 'Teachers')
-        teacher_frame = Tk()
-        teacher_frame.title(self.title)
+        teacher = TeacherMenu.teacher
+
         def hire():
             university.can_hire = False
             teacher.hire()
-            teacher_frame.destroy()
+            KeyStroker.AltF4()
         def skip():
             university.can_hire = False
-            teacher_frame.destroy()
+            KeyStroker.AltF4()
+
         if not(university.can_hire and len(university.teachers) < university.max_teachers()):
-            Label(teacher_frame, text='Sorry, you may not hire more teachers at this time').grid(row=1,column=1)
+            self.formset.append('Sorry, you may not hire more teachers at this time')
         else:
-            Label(teacher_frame, text='You may hire a new teacher!').grid(row=1, column=1)
-            Label(teacher_frame, text='Name: Dr. ' + teacher.name).grid(row=2, column=1)
-            Label(teacher_frame, text='Monthly Salary: $' + str(teacher.salary)).grid(row=2, column=2)
-            Label(teacher_frame, text='Research Rating: ' + str(teacher.research)).grid(row=3, column=1)
-            Label(teacher_frame, text='Teaching Rating: ' + str(teacher.teaching)).grid(row=3, column=2)
-            Button(teacher_frame, text='Hire', command=hire).grid(row=4, column=1)
-            Button(teacher_frame, text='Pass', command=skip).grid(row=4, column=2)
+            self.formset.append('You may hire a new teacher!')
+            self.formset.append('Name: Dr. ' + teacher.name)
+            self.formset.append('Monthly Salary: $' + str(teacher.salary))
+            self.formset.append('Research Rating: ' + str(teacher.research))
+            self.formset.append('Teaching Rating: ' + str(teacher.teaching))
+            self._hirebutton = ControlButton('Hire')
+            self._hirebutton.value = hire
+            self._passbutton = ControlButton('Pass')
+            self._passbutton.value = skip
+            self.formset.append(('_hirebutton', ' ', '_passbutton'))
 
-        while True:
-            try:
-                teacher_frame.update()
-            except:
-                break;
+class AskDialog(BaseWidget):
 
+    title = "prompt"
+    question = "question"
+    answer = ""
+
+    def OK_press(self):
+        AskDialog.answer = self._answer.value
+        KeyStroker.AltF4()
+
+    def __init__(self):
+        super().__init__('Prompt')
+        self.set_margin(10)
+
+        self.formset = []
+
+        if (type(AskDialog.question) == str):
+            self._question = ControlLabel(AskDialog.question)
+            self.formset.append('_question')
+        else:
+            for string in AskDialog.question:
+                self.formset.append(string)
+        self._answer = ControlText('', AskDialog.answer)
+        self.formset.append('_answer')
+        self._button = ControlButton('OK')
+        self.formset.append('_button')
+        self._button.value = self.OK_press
+
+class MessageDialog(BaseWidget):
+
+    message = "message"
+    pos = (400, 400)
+    size = (0,0)
+
+    def OK_press(self):
+        KeyStroker.AltF4()
+
+    def __init__(self):
+        super().__init__('Prompt')
+        self.set_margin(10)
+
+        self.formset = []
+        message = wrap_text(MessageDialog.message, 40);
+        for line in message:
+            self.formset.append(line)
+        self._ok = ControlButton('Unpause')
+        self._ok.value = self.OK_press
+        self.formset.append('_ok')
 
 
 class InitialMessage():
     def __init__(self):
-        Tk().wm_withdraw()  # to hide the main window
-        messagebox.showinfo('Info', 'Congratulations! You have been elected President of a small land-grant University! Invest your resources wisely and grow your University!')
-        self.name = simpledialog.askstring('Prompt', 'What is your University called?')
+        AskDialog.title = "Welcome!"
+        AskDialog.question = ["Congratulations! You have been elected President  ",
+                            "of a small land-grant University! Invest your",
+                            "resources wisely and grow your University!"]
+        pyforms.start_app(AskDialog, geometry=(400,400,0,0))
+        self.name = AskDialog.answer

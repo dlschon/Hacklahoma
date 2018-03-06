@@ -55,6 +55,9 @@ class University:
         else:
             return False;
 
+    def do_month(self):
+        self.money += self.calcRevenue()[0] + self.calcExpense()[0]
+
     def calcRevenue(self):
         revenue = []
         total = 0

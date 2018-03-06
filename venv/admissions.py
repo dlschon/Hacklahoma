@@ -9,7 +9,6 @@ def first_students():
 		global_vars.university.students.append(Student(0, random.randint(0,1), random.random(),random.uniform(2.3,4.0),.5,0))
 	global_vars.university.update_tuition()
 	Teacher.generate().hire()
-	Teacher.generate().hire()
 
 def admit_students():
 	global_vars.university.calcMorale()
