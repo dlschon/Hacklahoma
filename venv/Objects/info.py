@@ -1,12 +1,13 @@
 from tkinter import *
 from tkinter import ttk
-from Objects.building import Building
 import global_vars
-from Objects.finance import Finance
 from tkinter import simpledialog
 from Objects.map import Map
-import copy
-from Objects.teacher import Teacher
+import pyforms
+from pyforms import BaseWidget
+from pyforms.controls import ControlText
+from pyforms.controls import ControlLabel
+from pyforms.controls import ControlButton
 
 university = global_vars.university
 
@@ -112,38 +113,34 @@ class StudentInfo(InfoPane):
                 break
 
 
-class MoneyInfo(InfoPane):
+class MoneyInfo(BaseWidget):
     def __init__(self):
-        InfoPane.__init__(self, 'Money Info')
-        money_info_frame = Tk()
-        money_info_frame.title(self.title)
-        Label(text='Monthly Income: ').grid(column=1, row=1, pady=(0,10))
-        print(university)
+        BaseWidget.__init__(self, "Money")
+
+        self.formset = []
+        self.formset.append('Monthly Income: ')
         revenue, revenues = university.calcRevenue()
         expense, expenses = university.calcExpense()
         income = revenue + expense
-        if income >= 0: Label(text='+ $'+str(income), anchor='w').grid(column=2, row=1, pady=(0, 10))
-        else: Label(text='+ $'+str(income), anchor='w').grid(column=2, row=1, pady=(0, 10))
-        Label(text='Revenues: ', anchor='w').grid(column=1, row=2)
-        Label(text='+$'+str(revenue), anchor='w').grid(column=2, row=2)
+
+        if income >= 0:
+            self.formset.append((' ', '+ $'+str(income)))
+        else:
+            self.formset.append((' ', '- $'+str(-income)))
+        self.formset.append('Revenues: ')
+        self.formset.append((' ', '+$'+str(revenue)))
         r = 3
         for rev in revenues:
-            Label(text=rev.description, anchor='w').grid(column=1, row=r)
-            Label(text='+$'+str(rev.value), anchor='w').grid(column=2, row=r)
+            self.formset.append((rev.description, ' ', '+$'+str(rev.value)))
             r+=1
-        Label(text='Expenses: ', anchor='w').grid(column=1, row=r)
-        Label(text='-$'+str(-expense), anchor='w').grid(column=2, row=r)
+        self.formset.append('Expenses: ')
+        self.formset.append((' ', '-$'+str(-expense)))
         r+=1
+        i = 0
         for exp in expenses:
-            Label(text=exp.description, anchor='w').grid(column=1, row=r)
-            Label(text='-$'+str(-exp.value), anchor='w').grid(column=2, row=r)
+            self.formset.append((exp.description, ' ', '-$'+str(-exp.value)))
             r+=1
 
-        while True:
-            try:
-                money_info_frame.update()
-            except:
-                break;
 
 
 class BuyBuilding(InfoPane):

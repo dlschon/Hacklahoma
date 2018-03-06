@@ -1,15 +1,8 @@
 import pygame
-import sys
-from names import Names
-from tileset import Tileset
 import global_vars
-from tkinter import *
-from tkinter import messagebox
-from tkinter import simpledialog;
-import os
 from pygame import Rect
+import pyforms
 from Objects.menus import MenuItem
-import Objects.info
 from Objects.menus import GameMenu
 from Objects.info import BuildingInfo
 from Objects.info import MoneyInfo
@@ -61,7 +54,7 @@ while not crashed:
                 if clicked == GameMenu.PAUSE:
                     PauseMenu()
                 if clicked == GameMenu.MONEY:
-                    MoneyInfo()
+                    pyforms.start_app(MoneyInfo, geometry = (200,200,200,400))
                 if clicked == GameMenu.STUDENTS:
                     StudentInfo()
                 if clicked == GameMenu.TEACHERS:
