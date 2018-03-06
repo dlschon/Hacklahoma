@@ -62,6 +62,7 @@ class Map:
         options.remove(l)
         self.map[l[1]][l[0]] = Library()
         global_vars.university.buildings.append(self.map[l[1]][l[0]])
+        global_vars.university.calc_maintenance()
 
 
         self.surface = self.get_surface()

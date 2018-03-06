@@ -8,7 +8,7 @@ class University:
         self.reputation = 0
         self.sudent_satisfaction = 0
         self.opportunity = 0
-        self.tuition = 200
+        self.tuition = 400
         self.can_hire = True
         self.name = ""
         self.target_gpa = 2.5
@@ -31,7 +31,7 @@ class University:
         self.finances.append(self.maintenance)
 
     def calc_maintenance(self):
-        self.maintenance.value = len(self.buildings) * -750
+        self.maintenance.value = len(self.buildings) * -500
 
     def update_tuition(self):
         self.tuition_income.value = len(self.students)*self.tuition
