@@ -206,7 +206,7 @@ class BuyBuilding(BaseWidget):
             #b1box.value = []
             b1box = []
             b1box.append(building.name)
-            effects = wrap_text(building.effects, 40)
+            effects = wrap_text(building.effects, 60)
             for eff in effects:
                 b1box.append(eff)
             b1box.append('Price: $'+str(building.constructionCost))
@@ -223,6 +223,9 @@ class BuyBuilding(BaseWidget):
             else:
                 self.formset.append((leftside, ' ', bboxes[i]))
             i+=1
+
+        if i%2 == 1:
+            self.formset.append((' ', leftside, ' '))
 
         self._button1 = self._buttons[0]
         self._button2 = self._buttons[1]
