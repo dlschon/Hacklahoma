@@ -1,5 +1,3 @@
-import ctypes
-from ctypes import wintypes
 import time
 import platform
 
@@ -7,6 +5,8 @@ import platform
 plat = platform.system()
 
 if plat == "Windows":
+    import ctypes
+    from ctypes import wintypes
     user32 = ctypes.WinDLL('user32', use_last_error=True)
 
     INPUT_MOUSE    = 0
@@ -101,4 +101,12 @@ if plat == "Windows":
         ReleaseKey(VK_MENU) # Alt~
 
 if plat == "Darwin":
-    pass
+    import os
+
+    cmd = """
+    osascript -e 'tell application "System Events" keystroke "w" using command down'
+    """
+
+    def AltF4():
+        print('trying command')
+        os.system(cmd)
